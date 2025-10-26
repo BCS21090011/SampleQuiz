@@ -23,18 +23,26 @@ function CreateLevelCard(levelInfo, index) {
     levelNum.innerText = `LEVEL ${index + 1}`;
     levelNum.style.backgroundColor = color;
     levelNum.style.color = txtColor;
+    levelCard.appendChild(levelNum);
 
-    const levelImg = document.createElement("img");
-    levelImg.classList.add("LevelImg");
-    const imgSrc = levelInfo["LevelImg"];
-    levelImg.src = imgSrc;
-    levelImg.alt = imgSrc;
+    if (levelInfo["LevelImg"] != null) {
+        const levelImg = document.createElement("img");
+        levelImg.classList.add("LevelImg");
+        const imgSrc = levelInfo["LevelImg"];
+        levelImg.src = imgSrc;
+        levelImg.alt = imgSrc;
+        levelCard.appendChild(levelImg);
+    }
 
     const levelName = document.createElement("h1");
     levelName.innerText = levelInfo["LevelName"];
+    levelCard.appendChild(levelName);
 
-    const levelDescription = document.createElement("p");
-    levelDescription.innerText = levelInfo["LevelDescription"];
+    if (levelInfo["LevelDescription"] != null) {
+        const levelDescription = document.createElement("p");
+        levelDescription.innerText = levelInfo["LevelDescription"];
+        levelCard.appendChild(levelDescription);
+    }
 
     const levelPlayBtn = document.createElement("button");
     levelPlayBtn.classList.add("LevelPlayBtn");
@@ -44,11 +52,6 @@ function CreateLevelCard(levelInfo, index) {
     levelPlayBtn.onclick = (e) => {
         window.location = levelInfo["LevelURL"];
     }
-
-    levelCard.appendChild(levelNum);
-    levelCard.appendChild(levelImg);
-    levelCard.appendChild(levelName);
-    levelCard.appendChild(levelDescription);
     levelCard.appendChild(levelPlayBtn);
 
     levelSelectionContainerDiv.appendChild(levelCard);
@@ -65,6 +68,7 @@ const levelInfo_promise = fetch("../DummyData/LevelInfo.json")
     });
 
 levelInfo_promise.then(levelInfo => {
+    console.log(levelInfo);
     levelInfo.forEach((levelInfo, index) => {
         CreateLevelCard(levelInfo, index);
     });
