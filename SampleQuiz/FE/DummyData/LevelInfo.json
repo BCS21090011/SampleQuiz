@@ -1,0 +1,20 @@
+[
+    {
+        "LevelImg": "../Assets/Images/mL0j-hutwezf7566947.gif",
+        "LevelName": "Example Level 0",
+        "LevelDescription": "This is an example level",
+        "LevelURL": "about:blank?Lvl=0"
+    },
+    {
+        "LevelImg": "../Assets/Images/mL0j-hutwezf7566947.gif",
+        "LevelName": "Example Level 1",
+        "LevelDescription": "This is an example level",
+        "LevelURL": "about:blank?Lvl=1"
+    },
+    {
+        "LevelImg": "../Assets/Images/mL0j-hutwezf7566947.gif",
+        "LevelName": "Example Level 2",
+        "LevelDescription": "This is an example level",
+        "LevelURL": "about:blank?Lvl=2"
+    }
+]
