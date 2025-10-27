@@ -68,7 +68,6 @@ const levelInfo_promise = fetch("../DummyData/LevelInfo.json")
     });
 
 levelInfo_promise.then(levelInfo => {
-    console.log(levelInfo);
     levelInfo.forEach((levelInfo, index) => {
         CreateLevelCard(levelInfo, index);
     });
