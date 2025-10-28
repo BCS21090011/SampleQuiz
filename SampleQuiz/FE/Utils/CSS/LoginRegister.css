@@ -1,0 +1,20 @@
+body {
+    background-color: aqua;
+}
+
+.titleCard {
+    width: 250px;
+}
+
+form {
+    width: 400px;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 25px;
+    padding: 25px;
+    row-gap: 10px;
+}
+
+    form > input {
+        text-align: center;
+    }
