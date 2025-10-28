@@ -1,4 +1,5 @@
 import { IsColorDark } from "./ColorUtils.js";
+import { FetchJSON } from "./URIUtils.js"
 
 const levelSelectionContainerDiv = document.querySelector("div#LevelSelectionContainer");
 
@@ -59,16 +60,10 @@ function CreateLevelCard(levelInfo, index) {
     return levelCard;
 }
 
-const levelInfo_promise = fetch("../DummyData/LevelInfo.json")
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Unable to get level info.");
-        }
-        return response.json();
-    });
+const levelInfo = await FetchJSON("../DummyData/LevelInfo.json");
 
-levelInfo_promise.then(levelInfo => {
-    levelInfo.forEach((levelInfo, index) => {
+if (!levelInfo["Error"]) {
+    levelInfo["JSON"].forEach((levelInfo, index) => {
         CreateLevelCard(levelInfo, index);
     });
-});
+}
