@@ -1,9 +1,22 @@
-async function FetchJSON(uri, headers, body, method="GET") {
+async function FetchJSON(uri, param, headers, body, method="GET") {
     let response = null;
     let error = null;
     let json = null;
 
     try {
+        if (param != null) {
+            if (Object.keys(param).length > 0) {
+                const params = [];
+
+                for(const key in param) {
+                    const val = param[key];
+                    params.push(`${encodeURI(key)}=${encodeURI(val)}`);
+                }
+
+                uri += "?" + params.join("&");
+            }
+        }
+
         response = await fetch(
             uri,
             {
