@@ -10,4 +10,7 @@ registrationForm.onsubmit = function(e) {
     if (password !== confirmPassword) {
         alert("Password missmatch, please retry.");
     }
+    else {
+        window.location = "./Login.html";
+    }
 };
