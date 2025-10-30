@@ -1,0 +1,102 @@
+[
+    {
+        "Question": "Before starting your vehicle, the first thing you should do is:",
+        "Answers": [
+            "Turn on the radio",
+            "Check seatbelt and mirrors",
+            "Adjust the seat later",
+            "Look at your phone"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "What is the meaning of a yellow traffic light?",
+        "Answers": [
+            "Go faster before it turns red",
+            "Prepare to stop",
+            "Stop immediately",
+            "Speed through"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "Motorcyclists must always wear:",
+        "Answers": [
+            "Helmet with strap fastened",
+            "Cap or hat",
+            "Sunglasses only",
+            "Gloves only"
+        ],
+        "CorrectAnswerIndex": 0
+    },
+    {
+        "Question": "Which of the following is unsafe while driving?",
+        "Answers": [
+            "Using a hands-free phone",
+            "Driving under the influence of alcohol",
+            "Keeping both hands on the steering wheel",
+            "Wearing a seatbelt"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "Drivers should keep a safe distance because:",
+        "Answers": [
+            "It looks professional",
+            "It gives time to react to sudden stops",
+            "It saves petrol",
+            "It annoys the car in front"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "What should you do when driving in rainy conditions?",
+        "Answers": [
+            "Speed up to reach home faster",
+            "Slow down and use headlights",
+            "Turn off wipers to save energy",
+            "Follow vehicles too closely"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "When approaching a school zone:",
+        "Answers": [
+            "Drive as usual",
+            "Slow down and watch for children",
+            "Overtake other vehicles",
+            "Use your horn loudly"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "If you are sleepy while driving, you should:",
+        "Answers": [
+            "Open the window for air",
+            "Stop and rest at a safe place",
+            "Drink coffee and continue",
+            "Speed up to finish faster"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "When turning at an intersection, you should:",
+        "Answers": [
+            "Signal early before turning",
+            "Turn without checking mirrors",
+            "Depend on others to see you",
+            "Brake suddenly"
+        ],
+        "CorrectAnswerIndex": 0
+    },
+    {
+        "Question": "Seatbelts are important because they:",
+        "Answers": [
+            "Are required only for long trips",
+            "Protect all passengers in accidents",
+            "Look stylish",
+            "Help you lean comfortably"
+        ],
+        "CorrectAnswerIndex": 1
+    }
+]

@@ -31,8 +31,7 @@ body {
     background-color: white;
     border: 3px solid black;
     border-radius: 10px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding: 25px;
     margin: 50px;
     font-size: xx-large;
     font-weight: bold;

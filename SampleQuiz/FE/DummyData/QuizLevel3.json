@@ -1,0 +1,102 @@
+[
+    {
+        "Question": "A red octagon sign with the word 'STOP' means:",
+        "Answers": [
+            "Slow down",
+            "Stop completely and check for traffic",
+            "No entry",
+            "Yield"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "A red circle with a white horizontal bar in the middle means:",
+        "Answers": [
+            "U-turn allowed",
+            "No entry",
+            "Road under construction",
+            "End of highway"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "A blue circle with a bicycle symbol means:",
+        "Answers": [
+            "Bicycles forbidden",
+            "Bicycles only (cycle path)",
+            "Pedestrians only",
+            "Motorcycles only"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "A triangle with red border and children inside indicates:",
+        "Answers": [
+            "Playground ahead",
+            "Factory area",
+            "Hospital zone",
+            "Market area"
+        ],
+        "CorrectAnswerIndex": 0
+    },
+    {
+        "Question": "A yellow diamond sign with a deer picture means:",
+        "Answers": [
+            "Animal crossing ahead",
+            "Zoo nearby",
+            "Hunting area",
+            "Farm ahead"
+        ],
+        "CorrectAnswerIndex": 0
+    },
+    {
+        "Question": "A red circular sign with a number '80' means:",
+        "Answers": [
+            "Minimum speed 80 km/h",
+            "Maximum speed 80 km/h",
+            "Recommended speed 80 km/h",
+            "Speed for trucks only"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "A triangular sign with '!' symbol means:",
+        "Answers": [
+            "End of highway",
+            "General danger ahead",
+            "Parking area",
+            "Smooth road"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "A blue rectangular sign with a white 'P' means:",
+        "Answers": [
+            "Police checkpoint",
+            "Parking area",
+            "Petrol station",
+            "Pedestrian crossing"
+        ],
+        "CorrectAnswerIndex": 1
+    },
+    {
+        "Question": "A yellow diamond sign with curved arrow means:",
+        "Answers": [
+            "Sharp bend ahead",
+            "U-turn permitted",
+            "Keep left",
+            "One-way road"
+        ],
+        "CorrectAnswerIndex": 0
+    },
+    {
+        "Question": "A red circular sign showing a horn with a diagonal line means:",
+        "Answers": [
+            "Honk when passing",
+            "No honking area",
+            "Dangerous zone",
+            "Toll ahead"
+        ],
+        "CorrectAnswerIndex": 1
+    }
+]
