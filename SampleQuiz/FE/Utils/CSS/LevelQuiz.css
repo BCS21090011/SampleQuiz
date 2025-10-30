@@ -14,11 +14,11 @@ body {
 div#ContentDiv {
     justify-content: space-between;
     min-height: 75vh;
-    width: 100%;
+    width: 50%;
 }
 
 div#QuestionDiv {
-    width: 80%;
+    width: 100%;
     min-height: 35vh;
     border: 1px solid black;
     border-radius: 25px;
@@ -33,7 +33,7 @@ div#QuestionDiv {
     }
 
 div#AnswerDiv {
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
@@ -46,7 +46,7 @@ div#AnswerDiv {
     }
 
 div#ActionDiv {
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
