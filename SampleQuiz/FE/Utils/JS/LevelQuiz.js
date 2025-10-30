@@ -5,7 +5,11 @@ const answerDiv = document.querySelector("div#AnswerDiv");
 const prevBtn = document.querySelector("div#ActionDiv > button#PrevBtn");
 const nextBtn = document.querySelector("div#ActionDiv > button#NextBtn");
 
-function CreateLvlQuiz (index, question, answers, correctAnswerIndex) {
+function CreateLvlQuiz (index, quizInfo) {
+    const question = quizInfo["Question"];
+    const answers = quizInfo["Answers"];
+    const correctAnswerIndex = quizInfo["CorrectAnswerIndex"]
+
     questionDiv.innerHTML = "";
     const questionNum = document.createElement("p");
     questionNum.classList.add("QuestionNum");
@@ -30,64 +34,96 @@ function CreateLvlQuiz (index, question, answers, correctAnswerIndex) {
     });
 }
 
+function HideElement(elem) {
+    elem.classList.add("Hidden");
+}
+
+function UnHideElement(elem) {
+    elem.classList.remove("Hidden");
+}
+
+function HandleActionBtn(indexAfterAction, totalLength) {
+    // If it's first item:
+    if (indexAfterAction == 0) {
+        HideElement(prevBtn);
+    }
+    else {
+        UnHideElement(prevBtn);
+    }
+
+    // If it's last item:
+    if (indexAfterAction == totalLength - 1) {
+        HideElement(nextBtn);
+    }
+    else {
+        UnHideElement(nextBtn);
+    }
+}
+
 const urlParams = GetURLParams();
 
 const lvl = urlParams["lvl"];
-let quizIndex = 0;
 
-if (lvl != null) {
-    FetchJSON(`../DummyData/QuizLevel${lvl}.json`)
-        .then((lvlQuizInfo) => {
-            const lvlQuizJSON = lvlQuizInfo["JSON"];
-
-            if (lvlQuizJSON.length > 0) {
-                CreateLvlQuiz(quizIndex, lvlQuizJSON[quizIndex]["Question"], lvlQuizJSON[quizIndex]["Answers"], lvlQuizJSON[quizIndex]["CorrectAnswerIndex"]);
-
-                if (lvlQuizJSON.length > 1) {
-                    nextBtn.classList.remove("Hidden");
-
-                    nextBtn.onclick = (e) => {
-                        if (quizIndex < lvlQuizJSON.length - 1) {
-                            quizIndex += 1;
-                            CreateLvlQuiz(quizIndex, lvlQuizJSON[quizIndex]["Question"], lvlQuizJSON[quizIndex]["Answers"], lvlQuizJSON[quizIndex]["CorrectAnswerIndex"]);
-
-                            if (quizIndex == 0) {
-                                prevBtn.classList.add("Hidden");
-                            }
-                            else {
-                                prevBtn.classList.remove("Hidden");
-                            }
-
-                            if (quizIndex == lvlQuizJSON.length - 1) {
-                                nextBtn.classList.add("Hidden");
-                            }
-                            else {
-                                nextBtn.classList.remove("Hidden");
-                            }
-                        }
-                    }
-
-                    prevBtn.onclick = (e) => {
-                        if (quizIndex > 0) {
-                            quizIndex -= 1;
-                            CreateLvlQuiz(quizIndex, lvlQuizJSON[quizIndex]["Question"], lvlQuizJSON[quizIndex]["Answers"], lvlQuizJSON[quizIndex]["CorrectAnswerIndex"]);
-
-                            if (quizIndex == 0) {
-                                prevBtn.classList.add("Hidden");
-                            }
-                            else {
-                                prevBtn.classList.remove("Hidden");
-                            }
-
-                            if (quizIndex == lvlQuizJSON.length - 1) {
-                                nextBtn.classList.add("Hidden");
-                            }
-                            else {
-                                nextBtn.classList.remove("Hidden");
-                            }
-                        }
-                    }
-                }
-            }
+async function GetAndProcessQuiz(lvl) {
+    const lvlQuizInfo = await FetchJSON(`../DummyData/QuizLevel${lvl}.json`)
+        .catch((reason) => {
+            alert(`Error encountered:\n${reason}`);
         });
+    
+    if (lvlQuizInfo["Error"]) {
+        alert(lvlQuizInfo["Error"]);
+        return;
+    }
+
+    let quizIndex = 0;  // Always start with first question.
+    const lvlQuizJSON = lvlQuizInfo["JSON"];
+
+    const questionCount = lvlQuizJSON.length;
+
+    if (questionCount > 0) {
+        CreateLvlQuiz(quizIndex, lvlQuizJSON[quizIndex]);
+    }
+
+    if (questionCount == 1) {
+        // Hide both action buttons as they are not needed:
+        HideElement(prevBtn);
+        HideElement(nextBtn);
+
+        prevBtn.onclick = (e) => { };
+        nextBtn.onclick = (e) => { };
+    }
+    else if (questionCount > 1) {
+        // Since it'll always starts with first question, prevBtn is not needed first.
+        HideElement(prevBtn);
+        UnHideElement(nextBtn);
+
+        prevBtn.onclick = (e) => {
+            // If it'll not be the first item:
+            if (quizIndex > 0) {
+                quizIndex -= 1;
+                CreateLvlQuiz(quizIndex, lvlQuizJSON[quizIndex]);
+                HandleActionBtn(quizIndex, questionCount);
+            }
+        }
+
+        nextBtn.onclick = (e) => {
+            // If it'll not be the last item:
+            if (quizIndex < questionCount - 1) {
+                quizIndex += 1;
+                CreateLvlQuiz(quizIndex, lvlQuizJSON[quizIndex]);
+                HandleActionBtn(quizIndex, questionCount);
+            }
+        }
+    }
+    else {
+        alert("There are no question fetched.");
+    }
+}
+
+if (lvl != undefined) {
+    GetAndProcessQuiz(lvl);
+}
+else {
+    const userInputLvl = prompt("lvl needed!");
+    GetAndProcessQuiz(userInputLvl);
 }
