@@ -20,7 +20,7 @@ body {
 div#ContentDiv {
     justify-content: space-between;
     min-height: 75vh;
-    width: 30%;
+    width: 500px;
 }
 
 div#QuestionDiv {
