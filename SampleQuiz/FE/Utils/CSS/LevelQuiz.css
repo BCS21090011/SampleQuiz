@@ -54,7 +54,23 @@ div#AnswerDiv {
         padding: 5px;
         border-radius: 10px;
         cursor: pointer;
+        transition: transform 0.3s;
     }
+
+        div#AnswerDiv > button.AnswerBtn:hover {
+            transform: scale(105%);
+        }
+
+        div#AnswerDiv > button.AnswerBtn.Selected {
+            background-color: red;
+            color: white;
+            font-weight: bold;
+        }
+
+        div#AnswerDiv > button.AnswerBtn.Selected.Correct {
+            background-color: lime;
+            color: black;
+        }
 
 div#ActionDiv {
     width: 100%;
@@ -67,7 +83,12 @@ div#ActionDiv {
         min-width: 100px;
         border-radius: 25px;
         cursor: pointer;
+        transition: transform 0.3s;
     }
+
+        div#ActionDiv > button.ActionBtn:hover {
+            transform: scale(105%);
+        }
 
         div#ActionDiv > button#PrevBtn.ActionBtn {
             margin-right: auto;

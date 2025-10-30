@@ -5,6 +5,16 @@ const answerDiv = document.querySelector("div#AnswerDiv");
 const prevBtn = document.querySelector("div#ActionDiv > button#PrevBtn");
 const nextBtn = document.querySelector("div#ActionDiv > button#NextBtn");
 
+let quizUserAnswers = [];
+
+function StylingAnswerBtn(btn, index, correctAnswerIndex) {
+    btn.classList.add("Selected");
+
+    if (index == correctAnswerIndex) {
+        btn.classList.add("Correct");
+    }
+}
+
 function CreateLvlQuiz (index, quizInfo) {
     const question = quizInfo["Question"];
     const answers = quizInfo["Answers"];
@@ -21,15 +31,21 @@ function CreateLvlQuiz (index, quizInfo) {
     questionDiv.appendChild(questionP);
 
     answerDiv.innerHTML = "";
-    answers.forEach((answer, index) => {
+    answers.forEach((answer, ansIndex) => {
         const btn = document.createElement("button");
         btn.classList.add("AnswerBtn");
         btn.innerText = answer;
         btn.onclick = (e) => {
-            if (index == correctAnswerIndex) {
-                alert("Correct answer");
+            if (quizUserAnswers[index]["UserAnswer"] == null) {
+                quizUserAnswers[index]["UserAnswer"] = ansIndex;
+                StylingAnswerBtn(btn, ansIndex, correctAnswerIndex);
             }
         };
+
+        if (ansIndex == quizUserAnswers[index]["UserAnswer"]) {
+            StylingAnswerBtn(btn, ansIndex, correctAnswerIndex);
+        }
+
         answerDiv.appendChild(btn);
     });
 }
@@ -77,7 +93,12 @@ async function GetAndProcessQuiz(lvl) {
 
     let quizIndex = 0;  // Always start with first question.
     const lvlQuizJSON = lvlQuizInfo["JSON"];
-
+    quizUserAnswers = lvlQuizJSON.map((qst) => {
+        return {
+            ...qst,
+            "UserAnswer": null
+        }
+    });
     const questionCount = lvlQuizJSON.length;
 
     if (questionCount > 0) {
