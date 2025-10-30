@@ -1,0 +1,63 @@
+body {
+    background-color: aqua;
+}
+
+.titleCard {
+    width: 300px;
+}
+
+#ContentLayer {
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+div#ContentDiv {
+    justify-content: space-between;
+    min-height: 75vh;
+    width: 100%;
+}
+
+div#QuestionDiv {
+    width: 80%;
+    min-height: 35vh;
+    border: 1px solid black;
+    border-radius: 25px;
+    background-color: white;
+    padding: 25px;
+}
+
+    div#QuestionDiv > .QuestionNum {
+        margin: auto;
+        text-align: center;
+        font-weight: bold;
+    }
+
+div#AnswerDiv {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+    div#AnswerDiv > button.AnswerBtn {
+        min-height: 50px;
+        min-width: 100px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+div#ActionDiv {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+    div#ActionDiv > button.ActionBtn {
+        min-height: 50px;
+        min-width: 100px;
+        border-radius: 25px;
+        cursor: pointer;
+    }
+
+        div#ActionDiv > button.ActionBtn.Hidden {
+            display: none;
+        }

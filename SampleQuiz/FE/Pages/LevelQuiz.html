@@ -3,17 +3,20 @@
     <head>
         <title>Level Quiz</title>
         <link rel="stylesheet" href="../Utils/CSS/Shared.css" />
+        <link rel="stylesheet" href="../Utils/CSS/LevelQuiz.css" />
     </head>
-    <body class="centerItems" style="justify-content: space-around;">
-        <h1 class="titleCard">QUESTION</h1>
-        <div style="border: 1px solid black; width: 80%;">
-            <p>Lorem ipsum ajibala blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</p>
+    <body class="LayerContainer">
+        <div id="ContentLayer" class="Layer centerItems">
+            <h1 class="titleCard">QUESTION</h1>
+            <div id="ContentDiv" class="centerItems">
+                <div id="QuestionDiv"></div>
+                <div id="AnswerDiv"></div>
+                <div id="ActionDiv">
+                    <button id="PrevBtn" class="ActionBtn Hidden">Prev</button>
+                    <button id="NextBtn" class="ActionBtn Hidden">Next</button>
+                </div>
+            </div>
         </div>
-        <div>
-            <button>Ans0</button>
-            <button>Ans1</button>
-            <button>Ans2</button>
-            <button>Ans3</button>
-        </div>
+        <script type="module" src="../Utils/JS/LevelQuiz.js"></script>
     </body>
 </html>
