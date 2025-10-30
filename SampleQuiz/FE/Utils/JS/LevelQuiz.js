@@ -1,21 +1,38 @@
 import { FetchJSON, GetURLParams } from "./URIUtils.js";
 
+const popupLayer = document.querySelector("#PopupLayer");
+
+function ShowPopupLayer () {
+    UnHideElement(popupLayer);
+}
+
+function HidePopupLayer () {
+    HideElement(popupLayer);
+}
+
+popupLayer.onclick = (e) => {
+    HidePopupLayer();
+}
+
 const questionDiv = document.querySelector("div#QuestionDiv");
 const answerDiv = document.querySelector("div#AnswerDiv");
 const prevBtn = document.querySelector("div#ActionDiv > button#PrevBtn");
 const nextBtn = document.querySelector("div#ActionDiv > button#NextBtn");
 
 let quizUserAnswers = [];
+let answerBtns = [];
 
-function StylingAnswerBtn(btn, index, correctAnswerIndex) {
+function StylingAnswerBtn (btn, correctAns=true) {
     btn.classList.add("Selected");
 
-    if (index == correctAnswerIndex) {
+    if (correctAns == true) {
         btn.classList.add("Correct");
     }
 }
 
 function CreateLvlQuiz (index, quizInfo) {
+    answerBtns = [];
+
     const question = quizInfo["Question"];
     const answers = quizInfo["Answers"];
     const correctAnswerIndex = quizInfo["CorrectAnswerIndex"]
@@ -38,27 +55,30 @@ function CreateLvlQuiz (index, quizInfo) {
         btn.onclick = (e) => {
             if (quizUserAnswers[index]["UserAnswer"] == null) {
                 quizUserAnswers[index]["UserAnswer"] = ansIndex;
-                StylingAnswerBtn(btn, ansIndex, correctAnswerIndex);
+                StylingAnswerBtn(btn, ansIndex == correctAnswerIndex);
+                ShowPopupLayer();
+
+                if (ansIndex != correctAnswerIndex) {
+                    StylingAnswerBtn(answerBtns[correctAnswerIndex], true);
+                }
             }
         };
 
-        if (ansIndex == quizUserAnswers[index]["UserAnswer"]) {
-            StylingAnswerBtn(btn, ansIndex, correctAnswerIndex);
+        if (quizUserAnswers[index]["UserAnswer"] != null) {
+            if (ansIndex == correctAnswerIndex) {
+                StylingAnswerBtn(btn, true);
+            }
+            else if (ansIndex == quizUserAnswers[index]["UserAnswer"]) {    // It's not the correct answer, but the answer use choose:
+                StylingAnswerBtn(btn, false);
+            }
         }
 
+        answerBtns.push(btn);
         answerDiv.appendChild(btn);
     });
 }
 
-function HideElement(elem) {
-    elem.classList.add("Hidden");
-}
-
-function UnHideElement(elem) {
-    elem.classList.remove("Hidden");
-}
-
-function HandleActionBtn(indexAfterAction, totalLength) {
+function HandleActionBtn (indexAfterAction, totalLength) {
     // If it's first item:
     if (indexAfterAction == 0) {
         HideElement(prevBtn);
@@ -80,7 +100,7 @@ const urlParams = GetURLParams();
 
 const lvl = urlParams["lvl"];
 
-async function GetAndProcessQuiz(lvl) {
+async function GetAndProcessQuiz (lvl) {
     const lvlQuizInfo = await FetchJSON(`../DummyData/QuizLevel${lvl}.json`)
         .catch((reason) => {
             alert(`Error encountered:\n${reason}`);
