@@ -36,12 +36,14 @@ div#QuestionDiv {
 div#AnswerDiv {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    row-gap: 10px;
 }
 
     div#AnswerDiv > button.AnswerBtn {
         min-height: 50px;
-        width: 20%;
+        width: 100%;
         padding: 5px;
         border-radius: 10px;
         cursor: pointer;
