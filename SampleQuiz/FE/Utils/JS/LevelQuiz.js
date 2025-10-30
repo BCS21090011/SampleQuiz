@@ -1,6 +1,9 @@
 import { FetchJSON, GetURLParams } from "./URIUtils.js";
 
 const popupLayer = document.querySelector("#PopupLayer");
+const popupDiv = document.querySelector("#PopupLayer > div#PopupDiv");
+
+let popupTimeoutID = null;
 
 function ShowPopupLayer () {
     UnHideElement(popupLayer);
@@ -10,8 +13,52 @@ function HidePopupLayer () {
     HideElement(popupLayer);
 }
 
+function PopupCorrect () {
+    popupDiv.innerHTML = "";
+
+    const h1 = document.createElement("h1");
+    h1.innerText = "Congratulation";
+    popupDiv.appendChild(h1);
+
+    const p = document.createElement("p");
+    p.innerText = "A passionate text here...";
+    popupDiv.appendChild(p);
+
+    ShowPopupLayer();
+
+    popupTimeoutID = setTimeout(() => {
+        popupDiv.innerHTML = "";
+        HidePopupLayer();
+        popupTimeoutID = null;
+    }, 2500);
+}
+
+function PopupIncorrect () {
+    popupDiv.innerHTML = "";
+
+    const h1 = document.createElement("h1");
+    h1.innerText = "Oh no...";
+    popupDiv.appendChild(h1);
+
+    const p = document.createElement("p");
+    p.innerText = "Text about wrong answer here...";
+    popupDiv.appendChild(p);
+
+    ShowPopupLayer();
+
+    popupTimeoutID = setTimeout(() => {
+        popupDiv.innerHTML = "";
+        HidePopupLayer();
+        popupTimeoutID = null;
+    }, 2500);
+}
+
 popupLayer.onclick = (e) => {
     HidePopupLayer();
+    
+    if (popupTimeoutID != null) {
+        clearTimeout(popupTimeoutID);
+    }
 }
 
 const questionDiv = document.querySelector("div#QuestionDiv");
@@ -55,11 +102,15 @@ function CreateLvlQuiz (index, quizInfo) {
         btn.onclick = (e) => {
             if (quizUserAnswers[index]["UserAnswer"] == null) {
                 quizUserAnswers[index]["UserAnswer"] = ansIndex;
-                StylingAnswerBtn(btn, ansIndex == correctAnswerIndex);
-                ShowPopupLayer();
 
-                if (ansIndex != correctAnswerIndex) {
+                if (ansIndex == correctAnswerIndex) {
+                    StylingAnswerBtn(btn, true);
+                    PopupCorrect();
+                }
+                else {
+                    StylingAnswerBtn(btn, false);
                     StylingAnswerBtn(answerBtns[correctAnswerIndex], true);
+                    PopupIncorrect();
                 }
             }
         };
