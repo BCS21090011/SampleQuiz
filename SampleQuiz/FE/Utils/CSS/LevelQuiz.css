@@ -58,6 +58,10 @@ div#ActionDiv {
         cursor: pointer;
     }
 
-        div#ActionDiv > button.ActionBtn.Hidden {
-            display: none;
+        div#ActionDiv > button#PrevBtn.ActionBtn {
+            margin-right: auto;
+        }
+
+        div#ActionDiv > button#NextBtn.ActionBtn {
+            margin-left: auto;
         }
