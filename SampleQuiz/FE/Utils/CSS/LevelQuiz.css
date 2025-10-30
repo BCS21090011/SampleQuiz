@@ -14,7 +14,7 @@ body {
 div#ContentDiv {
     justify-content: space-between;
     min-height: 75vh;
-    width: 50%;
+    width: 30%;
 }
 
 div#QuestionDiv {
@@ -30,6 +30,7 @@ div#QuestionDiv {
         margin: auto;
         text-align: center;
         font-weight: bold;
+        margin-bottom: 20px;
     }
 
 div#AnswerDiv {
@@ -40,7 +41,8 @@ div#AnswerDiv {
 
     div#AnswerDiv > button.AnswerBtn {
         min-height: 50px;
-        min-width: 100px;
+        width: 20%;
+        padding: 5px;
         border-radius: 10px;
         cursor: pointer;
     }
