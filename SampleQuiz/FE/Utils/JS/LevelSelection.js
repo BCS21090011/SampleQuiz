@@ -2,6 +2,11 @@ import { IsColorDark } from "./ColorUtils.js";
 import { FetchJSON } from "./URIUtils.js"
 
 const levelSelectionContainerDiv = document.querySelector("div#LevelSelectionContainer");
+const backBtn = document.querySelector("div#ActionDiv > button#BackBtn");
+
+backBtn.onclick = (e) => {
+    window.location = "./MainPage.html";
+}
 
 const colorPattern = [
     "#32CD32", // Lime Green
