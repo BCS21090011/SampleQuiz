@@ -37,8 +37,9 @@ div#AnswerDiv {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     row-gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
     div#AnswerDiv > button.AnswerBtn {
