@@ -1,0 +1,112 @@
+[
+    {
+        "Question": "The red pedestrian light means:\n\n![sign](../Assets/Images/Speechless.gif)",
+        "Answers": [
+            "Moonwalk into traffic",
+            "Stay put unless you want a car hug",
+            "Take a nap in the middle of the street",
+            "Challenge cars to a race"
+        ],
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "Correct Answer: **Stay put**. Red = Stop = Do not audition for a flying role.\n\n![slam](../Assets/Images/Slam.gif)"
+    },
+    {
+        "Question": "Why should you use a pedestrian crossing?",
+        "Answers": [
+            "To show off your amazing straight-line walking skills",
+            "Because cars are *less likely* to flatten you there",
+            "To annoy drivers",
+            "It’s a nice place to loiter"
+        ],
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "Correct Answer: **Crosswalks = Higher survival rate**. Science approves.\n\n![hit](../Assets/Images/HitByCar.gif)"
+    },
+    {
+        "Question": "If you hear a car horn, you should:",
+        "Answers": [
+            "Pretend it's not about you",
+            "Move because you are 100% in the way",
+            "Challenge the car to a duel",
+            "Scream back aggressively"
+        ],
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "Correct Answer: **Move**. That loud noise means you’re currently a traffic obstacle.\n\n![speechless](../Assets/Images/Speechless.gif)"
+    },
+    {
+        "Question": "A helmet is used for:",
+        "Answers": [
+            "Storage for snacks",
+            "Protecting your fragile skull",
+            "Hair styling maintenance",
+            "Signaling that you're afraid of fun"
+        ],
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "Correct Answer: **Protecting your skull**. Your brain is squishy. Keep it inside.\n\n![shocked](../Assets/Images/Shocked.gif)"
+    },
+    {
+        "Question": "Crossing the road while texting means:",
+        "Answers": [
+            "You crave danger",
+            "You want to become a street pancake",
+            "Your phone deserves your full attention",
+            "Cars will wait for you, obviously"
+        ],
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "Correct Answer: **You will be flattened**. Cars don’t stop for selfies.\n\n![hit](../Assets/Images/HitByCar.gif)"
+    },
+    {
+        "Question": "Dropped something in the road?",
+        "Answers": [
+            "Dive into traffic like a heroic squirrel",
+            "Decide if your item is worth a hospital bill",
+            "Cry loudly",
+            "Blame gravity for your life problems"
+        ],
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "Correct Answer: **Think before retrieving**. Socks and dignity are replaceable.\n\n![facepalm](../Assets/Images/FacePalm.gif)"
+    },
+    {
+        "Question": "Why are walk signals useful?",
+        "Answers": [
+            "They’re pretty",
+            "They help you not die",
+            "They secretly judge your walking posture",
+            "Aliens demanded them"
+        ],
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "Correct Answer: **They help keep you alive**. Shocking, I know.\n\n![shock](../Assets/Images/Shocked.gif)"
+    },
+    {
+        "Question": "A car using a turn signal means:",
+        "Answers": [
+            "It's flirting with you",
+            "It wants to turn! Mind blown!",
+            "It’s sending Morse code",
+            "You must run at it immediately"
+        ],
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "Correct Answer: **The car is turning**. Please don’t go there.\n\n![slam](../Assets/Images/Slam.gif)"
+    },
+    {
+        "Question": "Headphones while near roads:",
+        "Answers": [
+            "Make your life excitingly risky",
+            "Make hearing cars impossible",
+            "Help you ignore consequences",
+            "Provide dramatic background music"
+        ],
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "Correct Answer: **You need to hear danger**. Cars are silent ninjas sometimes.\n\n![speechless](../Assets/Images/Speechless.gif)"
+    },
+    {
+        "Question": "Sidewalks exist because:",
+        "Answers": [
+            "They like being next to roads",
+            "Cars don’t appreciate human speed bumps",
+            "Better Wi-Fi zone",
+            "For dog traffic only"
+        ],
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "Correct Answer: **Walk on sidewalks**. Roads are for cars. Revolutionary concept.\n\n![hit](../Assets/Images/HitByCar.gif)"
+    }
+]

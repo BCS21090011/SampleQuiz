@@ -16,5 +16,17 @@
         "LevelImg": "https://www.shutterstock.com/image-vector/vector-school-sign-design-elements-600w-18132847.jpg",
         "LevelName": "Road Sign",
         "LevelDescription": "Recognize the Road Sign This is a testing"
+    },
+    {
+        "ID": 4,
+        "LevelImg": "https://example.com/short_level_image.jpg",
+        "LevelName": "Totally Obvious Safety",
+        "LevelDescription": "Because common sense is apparently optional."
+    },
+    {
+        "ID": 5,
+        "LevelImg": "https://example.com/long_level_image.jpg",
+        "LevelName": "Epic Saga of Road Stupidity",
+        "LevelDescription": "A dramatic journey proving that brains are optional when crossing roads."
     }
 ]
