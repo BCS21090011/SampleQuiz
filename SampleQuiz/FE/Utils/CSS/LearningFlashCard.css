@@ -92,6 +92,12 @@ div#ActionDiv {
         }
 
         div#ActionDiv > button#LearningNoteBtn.ActionBtn {
+            background-color: aqua;
+            color: black;
+            font-weight: bold;
+        }
+
+        div#ActionDiv > button#PlayBtn.ActionBtn {
             background-color: lime;
             color: black;
             font-weight: bold;

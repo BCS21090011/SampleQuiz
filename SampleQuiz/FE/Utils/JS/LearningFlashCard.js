@@ -8,6 +8,7 @@ const nextBtn = document.querySelector("div#PageActionDiv > button#NextBtn");
 const mainPageBtn = document.querySelector("div#ActionDiv > button#MainPageBtn");
 const lvlSelectionBtn = document.querySelector("div#ActionDiv > button#LvlSelectionBtn");
 const learningNoteBtn = document.querySelector("div#ActionDiv > button#LearningNoteBtn");
+const playBtn = document.querySelector("div#ActionDiv > button#PlayBtn.ActionBtn");
 
 function CreateFlashCard (flashCardInfo) {
     const question = flashCardInfo["Question"];
@@ -137,4 +138,8 @@ lvlSelectionBtn.onclick = (e) => {
 
 learningNoteBtn.onclick = (e) => {
     window.location = `./LearningNote.html?lvl=${lvl}`;
+}
+
+playBtn.onclick = (e) => {
+    window.location = `./LevelQuiz.html?lvl=${lvl}`;
 }

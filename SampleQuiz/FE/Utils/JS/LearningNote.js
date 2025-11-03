@@ -5,6 +5,7 @@ const noteContainer = document.querySelector("#NoteContainer");
 const mainPageBtn = document.querySelector("div#ActionDiv > button#MainPageBtn");
 const lvlSelectionBtn = document.querySelector("div#ActionDiv > button#LvlSelectionBtn");
 const learningFCBtn = document.querySelector("div#ActionDiv > button#LearningFCBtn");
+const playBtn = document.querySelector("div#ActionDiv > button#PlayBtn.ActionBtn");
 
 async function GetAndProcessNote (lvl) {
     const noteInfo = await FetchJSON(`../DummyData/LevelNotes.json`)
@@ -50,4 +51,8 @@ lvlSelectionBtn.onclick = (e) => {
 
 learningFCBtn.onclick = (e) => {
     window.location = `./LearningFlashCard.html?lvl=${lvl}`;
+}
+
+playBtn.onclick = (e) => {
+    window.location = `./LevelQuiz.html?lvl=${lvl}`;
 }
