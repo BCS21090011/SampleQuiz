@@ -45,3 +45,9 @@ div#ActionDiv {
             color: black;
             font-weight: bold;
         }
+
+        div#ActionDiv > button#LearningFCBtn.ActionBtn {
+            background-color: lime;
+            color: black;
+            font-weight: bold;
+        }

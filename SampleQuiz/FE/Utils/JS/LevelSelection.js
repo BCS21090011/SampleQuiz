@@ -20,6 +20,7 @@ const colorPattern = [
 function CreateLevelCard(levelInfo, index) {
     const color = colorPattern[index % colorPattern.length];
     const txtColor = IsColorDark(color) == true ? "white" : "black";
+    const lvlID = levelInfo["ID"];
 
     const levelCard = document.createElement("div");
     levelCard.classList.add("levelCard", "centerItems");
@@ -54,7 +55,7 @@ function CreateLevelCard(levelInfo, index) {
     levelPlayBtn.classList.add("LevelBtn", "PlayBtn");
     levelPlayBtn.innerText = "PLAY";
     levelPlayBtn.onclick = (e) => {
-        window.location = levelInfo["LevelPlayURL"];
+        window.location = `./LevelQuiz.html?lvl=${lvlID}`;
     }
     levelCard.appendChild(levelPlayBtn);
 
@@ -62,7 +63,7 @@ function CreateLevelCard(levelInfo, index) {
     levelLearnBtn.classList.add("LevelBtn", "LearnBtn");
     levelLearnBtn.innerText = "LEARN";
     levelLearnBtn.onclick = (e) => {
-        window.location = levelInfo["LevelLearnURL"];
+        window.location = `./LearningNote.html?lvl=${lvlID}`;
     }
     levelCard.appendChild(levelLearnBtn);
 

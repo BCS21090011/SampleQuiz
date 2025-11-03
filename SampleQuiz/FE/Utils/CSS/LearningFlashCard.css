@@ -90,3 +90,9 @@ div#ActionDiv {
             color: black;
             font-weight: bold;
         }
+
+        div#ActionDiv > button#LearningNoteBtn.ActionBtn {
+            background-color: lime;
+            color: black;
+            font-weight: bold;
+        }

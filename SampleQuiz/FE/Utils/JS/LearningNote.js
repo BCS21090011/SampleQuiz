@@ -4,6 +4,7 @@ import MarkdownToHTMLString from "./MarkDownUtils.js";
 const noteContainer = document.querySelector("#NoteContainer");
 const mainPageBtn = document.querySelector("div#ActionDiv > button#MainPageBtn");
 const lvlSelectionBtn = document.querySelector("div#ActionDiv > button#LvlSelectionBtn");
+const learningFCBtn = document.querySelector("div#ActionDiv > button#LearningFCBtn");
 
 async function GetAndProcessNote (lvl) {
     const noteInfo = await FetchJSON(`../DummyData/LevelNotes.json`)
@@ -45,4 +46,8 @@ mainPageBtn.onclick = (e) => {
 
 lvlSelectionBtn.onclick = (e) => {
     window.location = "./LevelSelection.html";
+}
+
+learningFCBtn.onclick = (e) => {
+    window.location = `./LearningFlashCard.html?lvl=${lvl}`;
 }
