@@ -48,7 +48,7 @@ div#LevelSelectionContainer {
             object-fit: contain;
         }
 
-        div#LevelSelectionContainer > div.levelCard > button.LevelPlayBtn {
+        div#LevelSelectionContainer > div.levelCard > button.LevelBtn {
             width: 36%;
             height: 50px;
             font-weight: bolder;
@@ -58,8 +58,20 @@ div#LevelSelectionContainer {
             transition: transform 0.3s;
         }
 
-            div#LevelSelectionContainer > div.levelCard > button.LevelPlayBtn:hover {
+            div#LevelSelectionContainer > div.levelCard > button.LevelBtn:hover {
                 transform: scale(105%);
+            }
+
+            div#LevelSelectionContainer > div.levelCard > button.LevelBtn.PlayBtn {
+                background-color: #32CD32;
+                color: black;
+                margin-bottom: 10px;
+            }
+
+            div#LevelSelectionContainer > div.levelCard > button.LevelBtn.LearnBtn {
+                background-color: grey;
+                color: black;
+                margin-top: 10px;
             }
 
 div#ActionDiv {

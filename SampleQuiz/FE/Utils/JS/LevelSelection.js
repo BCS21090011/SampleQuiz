@@ -51,14 +51,20 @@ function CreateLevelCard(levelInfo, index) {
     }
 
     const levelPlayBtn = document.createElement("button");
-    levelPlayBtn.classList.add("LevelPlayBtn");
+    levelPlayBtn.classList.add("LevelBtn", "PlayBtn");
     levelPlayBtn.innerText = "PLAY";
-    levelPlayBtn.style.backgroundColor = color;
-    levelPlayBtn.style.color = txtColor;
     levelPlayBtn.onclick = (e) => {
-        window.location = levelInfo["LevelURL"];
+        window.location = levelInfo["LevelPlayURL"];
     }
     levelCard.appendChild(levelPlayBtn);
+
+    const levelLearnBtn = document.createElement("button");
+    levelLearnBtn.classList.add("LevelBtn", "LearnBtn");
+    levelLearnBtn.innerText = "LEARN";
+    levelLearnBtn.onclick = (e) => {
+        window.location = levelInfo["LevelLearnURL"];
+    }
+    levelCard.appendChild(levelLearnBtn);
 
     levelSelectionContainerDiv.appendChild(levelCard);
 
