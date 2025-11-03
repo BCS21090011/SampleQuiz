@@ -69,6 +69,8 @@ const quizMarkP = document.querySelector("#QuizMark");
 const answerDiv = document.querySelector("div#AnswerDiv");
 const prevBtn = document.querySelector("div#PageActionDiv > button#PrevBtn");
 const nextBtn = document.querySelector("div#PageActionDiv > button#NextBtn");
+const backBtn = document.querySelector("button#BackBtn.ActionBtn");
+const submitBtn = document.querySelector("button#SubmitBtn.ActionBtn");
 
 let quizUserAnswers = [];
 let answerBtns = [];
@@ -80,6 +82,19 @@ function StylingAnswerBtn (btn, correctAns=true) {
 
     if (correctAns == true) {
         btn.classList.add("Correct");
+    }
+}
+
+function HandleSubmitBtn() {
+    const unAnswereds = quizUserAnswers.filter((quizUserAnswer) => {
+        return quizUserAnswer["UserAnswer"] == null;
+    });
+
+    if (unAnswereds.length == 0) {
+        UnHideElement(submitBtn);
+    }
+    else {
+        HideElement(submitBtn);
     }
 }
 
@@ -108,6 +123,7 @@ function CreateLvlQuiz (index, quizInfo) {
         btn.onclick = (e) => {
             if (quizUserAnswers[index]["UserAnswer"] == null) {
                 quizUserAnswers[index]["UserAnswer"] = ansIndex;
+                HandleSubmitBtn();
 
                 if (ansIndex == correctAnswerIndex) {
                     QuizMarkHandler(1);
@@ -156,8 +172,6 @@ function HandleActionBtn (indexAfterAction, totalLength) {
 
 const urlParams = GetURLParams();
 const questionTitleCard = document.querySelector("#QuestionTitleCard");
-const backBtn = document.querySelector("button#BackBtn.ActionBtn");
-const submitBtn = document.querySelector("button#SubmitBtn.ActionBtn");
 
 backBtn.onclick = (e) => {
     window.location = "./LevelSelection.html";
