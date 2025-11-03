@@ -66,8 +66,8 @@ const questionNum = document.querySelector("#QuestionNum");
 const actualQstDiv = document.querySelector("#ActualQuestionDiv");
 const quizMarkP = document.querySelector("#QuizMark");
 const answerDiv = document.querySelector("div#AnswerDiv");
-const prevBtn = document.querySelector("div#ActionDiv > button#PrevBtn");
-const nextBtn = document.querySelector("div#ActionDiv > button#NextBtn");
+const prevBtn = document.querySelector("div#PageActionDiv > button#PrevBtn");
+const nextBtn = document.querySelector("div#PageActionDiv > button#NextBtn");
 
 let quizUserAnswers = [];
 let answerBtns = [];
@@ -159,6 +159,16 @@ function HandleActionBtn (indexAfterAction, totalLength) {
 
 const urlParams = GetURLParams();
 const questionTitleCard = document.querySelector("#QuestionTitleCard");
+const backBtn = document.querySelector("button#BackBtn.ActionBtn");
+const submitBtn = document.querySelector("button#SubmitBtn.ActionBtn");
+
+backBtn.onclick = (e) => {
+    window.location = "./LevelSelection.html";
+}
+
+submitBtn.onclick = (e) => {
+    window.location = "./Login.html";
+}
 
 const lvl = urlParams["lvl"];
 

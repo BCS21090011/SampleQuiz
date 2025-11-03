@@ -106,10 +106,38 @@ div#AnswerDiv {
                 color: black;
             }
 
-div#ActionDiv {
+div#PageActionDiv {
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+    div#PageActionDiv > button.ActionBtn {
+        min-height: 50px;
+        min-width: 100px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+        div#PageActionDiv > button.ActionBtn:hover {
+            transform: scale(105%);
+        }
+
+        div#PageActionDiv > button#PrevBtn.ActionBtn {
+            margin-right: auto;
+        }
+
+        div#PageActionDiv > button#NextBtn.ActionBtn {
+            margin-left: auto;
+        }
+
+div#ActionDiv {
+    width: 75vw;
+    display: flex;
+    justify-content: space-between;
+    margin: 25px;
+    padding-bottom: 50px;
 }
 
     div#ActionDiv > button.ActionBtn {
@@ -124,10 +152,14 @@ div#ActionDiv {
             transform: scale(105%);
         }
 
-        div#ActionDiv > button#PrevBtn.ActionBtn {
-            margin-right: auto;
+        div#ActionDiv > button#BackBtn.ActionBtn {
+            background-color: red;
+            color: white;
+            font-weight: bold;
         }
 
-        div#ActionDiv > button#NextBtn.ActionBtn {
-            margin-left: auto;
+        div#ActionDiv > button#SubmitBtn.ActionBtn {
+            background-color: lime;
+            color: black;
+            font-weight: bold;
         }
