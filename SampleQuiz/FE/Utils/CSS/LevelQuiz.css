@@ -41,24 +41,35 @@ div#ContentDiv {
 
 div#QuestionDiv {
     width: 100%;
-    min-height: 35vh;
+    min-height: 25vh;
     border: 1px solid black;
     border-radius: 25px;
     background-color: white;
     padding: 25px;
+    overflow-y: auto;
 }
+
+    div#QuestionDiv::-webkit-scrollbar {
+        display: none;
+    }
 
     div#QuestionDiv > #QuestionNum {
         margin: auto;
         text-align: center;
         font-weight: bold;
-        margin-bottom: 20px;
+        margin-bottom: 0;
+    }
+
+    div#QuestionDiv > #QuizMark {
+        margin-left: auto;
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: right;
     }
 
     div#QuestionDiv > #ActualQuestionDiv {
         margin: auto;
         width: 80%;
-        min-height: 75%;
     }
 
         div#QuestionDiv > #ActualQuestionDiv img {
@@ -67,11 +78,6 @@ div#QuestionDiv {
             width: 100%;
             height: auto;
         }
-
-    div#QuestionDiv > #QuizMark {
-        margin-right: auto;
-        text-align: right;
-    }
 
 div#AnswerDiv {
     width: 100%;
