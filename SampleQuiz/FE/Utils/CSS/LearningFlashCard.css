@@ -1,0 +1,53 @@
+body {
+    background-image: url("../../Assets/Images/road-safety-rules-for-kids.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+div#FlashCardContainer {
+    width: 25vw;
+    aspect-ratio: 0.71;
+    background-color: white;
+    margin-bottom: 25px;
+    border-radius: 50px;
+    padding: 50px;
+    overflow-y: auto;
+}
+
+    div#FlashCardContainer::-webkit-scrollbar {
+        display: none;
+    }
+
+    div#FlashCardContainer > div.CardContainer {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+div#PageActionDiv {
+    width: 25vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+    div#PageActionDiv > button.ActionBtn {
+        min-height: 50px;
+        min-width: 100px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+        div#PageActionDiv > button.ActionBtn:hover {
+            transform: scale(105%);
+        }
+
+        div#PageActionDiv > button#PrevBtn.ActionBtn {
+            margin-right: auto;
+        }
+
+        div#PageActionDiv > button#NextBtn.ActionBtn {
+            margin-left: auto;
+        }
