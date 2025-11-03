@@ -4,20 +4,20 @@
         "LevelName": "Road Safety",
         "LevelDescription": "Introduce Road Safety",
         "LevelPlayURL": "./LevelQuiz.html?lvl=1",
-        "LevelLearnURL": "about:blank?lvl=1"
+        "LevelLearnURL": "./LearningFlashCard.html?lvl=1"
     },
     {
         "LevelImg": "https://image.shutterstock.com/image-vector/traffic-laws-rules-road-children-600w-648422536.jpg",
         "LevelName": "Vechicle Safety Rules",
         "LevelDescription": "Identify Safety Rules from Vechicle",
         "LevelPlayURL": "./LevelQuiz.html?lvl=2",
-        "LevelLearnURL": "about:blank?lvl=2"
+        "LevelLearnURL": "./LearningFlashCard.html?lvl=2"
     },
     {
         "LevelImg": "https://www.shutterstock.com/image-vector/vector-school-sign-design-elements-600w-18132847.jpg",
         "LevelName": "Road Sign",
         "LevelDescription": "Recognize the Road Sign This is a testing",
         "LevelPlayURL": "./LevelQuiz.html?lvl=3",
-        "LevelLearnURL": "about:blank?lvl=3"
+        "LevelLearnURL": "./LearningFlashCard.html?lvl=3"
     }
 ]
