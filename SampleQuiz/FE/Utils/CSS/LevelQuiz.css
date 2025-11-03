@@ -28,7 +28,6 @@
 
 div#ContentDiv {
     justify-content: space-between;
-    min-height: 75vh;
     width: 500px;
 }
 
@@ -39,12 +38,7 @@ div#QuestionDiv {
     border-radius: 25px;
     background-color: white;
     padding: 25px;
-    overflow-y: auto;
 }
-
-    div#QuestionDiv::-webkit-scrollbar {
-        display: none;
-    }
 
     div#QuestionDiv > #QuestionNum {
         margin: auto;
@@ -136,7 +130,7 @@ div#ActionDiv {
     display: flex;
     justify-content: space-between;
     margin: 25px;
-    padding-bottom: 50px;
+    padding-bottom: 25px;
 }
 
     div#ActionDiv > button.ActionBtn {
