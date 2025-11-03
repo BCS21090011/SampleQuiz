@@ -13,7 +13,7 @@ function HidePopupLayer () {
     HideElement(popupLayer);
 }
 
-function PopupCorrect () {
+function PopupCorrect (content="A passionate text here...") {
     popupDiv.innerHTML = "";
 
     const h1 = document.createElement("h1");
@@ -21,7 +21,7 @@ function PopupCorrect () {
     popupDiv.appendChild(h1);
 
     const p = document.createElement("p");
-    p.innerText = "A passionate text here...";
+    p.innerText = content;
     popupDiv.appendChild(p);
 
     ShowPopupLayer();
@@ -30,10 +30,10 @@ function PopupCorrect () {
         popupDiv.innerHTML = "";
         HidePopupLayer();
         popupTimeoutID = null;
-    }, 2500);
+    }, 3500);
 }
 
-function PopupIncorrect () {
+function PopupIncorrect (content="Text about wrong answer here...") {
     popupDiv.innerHTML = "";
 
     const h1 = document.createElement("h1");
@@ -41,7 +41,7 @@ function PopupIncorrect () {
     popupDiv.appendChild(h1);
 
     const p = document.createElement("p");
-    p.innerText = "Text about wrong answer here...";
+    p.innerText = content;
     popupDiv.appendChild(p);
 
     ShowPopupLayer();
@@ -50,7 +50,7 @@ function PopupIncorrect () {
         popupDiv.innerHTML = "";
         HidePopupLayer();
         popupTimeoutID = null;
-    }, 2500);
+    }, 3500);
 }
 
 popupLayer.onclick = (e) => {
@@ -97,7 +97,8 @@ function CreateLvlQuiz (index, quizInfo) {
 
     const question = quizInfo["Question"];
     const answers = quizInfo["Answers"];
-    const correctAnswerIndex = quizInfo["CorrectAnswerIndex"]
+    const correctAnswerIndex = quizInfo["CorrectAnswerIndex"];
+    const answerExplanation = quizInfo["AnswerExplanation"];
 
     questionNum.innerText = `Question ${index + 1}:`;
 
@@ -115,12 +116,12 @@ function CreateLvlQuiz (index, quizInfo) {
                 if (ansIndex == correctAnswerIndex) {
                     QuizMarkHandler(1);
                     StylingAnswerBtn(btn, true);
-                    PopupCorrect();
+                    PopupCorrect(answerExplanation);
                 }
                 else {
                     StylingAnswerBtn(btn, false);
                     StylingAnswerBtn(answerBtns[correctAnswerIndex], true);
-                    PopupIncorrect();
+                    PopupIncorrect(answerExplanation);
                 }
             }
         };

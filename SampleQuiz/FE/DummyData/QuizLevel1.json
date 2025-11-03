@@ -7,7 +7,8 @@
             "Use your phone to check messages",
             "Wait for others to cross first"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": "This is an explanation."
     },
     {
         "Question": "Where is the safest place to cross a busy road?",
@@ -17,7 +18,8 @@
             "Anywhere if no cars are near",
             "At a traffic light only when red"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "What color clothes help others see you better at night?",
@@ -27,7 +29,8 @@
             "Grey or brown",
             "Green"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "When walking on the road without sidewalks, you should walk:",
@@ -37,7 +40,8 @@
             "In the middle of the road",
             "Zig-zag to be visible"
         ],
-        "CorrectAnswerIndex": 0
+        "CorrectAnswerIndex": 0,
+        "AnswerExplanation": ""
     },
     {
         "Question": "Which action keeps you safe while using the road?",
@@ -47,7 +51,8 @@
             "Texting friends",
             "Closing your eyes when crossing"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "If the traffic light for pedestrians is green, you should:",
@@ -57,7 +62,8 @@
             "Wait until it turns red",
             "Play on the crossing"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "Wearing a bicycle helmet helps:",
@@ -67,7 +73,8 @@
             "Block the sunlight",
             "Keep your hair neat"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "Before cycling, you should always:",
@@ -77,7 +84,8 @@
             "Ask your friend to test your bike",
             "Skip the helmet"
         ],
-        "CorrectAnswerIndex": 0
+        "CorrectAnswerIndex": 0,
+        "AnswerExplanation": ""
     },
     {
         "Question": "If a ball rolls onto the road, you should:",
@@ -87,7 +95,8 @@
             "Grab it fast before cars arrive",
             "Wait in the middle of the road"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "When walking in a group, you should:",
@@ -97,6 +106,7 @@
             "Push each other playfully",
             "Walk in opposite directions"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     }
 ]

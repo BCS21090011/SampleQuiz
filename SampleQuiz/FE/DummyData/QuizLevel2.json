@@ -7,7 +7,8 @@
             "Adjust the seat later",
             "Look at your phone"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "What is the meaning of a yellow traffic light?",
@@ -17,7 +18,8 @@
             "Stop immediately",
             "Speed through"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "Motorcyclists must always wear:",
@@ -27,7 +29,8 @@
             "Sunglasses only",
             "Gloves only"
         ],
-        "CorrectAnswerIndex": 0
+        "CorrectAnswerIndex": 0,
+        "AnswerExplanation": ""
     },
     {
         "Question": "Which of the following is unsafe while driving?",
@@ -37,7 +40,8 @@
             "Keeping both hands on the steering wheel",
             "Wearing a seatbelt"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "Drivers should keep a safe distance because:",
@@ -47,7 +51,8 @@
             "It saves petrol",
             "It annoys the car in front"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "What should you do when driving in rainy conditions?",
@@ -57,7 +62,8 @@
             "Turn off wipers to save energy",
             "Follow vehicles too closely"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "When approaching a school zone:",
@@ -67,7 +73,8 @@
             "Overtake other vehicles",
             "Use your horn loudly"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "If you are sleepy while driving, you should:",
@@ -77,7 +84,8 @@
             "Drink coffee and continue",
             "Speed up to finish faster"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     },
     {
         "Question": "When turning at an intersection, you should:",
@@ -87,7 +95,8 @@
             "Depend on others to see you",
             "Brake suddenly"
         ],
-        "CorrectAnswerIndex": 0
+        "CorrectAnswerIndex": 0,
+        "AnswerExplanation": ""
     },
     {
         "Question": "Seatbelts are important because they:",
@@ -97,6 +106,7 @@
             "Look stylish",
             "Help you lean comfortably"
         ],
-        "CorrectAnswerIndex": 1
+        "CorrectAnswerIndex": 1,
+        "AnswerExplanation": ""
     }
 ]
