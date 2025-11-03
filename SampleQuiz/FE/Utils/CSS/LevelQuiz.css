@@ -48,23 +48,29 @@ div#QuestionDiv {
     padding: 25px;
 }
 
-    div#QuestionDiv > .QuestionNum {
+    div#QuestionDiv > #QuestionNum {
         margin: auto;
         text-align: center;
         font-weight: bold;
         margin-bottom: 20px;
     }
 
-    div#QuestionDiv > .ActualQuestionDiv {
+    div#QuestionDiv > #ActualQuestionDiv {
         margin: auto;
         width: 80%;
+        min-height: 75%;
     }
 
-    div#QuestionDiv > .ActualQuestionDiv img {
-        display: block;
-        margin: auto;
-        width: 100%;
-        height: auto;
+        div#QuestionDiv > #ActualQuestionDiv img {
+            display: block;
+            margin: auto;
+            width: 100%;
+            height: auto;
+        }
+
+    div#QuestionDiv > #QuizMark {
+        margin-right: auto;
+        text-align: right;
     }
 
 div#AnswerDiv {

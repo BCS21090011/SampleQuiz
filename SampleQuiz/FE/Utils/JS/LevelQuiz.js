@@ -62,12 +62,17 @@ popupLayer.onclick = (e) => {
 }
 
 const questionDiv = document.querySelector("div#QuestionDiv");
+const questionNum = document.querySelector("#QuestionNum");
+const actualQstDiv = document.querySelector("#ActualQuestionDiv");
+const quizMarkP = document.querySelector("#QuizMark");
 const answerDiv = document.querySelector("div#AnswerDiv");
 const prevBtn = document.querySelector("div#ActionDiv > button#PrevBtn");
 const nextBtn = document.querySelector("div#ActionDiv > button#NextBtn");
 
 let quizUserAnswers = [];
 let answerBtns = [];
+let quizMark = 0;
+let totalQuizMark = 0;
 
 function StylingAnswerBtn (btn, correctAns=true) {
     btn.classList.add("Selected");
@@ -75,6 +80,11 @@ function StylingAnswerBtn (btn, correctAns=true) {
     if (correctAns == true) {
         btn.classList.add("Correct");
     }
+}
+
+function QuizMarkHandler (mark=0) {
+    quizMark += mark;
+    quizMarkP.innerText = `${quizMark}/${totalQuizMark}`;
 }
 
 function MarkdownToHTML (markdown) {
@@ -89,16 +99,9 @@ function CreateLvlQuiz (index, quizInfo) {
     const answers = quizInfo["Answers"];
     const correctAnswerIndex = quizInfo["CorrectAnswerIndex"]
 
-    questionDiv.innerHTML = "";
-    const questionNum = document.createElement("p");
-    questionNum.classList.add("QuestionNum");
     questionNum.innerText = `Question ${index + 1}:`;
-    questionDiv.appendChild(questionNum);
 
-    const actualQstDiv = document.createElement("div");
-    actualQstDiv.classList.add("ActualQuestionDiv");
     actualQstDiv.innerHTML = MarkdownToHTML(question);
-    questionDiv.appendChild(actualQstDiv);
 
     answerDiv.innerHTML = "";
     answers.forEach((answer, ansIndex) => {
@@ -110,6 +113,7 @@ function CreateLvlQuiz (index, quizInfo) {
                 quizUserAnswers[index]["UserAnswer"] = ansIndex;
 
                 if (ansIndex == correctAnswerIndex) {
+                    QuizMarkHandler(1);
                     StylingAnswerBtn(btn, true);
                     PopupCorrect();
                 }
@@ -178,6 +182,7 @@ async function GetAndProcessQuiz (lvl) {
         }
     });
     const questionCount = lvlQuizJSON.length;
+    totalQuizMark = questionCount;  // Separated with question count, in case they aren't the same.
 
     if (questionCount > 0) {
         CreateLvlQuiz(quizIndex, lvlQuizJSON[quizIndex]);
@@ -217,6 +222,8 @@ async function GetAndProcessQuiz (lvl) {
     else {
         alert("There are no question fetched.");
     }
+    
+    QuizMarkHandler();
 }
 
 if (lvl != undefined) {
