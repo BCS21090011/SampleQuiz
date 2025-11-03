@@ -7,5 +7,5 @@ function PlayBtn_OnClick(e) {
 }
 
 function HelpBtn_OnClick(e) {
-    window.location = "about:blank?page=Help";
+    window.location = "./Help.html";
 }
