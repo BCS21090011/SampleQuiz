@@ -46,3 +46,35 @@ div#PageActionDiv {
         div#PageActionDiv > button#NextBtn.ActionBtn {
             margin-left: auto;
         }
+
+div#ActionDiv {
+    width: 75vw;
+    display: flex;
+    justify-content: space-between;
+    margin: 25px;
+    padding-bottom: 50px;
+}
+
+    div#ActionDiv > button.ActionBtn {
+        min-height: 50px;
+        min-width: 100px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+        div#ActionDiv > button.ActionBtn:hover {
+            transform: scale(105%);
+        }
+
+        div#ActionDiv > button#MainPageBtn.ActionBtn {
+            background-color: red;
+            color: white;
+            font-weight: bold;
+        }
+
+        div#ActionDiv > button#LvlSelectionBtn.ActionBtn {
+            background-color: orange;
+            color: black;
+            font-weight: bold;
+        }

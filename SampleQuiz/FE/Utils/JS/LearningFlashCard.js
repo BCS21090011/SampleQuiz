@@ -5,6 +5,8 @@ import MarkdownToHTMLString from "./MarkDownUtils.js"
 const flashCardContainer = document.querySelector("div#FlashCardContainer");
 const prevBtn = document.querySelector("div#PageActionDiv > button#PrevBtn");
 const nextBtn = document.querySelector("div#PageActionDiv > button#NextBtn");
+const mainPageBtn = document.querySelector("div#ActionDiv > button#MainPageBtn");
+const lvlSelectionBtn = document.querySelector("div#ActionDiv > button#LvlSelectionBtn");
 
 function CreateFlashCard (flashCardInfo) {
     const question = flashCardInfo["Question"];
@@ -114,12 +116,20 @@ async function GetAndProcessFlashCard (lvl) {
 }
 
 const urlParams = GetURLParams();
-const lvl = urlParams["lvl"];
+let lvl = urlParams["lvl"];
 
 if (lvl != undefined) {
     GetAndProcessFlashCard(lvl);
 }
 else {
-    const userInputLvl = prompt("lvl needed!");
-    GetAndProcessFlashCard(userInputLvl);
+    lvl = prompt("lvl needed!");
+    GetAndProcessFlashCard(lvl);
+}
+
+mainPageBtn.onclick = (e) => {
+    window.location = "./MainPage.html";
+}
+
+lvlSelectionBtn.onclick = (e) => {
+    window.location = "./LevelSelection.html";
 }
