@@ -181,7 +181,7 @@ submitBtn.onclick = (e) => {
     window.location = "./Login.html";
 }
 
-const lvl = urlParams["lvl"];
+let lvl = urlParams["lvl"];
 
 async function GetAndProcessQuiz (lvl) {
     const lvlQuizInfo = await FetchJSON(`../DummyData/QuizLevel${lvl}.json`)
@@ -252,6 +252,6 @@ if (lvl != undefined) {
     questionTitleCard.innerText = `QUIZ LEVEL ${lvl}`;
 }
 else {
-    const userInputLvl = prompt("lvl needed!");
-    GetAndProcessQuiz(userInputLvl);
+    lvl = prompt("lvl needed!");
+    GetAndProcessQuiz(lvl);
 }

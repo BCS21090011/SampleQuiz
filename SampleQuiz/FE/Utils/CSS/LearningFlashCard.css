@@ -21,6 +21,13 @@ div#FlashCardContainer {
             padding: 20px;
         }
 
+            div#FlashCardContainer > div.CardContainer > .Card > .Card-face img {
+                display: block;
+                margin: auto;
+                width: 100%;
+                height: auto;
+            }
+
 div#PageActionDiv {
     width: 25vw;
     display: flex;
