@@ -1,5 +1,8 @@
 body {
-    background-color: aqua;
+    background-image: url("../../Assets/Images/road-safety-rules-for-kids.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .titleCard {
