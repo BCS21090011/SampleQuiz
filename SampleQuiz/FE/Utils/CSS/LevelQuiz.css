@@ -55,6 +55,18 @@ div#QuestionDiv {
         margin-bottom: 20px;
     }
 
+    div#QuestionDiv > .ActualQuestionDiv {
+        margin: auto;
+        width: 80%;
+    }
+
+    div#QuestionDiv > .ActualQuestionDiv img {
+        display: block;
+        margin: auto;
+        width: 100%;
+        height: auto;
+    }
+
 div#AnswerDiv {
     width: 100%;
     display: flex;

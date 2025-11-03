@@ -77,6 +77,11 @@ function StylingAnswerBtn (btn, correctAns=true) {
     }
 }
 
+function MarkdownToHTML (markdown) {
+    const converter = new showdown.Converter({ strikethrough: true });
+    return converter.makeHtml(markdown);
+}
+
 function CreateLvlQuiz (index, quizInfo) {
     answerBtns = [];
 
@@ -90,9 +95,10 @@ function CreateLvlQuiz (index, quizInfo) {
     questionNum.innerText = `Question ${index + 1}:`;
     questionDiv.appendChild(questionNum);
 
-    const questionP = document.createElement("p");
-    questionP.innerText = question;
-    questionDiv.appendChild(questionP);
+    const actualQstDiv = document.createElement("div");
+    actualQstDiv.classList.add("ActualQuestionDiv");
+    actualQstDiv.innerHTML = MarkdownToHTML(question);
+    questionDiv.appendChild(actualQstDiv);
 
     answerDiv.innerHTML = "";
     answers.forEach((answer, ansIndex) => {
