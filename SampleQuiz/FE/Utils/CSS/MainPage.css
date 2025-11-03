@@ -30,23 +30,18 @@ body {
         transition: transform 0.3s;
     }
 
+        .actionCard > button#LearnBtn {
+            background-color: yellow;
+            color: black;
+        }
+
         .actionCard > button#PlayBtn {
             background-color: #4daf4d;
             color: white;
         }
 
-        .actionCard > button#SettingsBtn {
-            background-color: #ff9700;
-            color: white;
-        }
-
         .actionCard > button#HelpBtn {
             background-color: #2196f3;
-            color: white;
-        }
-
-        .actionCard > button#ExitBtn {
-            background-color: #f44236;
             color: white;
         }
 
