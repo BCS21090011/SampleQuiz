@@ -148,6 +148,7 @@ function HandleActionBtn (indexAfterAction, totalLength) {
 }
 
 const urlParams = GetURLParams();
+const questionTitleCard = document.querySelector("#QuestionTitleCard");
 
 const lvl = urlParams["lvl"];
 
@@ -214,6 +215,7 @@ async function GetAndProcessQuiz (lvl) {
 
 if (lvl != undefined) {
     GetAndProcessQuiz(lvl);
+    questionTitleCard.innerText = `QUIZ LEVEL ${lvl}`;
 }
 else {
     const userInputLvl = prompt("lvl needed!");
