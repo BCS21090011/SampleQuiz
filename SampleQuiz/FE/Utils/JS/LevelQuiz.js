@@ -1,4 +1,5 @@
 import { FetchJSON, GetURLParams } from "./URIUtils.js";
+import MarkdownToHTMLString from "./MarkDownUtils.js";
 
 const popupLayer = document.querySelector("#PopupLayer");
 const popupDiv = document.querySelector("#PopupLayer > div#PopupDiv");
@@ -87,11 +88,6 @@ function QuizMarkHandler (mark=0) {
     quizMarkP.innerText = `${quizMark}/${totalQuizMark}`;
 }
 
-function MarkdownToHTML (markdown) {
-    const converter = new showdown.Converter({ strikethrough: true });
-    return converter.makeHtml(markdown);
-}
-
 function CreateLvlQuiz (index, quizInfo) {
     answerBtns = [];
 
@@ -102,7 +98,7 @@ function CreateLvlQuiz (index, quizInfo) {
 
     questionNum.innerText = `Question ${index + 1}:`;
 
-    actualQstDiv.innerHTML = MarkdownToHTML(question);
+    actualQstDiv.innerHTML = MarkdownToHTMLString(question);
 
     answerDiv.innerHTML = "";
     answers.forEach((answer, ansIndex) => {

@@ -17,6 +17,6 @@
     left: 0;
 }
 
-.Back {
-    transform: rotateY(180deg);
-}
+    .Card-face.Back {
+        transform: rotateY(180deg);
+    }

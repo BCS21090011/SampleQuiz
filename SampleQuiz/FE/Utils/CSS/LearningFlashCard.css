@@ -6,18 +6,10 @@ body {
 }
 
 div#FlashCardContainer {
-    width: 25vw;
+    height: 50vh;
     aspect-ratio: 0.71;
-    background-color: white;
     margin-bottom: 25px;
-    border-radius: 50px;
-    padding: 50px;
-    overflow-y: auto;
 }
-
-    div#FlashCardContainer::-webkit-scrollbar {
-        display: none;
-    }
 
     div#FlashCardContainer > div.CardContainer {
         width: 100%;
@@ -26,6 +18,14 @@ div#FlashCardContainer {
         padding: 0;
         perspective: 1000px;
     }
+
+        div#FlashCardContainer > div.CardContainer > .Card > .Card-face {
+            width: calc(100% - 40px);
+            height: calc(100% - 40px);
+            background-color: white;
+            border-radius: 50px;
+            padding: 20px;
+        }
 
 div#PageActionDiv {
     width: 25vw;
