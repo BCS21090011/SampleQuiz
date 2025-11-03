@@ -24,7 +24,29 @@
         border: 1px solid black;
         border-radius: 25px;
         padding: 50px;
+        overflow-y: auto;
     }
+
+        #PopupLayer > div#PopupDiv::-webkit-scrollbar {
+            display: none;
+        }
+
+        #PopupLayer > div#PopupDiv > h1 {
+            margin: auto;
+            text-align: center;
+        }
+
+        #PopupLayer > div#PopupDiv > div.PopupInternalDiv {
+            width: 80%;
+            margin: auto;
+        }
+
+            #PopupLayer > div#PopupDiv > div.PopupInternalDiv img {
+                display: block;
+                margin: auto;
+                width: 50%;
+                height: auto;
+            }
 
 div#ContentDiv {
     justify-content: space-between;

@@ -21,9 +21,10 @@ function PopupCorrect (content="A passionate text here...") {
     h1.innerText = "Congratulation";
     popupDiv.appendChild(h1);
 
-    const p = document.createElement("p");
-    p.innerText = content;
-    popupDiv.appendChild(p);
+    const div = document.createElement("div");
+    div.classList.add("PopupInternalDiv");
+    div.innerHTML = MarkdownToHTMLString(content);
+    popupDiv.appendChild(div);
 
     ShowPopupLayer();
 
@@ -41,9 +42,10 @@ function PopupIncorrect (content="Text about wrong answer here...") {
     h1.innerText = "Oh no...";
     popupDiv.appendChild(h1);
 
-    const p = document.createElement("p");
-    p.innerText = content;
-    popupDiv.appendChild(p);
+    const div = document.createElement("div");
+    div.classList.add("PopupInternalDiv");
+    div.innerHTML = MarkdownToHTMLString(content);
+    popupDiv.appendChild(div);
 
     ShowPopupLayer();
 

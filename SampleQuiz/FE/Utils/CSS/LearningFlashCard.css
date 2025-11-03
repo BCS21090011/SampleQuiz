@@ -19,7 +19,12 @@ div#FlashCardContainer {
             background-color: white;
             border-radius: 50px;
             padding: 20px;
+            overflow-y: auto;
         }
+
+            div#FlashCardContainer > div.CardContainer > .Card > .Card-face::-webkit-scrollbar {
+                display: none;
+            }
 
             div#FlashCardContainer > div.CardContainer > .Card > .Card-face img {
                 display: block;
