@@ -121,5 +121,5 @@ if (lvl != undefined) {
 }
 else {
     const userInputLvl = prompt("lvl needed!");
-    GetAndProcessQuiz(userInputLvl);
+    GetAndProcessFlashCard(userInputLvl);
 }

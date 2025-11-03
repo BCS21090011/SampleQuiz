@@ -7,6 +7,7 @@ body {
 
 div#FlashCardContainer {
     height: 50vh;
+    min-height: 500px;
     aspect-ratio: 0.71;
     margin-bottom: 25px;
 }
