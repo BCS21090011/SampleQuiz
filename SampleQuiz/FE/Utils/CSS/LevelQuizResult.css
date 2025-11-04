@@ -1,0 +1,9 @@
+#ContentCard {
+    width: 50vw;
+    height: 50vh;
+    background-color: #ffffffdd;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
