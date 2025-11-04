@@ -1,5 +1,12 @@
 import { FetchJSON, GetURLParams } from "./URIUtils.js";
 import MarkdownToHTMLString from "./MarkDownUtils.js";
+import { LoadAnswersToSessionStorage, UnloadAnswersFromSessionStorage } from "./UserAnswerSessionStorageUtils.js";
+
+const urlParams = GetURLParams();
+let lvl = urlParams["lvl"];
+
+let startDT = new Date();
+let completionDT = null;
 
 const popupLayer = document.querySelector("#PopupLayer");
 const popupDiv = document.querySelector("#PopupLayer > div#PopupDiv");
@@ -87,13 +94,14 @@ function StylingAnswerBtn (btn, correctAns=true) {
     }
 }
 
-function HandleSubmitBtn() {
+function HandleSubmitBtn () {
     const unAnswereds = quizUserAnswers.filter((quizUserAnswer) => {
         return quizUserAnswer["UserAnswer"] == null;
     });
 
     if (unAnswereds.length == 0) {
         UnHideElement(submitBtn);
+        completionDT = new Date();
     }
     else {
         HideElement(submitBtn);
@@ -154,58 +162,11 @@ function CreateLvlQuiz (index, quizInfo) {
     });
 }
 
-function HandleActionBtn (indexAfterAction, totalLength) {
-    // If it's first item:
-    if (indexAfterAction == 0) {
-        HideElement(prevBtn);
-    }
-    else {
-        UnHideElement(prevBtn);
-    }
-
-    // If it's last item:
-    if (indexAfterAction == totalLength - 1) {
-        HideElement(nextBtn);
-    }
-    else {
-        UnHideElement(nextBtn);
-    }
-}
-
-const urlParams = GetURLParams();
-const questionTitleCard = document.querySelector("#QuestionTitleCard");
-
-backBtn.onclick = (e) => {
-    window.location = "./LevelSelection.html";
-}
-
-submitBtn.onclick = (e) => {
-    window.location = "./Login.html";
-}
-
-let lvl = urlParams["lvl"];
-
-async function GetAndProcessQuiz (lvl) {
-    const lvlQuizInfo = await FetchJSON(`../DummyData/QuizLevel${lvl}.json`)
-        .catch((reason) => {
-            alert(`Error encountered:\n${reason}`);
-        });
-    
-    if (lvlQuizInfo["Error"]) {
-        alert(lvlQuizInfo["Error"]);
-        return;
-    }
-
-    let quizIndex = 0;  // Always start with first question.
-    const lvlQuizJSON = lvlQuizInfo["JSON"];
-    quizUserAnswers = lvlQuizJSON.map((qst) => {
-        return {
-            ...qst,
-            "UserAnswer": null
-        }
-    });
+function CreateLvlQuizzes (lvlQuizJSON) {
     const questionCount = lvlQuizJSON.length;
     totalQuizMark = questionCount;  // Separated with question count, in case they aren't the same.
+
+    let quizIndex = 0;  // Always start with first question.
 
     if (questionCount > 0) {
         CreateLvlQuiz(quizIndex, lvlQuizJSON[quizIndex]);
@@ -245,8 +206,91 @@ async function GetAndProcessQuiz (lvl) {
     else {
         alert("There are no question fetched.");
     }
+}
+
+async function ProcessSessionStorageData (lvl, sessionStorageLvlData) {
+    const confirmLoad = confirm("Resume from where you stop?");
+
+    if (confirmLoad) {
+        quizMark = sessionStorageLvlData["QuizMark"];
+        startDT = new Date(sessionStorageLvlData["StartDatetime"]);
+        const lvlQuizJSON = sessionStorageLvlData["QuizInfo"];
+        quizUserAnswers = lvlQuizJSON;
+        return lvlQuizJSON;
+    }
+    else {
+        return await ProcessJSONData(lvl);
+    }
+}
+
+async function ProcessJSONData (lvl) {
+    const lvlQuizInfo = await FetchJSON(`../DummyData/QuizLevel${lvl}.json`)
+        .catch((reason) => {
+            alert(`Error encountered:\n${reason}`);
+        });
     
+    if (lvlQuizInfo["Error"]) {
+        alert(lvlQuizInfo["Error"]);
+        return;
+    }
+
+    const lvlQuizJSON = lvlQuizInfo["JSON"];
+    quizUserAnswers = lvlQuizJSON.map((qst) => {
+        return {
+            ...qst,
+            "UserAnswer": null
+        }
+    });
+
+    return lvlQuizJSON;
+}
+
+function HandleActionBtn (indexAfterAction, totalLength) {
+    // If it's first item:
+    if (indexAfterAction == 0) {
+        HideElement(prevBtn);
+    }
+    else {
+        UnHideElement(prevBtn);
+    }
+
+    // If it's last item:
+    if (indexAfterAction == totalLength - 1) {
+        HideElement(nextBtn);
+    }
+    else {
+        UnHideElement(nextBtn);
+    }
+}
+
+const questionTitleCard = document.querySelector("#QuestionTitleCard");
+
+backBtn.onclick = (e) => {
+    window.location = "./LevelSelection.html";
+}
+
+submitBtn.onclick = (e) => {
+    window.location = "./Login.html";
+}
+
+window.onbeforeunload = (e) => {
+    LoadAnswersToSessionStorage(lvl, quizMark, startDT, completionDT, quizUserAnswers);
+}
+
+async function GetAndProcessQuiz (lvl) {
+    const sessionStorageLvlData = UnloadAnswersFromSessionStorage(lvl);
+
+    if (sessionStorageLvlData == null) {
+        const lvlQuizJSON = await ProcessJSONData(lvl);
+        CreateLvlQuizzes(lvlQuizJSON);
+    }
+    else {
+        const lvlQuizJSON = await ProcessSessionStorageData(lvl, sessionStorageLvlData);
+        CreateLvlQuizzes(lvlQuizJSON);
+    }
+
     QuizMarkHandler();
+    HandleSubmitBtn();
 }
 
 if (lvl != undefined) {
