@@ -13,6 +13,8 @@ const popupDiv = document.querySelector("#PopupLayer > div#PopupDiv");
 
 let popupTimeoutID = null;
 
+let userStartedAnswering = false;
+
 function ShowPopupLayer () {
     UnHideElement(popupLayer);
 }
@@ -133,6 +135,7 @@ function CreateLvlQuiz (index, quizInfo) {
         btn.onclick = (e) => {
             if (quizUserAnswers[index]["UserAnswer"] == null) {
                 quizUserAnswers[index]["UserAnswer"] = ansIndex;
+                userStartedAnswering = true;
                 HandleSubmitBtn();
 
                 if (ansIndex == correctAnswerIndex) {
@@ -212,6 +215,7 @@ async function ProcessSessionStorageData (lvl, sessionStorageLvlData) {
     const confirmLoad = confirm("Resume from where you stop?");
 
     if (confirmLoad) {
+        userStartedAnswering = true;
         quizMark = sessionStorageLvlData["QuizMark"];
         startDT = new Date(sessionStorageLvlData["StartDatetime"]);
         const lvlQuizJSON = sessionStorageLvlData["QuizInfo"];
@@ -274,7 +278,9 @@ submitBtn.onclick = (e) => {
 }
 
 window.onbeforeunload = (e) => {
-    LoadAnswersToSessionStorage(lvl, quizMark, startDT, completionDT, quizUserAnswers);
+    if (userStartedAnswering == true) {
+        LoadAnswersToSessionStorage(lvl, quizMark, startDT, completionDT, quizUserAnswers);
+    }
 }
 
 async function GetAndProcessQuiz (lvl) {
