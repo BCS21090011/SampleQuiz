@@ -1,6 +1,7 @@
 import MarkdownToHTMLString from "./MarkDownUtils.js";
 import { UnloadAnswersFromSessionStorage } from "./UserAnswerSessionStorageUtils.js";
 import { GetURLParams } from "./URIUtils.js";
+import { MSToStr } from "./TimeUtils.js";
 
 const contentCard = document.querySelector("#ContentCard");
 
@@ -33,6 +34,17 @@ function CreateResultContent (result) {
     const quizMark = result["QuizMark"];
     const totalQuizMark = result["TotalQuizMark"];
     const markPerc = (quizMark / totalQuizMark) * 100;
+    const markPercText = `${markPerc.toFixed(2)}%`;
+
+    const startDTMS = result["StartDatetime"];
+    const startDT = new Date(startDTMS);
+
+    const completionDTMS = result["CompletionDatetime"];
+    const completionDT = completionDTMS == null ? null : new Date(completionDTMS);
+
+    const timeTaken = completionDTMS != null ? completionDTMS - startDTMS : null;
+
+    const completed = completionDT != null;
 
     contentCard.innerHTML = "";
 
@@ -42,7 +54,7 @@ function CreateResultContent (result) {
     contentCard.appendChild(h2);
 
     const h1 = document.createElement("h1");
-    h1.innerText = `${markPerc.toFixed(2)}%`;
+    h1.innerText = `${markPercText} (${quizMark}/${totalQuizMark})`;
     h1.classList.add("ResultMark");
     contentCard.appendChild(h1);
 
@@ -50,6 +62,34 @@ function CreateResultContent (result) {
     h3.innerText = GetResultMarkComment(markPerc);
     h3.classList.add("ResultComment");
     contentCard.appendChild(h3);
+
+    if (completed == true) {
+        const p = document.createElement("p");
+        const timeTakenStr = MSToStr(timeTaken);
+        p.innerText = `Your time is: ${timeTakenStr}`;
+        p.classList.add("ResultTimeTaken");
+        contentCard.appendChild(p);
+    }
+
+    // For share button:
+    if (navigator.share) {  // If it's supported:
+        const shareBtn = document.createElement("button");
+        shareBtn.innerText = "Share";
+        shareBtn.classList.add("ShareBtn");
+        shareBtn.onclick = (e) => {
+            const timeTakenStr = timeTaken != null ? MSToStr(timeTaken) : "(not completed yet)";
+            navigator.share({
+                text: `I just got ${markPercText} (${quizMark}/${totalQuizMark}) in ${timeTakenStr}, can you beat me?`
+            })
+                .then(() => {
+                    // Sharing.
+                })
+                .catch((error) => {
+                    alert(`Error sharing:\n${error}`)
+                });
+        }
+        contentCard.appendChild(shareBtn);
+    }
 }
 
 function HandleResultContent (lvl) {

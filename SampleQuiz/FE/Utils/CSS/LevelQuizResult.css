@@ -1,6 +1,6 @@
 #ContentCard {
     width: 50vw;
-    height: 50vh;
+    min-height: 50vh;
     background-color: #ffffffdd;
     border-radius: 25px;
     display: flex;
@@ -20,3 +20,22 @@
     #ContentCard > .ResultComment {
         text-align: center;
     }
+
+    #ContentCard > .ResultTimeTaken {
+        text-align: center;
+    }
+
+    #ContentCard > .ShareBtn {
+        height: 50px;
+        width: 100px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: transform 0.3s;
+        font-weight: bold;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        #ContentCard > .ShareBtn:hover {
+            transform: scale(105%);
+        }
