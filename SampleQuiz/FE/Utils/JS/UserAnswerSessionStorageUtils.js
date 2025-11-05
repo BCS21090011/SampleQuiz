@@ -4,10 +4,11 @@ function GetSessionStorageKeyOfLvl (lvl) {
     return `${sessionStorageBaseKey}_${lvl}`;
 }
 
-function LoadAnswersToSessionStorage (lvl, quizMark, startDT=null, completionDT=null, quizUserAnswers=[]) {
+function LoadAnswersToSessionStorage (lvl, quizMark, totalQuizMark, startDT=null, completionDT=null, quizUserAnswers=[]) {
     const jsonData = {
         "Lvl": lvl,
         "QuizMark": quizMark,
+        "TotalQuizMark": totalQuizMark,
         "StartDatetime": startDT != null ? startDT.getTime() : null,
         "CompletionDatetime": completionDT != null ? completionDT.getTime() : null,
         "QuizInfo": quizUserAnswers

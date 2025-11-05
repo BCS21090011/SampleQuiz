@@ -279,7 +279,7 @@ submitBtn.onclick = (e) => {
 
 window.onbeforeunload = (e) => {
     if (userStartedAnswering == true) {
-        LoadAnswersToSessionStorage(lvl, quizMark, startDT, completionDT, quizUserAnswers);
+        LoadAnswersToSessionStorage(lvl, quizMark, totalQuizMark, startDT, completionDT, quizUserAnswers);
     }
 }
 
@@ -306,4 +306,5 @@ if (lvl != undefined) {
 else {
     lvl = prompt("lvl needed!");
     GetAndProcessQuiz(lvl);
+    questionTitleCard.innerText = `QUIZ LEVEL ${lvl}`;
 }

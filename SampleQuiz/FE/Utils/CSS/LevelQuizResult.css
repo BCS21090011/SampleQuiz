@@ -7,3 +7,16 @@
     flex-direction: column;
     justify-content: center;
 }
+
+    #ContentCard > .ResultText {
+        text-align: center;
+    }
+
+    #ContentCard > .ResultMark {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #ContentCard > .ResultComment {
+        text-align: center;
+    }
