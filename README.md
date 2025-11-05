@@ -4,6 +4,70 @@ Please first start with `./SetupLocalhostPython.bat`, it will setup a localhost.
 
 Python required.
 
+# Flow
+
+```mermaid
+flowchart
+
+MainPage
+--PLAY-->
+LevelSelection
+--PLAY-->
+LevelQuiz
+--Submit-->
+Login
+-->
+LevelQuizResult
+
+Login
+--Create an account-->
+Register
+-->
+Login
+
+LearningNote
+--Flash Card-->
+LearningFlashCard
+--Note-->
+LearningNote
+
+LevelSelection
+--LEARN-->
+LearningNote
+--Level Selection-->
+LevelSelection
+
+LearningFlashCard
+--Level Selection-->
+LevelSelection
+
+LearningNote
+--Mainpage-->
+MainPage
+
+LearningFlashCard
+--Mainpage-->
+MainPage
+
+LevelQuiz
+--Back-->
+LevelSelection
+
+LevelSelection
+--Back-->
+MainPage
+
+MainPage
+--HELP-->
+Help
+--Back to Main Page-->
+MainPage
+
+Login
+--Confirm (without lvl)-->
+MainPage
+```
+
 # Quiz & Flashcard Content Design
 
 ## Overview
