@@ -1,4 +1,13 @@
+import { GetURLParams } from "./URIUtils.js";
+
+const urlParams = GetURLParams();
+let lvl = urlParams["lvl"];
+
 const registrationForm = document.querySelector("#RegistrationForm");
+const alreadyHaveAccountA = document.querySelector("a#AlreadyHaveAccountA");
+
+alreadyHaveAccountA.href = lvl != undefined ? `./Login.html?lvl=${lvl}` : "./Login.html";
+
 registrationForm.onsubmit = function(e) {
     e.preventDefault();
     
@@ -11,6 +20,6 @@ registrationForm.onsubmit = function(e) {
         alert("Password missmatch, please retry.");
     }
     else {
-        window.location = "./Login.html";
+        window.location = lvl != undefined ? `./Login.html?lvl=${lvl}` : "./Login.html";
     }
 };

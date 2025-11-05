@@ -274,7 +274,7 @@ backBtn.onclick = (e) => {
 }
 
 submitBtn.onclick = (e) => {
-    window.location = "./Login.html";
+    window.location = `./Login.html?lvl=${lvl}`;
 }
 
 window.onbeforeunload = (e) => {
@@ -297,14 +297,13 @@ async function GetAndProcessQuiz (lvl) {
 
     QuizMarkHandler();
     HandleSubmitBtn();
+    questionTitleCard.innerText = `QUIZ LEVEL ${lvl}`;
 }
 
 if (lvl != undefined) {
     GetAndProcessQuiz(lvl);
-    questionTitleCard.innerText = `QUIZ LEVEL ${lvl}`;
 }
 else {
     lvl = prompt("lvl needed!");
     GetAndProcessQuiz(lvl);
-    questionTitleCard.innerText = `QUIZ LEVEL ${lvl}`;
 }
