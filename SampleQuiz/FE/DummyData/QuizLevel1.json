@@ -19,7 +19,7 @@
             "At a traffic light only when red"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "At a zebra crossing or pedestrian bridge"
     },
     {
         "Question": "What color clothes help others see you better at night?",
@@ -30,7 +30,7 @@
             "Green"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Bright or reflective colors"
     },
     {
         "Question": "When walking on the road without sidewalks, you should walk:",
@@ -41,7 +41,7 @@
             "Zig-zag to be visible"
         ],
         "CorrectAnswerIndex": 0,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "On the right side, facing oncoming traffic"
     },
     {
         "Question": "Which action keeps you safe while using the road?",
@@ -52,7 +52,7 @@
             "Closing your eyes when crossing"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Watching for vehicles and signals"
     },
     {
         "Question": "If the traffic light for pedestrians is green, you should:",
@@ -63,7 +63,7 @@
             "Play on the crossing"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Cross carefully while still checking both sides"
     },
     {
         "Question": "Wearing a bicycle helmet helps:",
@@ -74,7 +74,7 @@
             "Keep your hair neat"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Protect your head during accidents"
     },
     {
         "Question": "Before cycling, you should always:",
@@ -85,7 +85,7 @@
             "Skip the helmet"
         ],
         "CorrectAnswerIndex": 0,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Check brakes, tires, and lights"
     },
     {
         "Question": "If a ball rolls onto the road, you should:",
@@ -96,7 +96,7 @@
             "Wait in the middle of the road"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Ask an adult for help"
     },
     {
         "Question": "When walking in a group, you should:",
@@ -107,6 +107,6 @@
             "Walk in opposite directions"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Walk in a single line on the side"
     }
 ]
