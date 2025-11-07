@@ -8,7 +8,7 @@
             "Yield"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Stop completely and check for traffic"
     },
     {
         "Question": "A red circle with a white horizontal bar in the middle means:",
@@ -19,7 +19,7 @@
             "End of highway"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "No entry"
     },
     {
         "Question": "A blue circle with a bicycle symbol means:",
@@ -30,7 +30,7 @@
             "Motorcycles only"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Bicycles only (cycle path)"
     },
     {
         "Question": "A triangle with red border and children inside indicates:",
@@ -41,7 +41,7 @@
             "Market area"
         ],
         "CorrectAnswerIndex": 0,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Playground ahead"
     },
     {
         "Question": "A yellow diamond sign with a deer picture means:",
@@ -52,7 +52,7 @@
             "Farm ahead"
         ],
         "CorrectAnswerIndex": 0,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Animal crossing ahead"
     },
     {
         "Question": "A red circular sign with a number '80' means:",
@@ -63,7 +63,7 @@
             "Speed for trucks only"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Maximum speed 80 km/h"
     },
     {
         "Question": "A triangular sign with '!' symbol means:",
@@ -74,7 +74,7 @@
             "Smooth road"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "General danger ahead"
     },
     {
         "Question": "A blue rectangular sign with a white 'P' means:",
@@ -85,7 +85,7 @@
             "Pedestrian crossing"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Parking area"
     },
     {
         "Question": "A yellow diamond sign with curved arrow means:",
@@ -96,7 +96,7 @@
             "One-way road"
         ],
         "CorrectAnswerIndex": 0,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "Sharp bend ahead"
     },
     {
         "Question": "A red circular sign showing a horn with a diagonal line means:",
@@ -107,6 +107,6 @@
             "Toll ahead"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": ""
+        "AnswerExplanation": "No honking area"
     }
 ]
