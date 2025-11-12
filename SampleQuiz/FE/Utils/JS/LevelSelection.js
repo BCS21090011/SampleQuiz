@@ -63,7 +63,7 @@ function CreateLevelCard(levelInfo, index) {
     levelLearnBtn.classList.add("LevelBtn", "LearnBtn");
     levelLearnBtn.innerText = "LEARN";
     levelLearnBtn.onclick = (e) => {
-        window.location = `./LearningNote.html?lvl=${lvlID}`;
+        window.location = `./LearningFlashCard.html?lvl=${lvlID}`;
     }
     levelCard.appendChild(levelLearnBtn);
 
