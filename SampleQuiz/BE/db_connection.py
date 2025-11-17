@@ -9,8 +9,8 @@ class DatabaseConnection:
     def __init__(self):
         self.host = os.getenv('DB_HOST', 'localhost')
         self.database = os.getenv('DB_NAME', 'RoadSafety')
-        self.user = os.getenv('DB_USER', 'root')
-        self.password = os.getenv('DB_PASSWORD', '')
+        self.user = os.getenv("MySQL_root_User", "root")
+        self.password = os.getenv("MySQL_root_PW", "")
         self.connection = None
 
     def connect(self):
