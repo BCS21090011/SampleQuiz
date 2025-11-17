@@ -8,7 +8,7 @@ load_dotenv()
 class DatabaseConnection:
     def __init__(self):
         self.host = os.getenv('DB_HOST', 'localhost')
-        self.database = os.getenv('DB_NAME', 'RoadSafety')
+        self.database = os.getenv('DB_NAME', 'SampleQuiz_RoadSafety')
         self.user = os.getenv("MySQL_root_User", "root")
         self.password = os.getenv("MySQL_root_PW", "")
         self.connection = None

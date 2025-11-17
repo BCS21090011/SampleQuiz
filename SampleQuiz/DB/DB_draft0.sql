@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS RoadSafety;
+DROP DATABASE IF EXISTS SampleQuiz_RoadSafety;
 
-CREATE DATABASE RoadSafety;
+CREATE DATABASE SampleQuiz_RoadSafety;
 
-USE RoadSafety;
+USE SampleQuiz_RoadSafety;
 
 CREATE TABLE User (
     ID INT NOT NULL AUTO_INCREMENT,
