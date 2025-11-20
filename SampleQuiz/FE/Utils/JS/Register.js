@@ -29,7 +29,7 @@ async function RegisterUser (username, password) {
             return true;
         }
         else {
-            alert(`Registration failed: ${resultJSON["message"]}`);
+            alert(`Registration Failed: ${resultJSON["message"]}`);
             return false;
         }
     }

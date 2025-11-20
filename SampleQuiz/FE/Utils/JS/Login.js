@@ -37,7 +37,7 @@ loginForm.onsubmit = async function(e) {
             alert("Login successful!");
         }
         else {
-            alert(`Login failed: ${resultJSON["message"]}`);
+            alert(`Login Failed: ${resultJSON["message"]}`);
         }
     }
     else {
