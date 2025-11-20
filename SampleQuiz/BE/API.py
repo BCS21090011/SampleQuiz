@@ -176,6 +176,38 @@ def DeleteUser(userID: int):
             "message": f"Internal server error\n{repr(e)}"
         }), 500
 
+@api_blueprint.route("/SubmitScore/<int:userID>/<int:levelID>", methods=["POST"])
+def SubmitScore(userID: int, levelID: int):
+    try:
+        data = request.get_json()
+        startDT: str = data.get("startDateTime")
+        completionDT: str = data.get("completionDateTime", None)
+        score: float = data.get("score", None)
+        
+        db: DatabaseConnection = DatabaseConnection()
+        if not db.connect():
+            return jsonify({
+                "success": False,
+                "message": "Database connection failed"
+            }), 500
+        
+        db.execute_query(
+            "INSERT INTO Scores (UserID, StartDateTime, CompletionDatetime, LevelID, Score) VALUES (%s, %s, %s, %s, %s)",
+            (userID, startDT, completionDT, levelID, score)
+        )
+        
+        db.disconnect()
+        
+        return jsonify({
+            "success": True,
+            "message": "Score submitted successfully"
+        }), 201
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Internal server error\n{repr(e)}"
+        }), 500
+
 @api_blueprint.route("/Scores/<int:userID>", methods=["GET"])
 def GetScores(userID: int):
     try:
