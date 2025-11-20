@@ -1,7 +1,9 @@
 from flask import Flask, send_from_directory
 import os
+from BE.API import api_blueprint
 
 app: Flask = Flask(__name__)
+app.register_blueprint(api_blueprint, url_prefix="/API")
 
 feDir: str = os.path.join(app.root_path, "FE")
 fePageDir: str = os.path.join(feDir, "Pages")
