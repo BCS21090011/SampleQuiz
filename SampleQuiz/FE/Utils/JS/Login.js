@@ -1,4 +1,5 @@
 import { FetchJSON, GetURLParams } from "./URIUtils.js";
+import { LoadToSessionStorage } from "./SessionStorageUtils.js";
 
 const urlParams = GetURLParams();
 let lvl = urlParams["lvl"];
@@ -14,7 +15,7 @@ loginForm.onsubmit = async function(e) {
     const formData = new FormData(this);
 
     const result = await FetchJSON(
-        "http://127.0.0.1:8000/api/login",
+        "http://127.0.0.1:5000/API/Login",
         undefined,
         {
             "Content-Type": "application/json"
@@ -26,21 +27,31 @@ loginForm.onsubmit = async function(e) {
         "POST"
     );
 
-    console.log(result);
+    const resultJSON = result["JSON"];
+    let loginSuccess = false;
 
     if (result["Error"] == null) {
-        const resultJSON = result["JSON"];
-        
-        alert(JSON.stringify(resultJSON));
+        if (resultJSON["success"] === true) {
+            LoadToSessionStorage("UserID", resultJSON["userId"]);
+            loginSuccess = true;
+            alert("Login successful!");
+        }
+        else {
+            alert(`Login failed: ${resultJSON["message"]}`);
+        }
     }
     else {
-        alert(`Error: ${result["Error"]}`);
+        const message = resultJSON == null ? result["Error"] : resultJSON["message"];
+
+        alert(`Error: ${message}`);
     }
 
-    if (lvl != undefined) {
-        //window.location = `./LevelQuizResult.html?lvl=${lvl}`;
-    }
-    else {
-        //window.location = "./MainPage.html";
+    if (loginSuccess == true) {
+        if (lvl != undefined) {
+            window.location = `./LevelQuizResult.html?lvl=${lvl}`;
+        }
+        else {
+            window.location = "./MainPage.html";
+        }
     }
 };

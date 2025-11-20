@@ -1,6 +1,6 @@
 import { FetchJSON, GetURLParams } from "./URIUtils.js";
 import MarkdownToHTMLString from "./MarkDownUtils.js";
-import { LoadAnswersToSessionStorage, UnloadAnswersFromSessionStorage } from "./UserAnswerSessionStorageUtils.js";
+import { LoadAnswersToSessionStorage, UnloadAnswersFromSessionStorage } from "./SessionStorageUtils.js";
 
 const urlParams = GetURLParams();
 let lvl = urlParams["lvl"];

@@ -1,2 +1,2 @@
-python -m http.server
+python App.py
 pause
