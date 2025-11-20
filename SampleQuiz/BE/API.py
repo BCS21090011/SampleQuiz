@@ -130,10 +130,7 @@ def GetUser(userID: int):
         if user:
             return jsonify({
                 "success": True,
-                "user": {
-                    "userId": user.get("ID"),
-                    "username": user.get("UserName")
-                }
+                "user": user
             }), 200
         else:
             return jsonify({
@@ -173,6 +170,33 @@ def DeleteUser(userID: int):
                 "success": False,
                 "message": "User not found"
             }), 404
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Internal server error\n{repr(e)}"
+        }), 500
+
+@api_blueprint.route("/Scores/<int:userID>", methods=["GET"])
+def GetScores(userID: int):
+    try:
+        db: DatabaseConnection = DatabaseConnection()
+        if not db.connect():
+            return jsonify({
+                "success": False,
+                "message": "Database connection failed"
+            }), 500
+            
+        scores = db.fetch_all(
+            "SELECT * FROM Scores WHERE UserID = %s WHERE CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC",
+            (userID,)
+        )
+            
+        db.disconnect()
+        
+        return jsonify({
+            "success": True,
+            "scores": scores
+        }), 200
     except Exception as e:
         return jsonify({
             "success": False,
