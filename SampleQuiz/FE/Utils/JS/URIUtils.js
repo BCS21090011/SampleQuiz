@@ -31,10 +31,9 @@ async function FetchJSON(uri, param, headers, body, method="GET") {
             });
 
         if (response != null) {
-            if (response.ok) {
-                json = await response.json();
-            }
-            else {
+            json = await response.json();
+            
+            if (!response.ok) {
                 error = response.statusText;
             }
         }
