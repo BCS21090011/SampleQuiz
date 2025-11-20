@@ -1,5 +1,5 @@
 import MarkdownToHTMLString from "./MarkDownUtils.js";
-import { UnloadAnswersFromSessionStorage } from "./UserAnswerSessionStorageUtils.js";
+import { UnloadAnswersFromSessionStorage } from "./SessionStorageUtils.js";
 import { GetURLParams } from "./URIUtils.js";
 import { MSToStr } from "./TimeUtils.js";
 
