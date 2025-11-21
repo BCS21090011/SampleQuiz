@@ -33,9 +33,23 @@ function LoadAnswersToSessionStorage (lvl, quizMark, totalQuizMark, startDT=null
     LoadToSessionStorage(key, jsonData);
 }
 
+function GetAnswersFromSessionStorage (lvl) {
+    const key = GetQuizResultSessionStorageKeyOfLvl(lvl);
+    const jsonString = window.sessionStorage.getItem(key);
+    const jsonData = JSON.parse(jsonString);
+
+    return jsonData;
+}
+
 function UnloadAnswersFromSessionStorage (lvl) {
     const key = GetQuizResultSessionStorageKeyOfLvl(lvl);
     return UnloadFromSessionStorage(key);
 }
 
-export { LoadToSessionStorage, UnloadFromSessionStorage, LoadAnswersToSessionStorage, UnloadAnswersFromSessionStorage };
+export {
+    LoadToSessionStorage,
+    UnloadFromSessionStorage,
+    LoadAnswersToSessionStorage,
+    GetAnswersFromSessionStorage,
+    UnloadAnswersFromSessionStorage
+};
