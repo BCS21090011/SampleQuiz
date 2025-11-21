@@ -1,7 +1,7 @@
 from flask import Flask, send_from_directory
 import os
 from BE.API import api_blueprint
-from BE.Auth import required_auth
+from BE.Auth import required_page_auth
 from dotenv import load_dotenv
 
 load_dotenv()

@@ -1,8 +1,9 @@
-from flask import request, jsonify, send_from_directory
+from flask import request, jsonify, redirect
 from functools import wraps
 import os
 import jwt
 from datetime import datetime, timedelta, timezone
+from urllib.parse import urlencode
 
 jwt_secret_key: str = os.getenv("JWT_secret_key", "")
 jwt_algorithm: str = os.getenv("JWT_algorithm", "")
@@ -45,24 +46,40 @@ def DecodeAuthHeader():
     except Exception as e:
         return None, f"Authorization header error: {repr(e)}"
 
-def __default_onFailure(error: str):
-    return jsonify({
-        "success": False,
-        "message": error
-    }), 401
+def required_auth(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        payload, error = DecodeAuthHeader()
+        
+        if error:
+            return jsonify({
+                "success": False,
+                "message": error
+            }), 401
+            
+        # Store payload in request context:
+        request.user_payload = payload
+        
+        return func(*args, **kwargs)
+    return wrapper
 
-def required_auth(onFailure=__default_onFailure):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            payload, error = DecodeAuthHeader()
+def required_page_auth(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        payload, error = DecodeAuthHeader()
+        
+        if error:
+            urlParams: dict = request.args.to_dict()
+            urlParams.setdefault("dest", request.path)
             
-            if error:
-                return onFailure(error)
-                
-            # Store payload in request context:
-            request.user_payload = payload
+            urlParamsStr: str = urlencode(urlParams)
             
-            return func(*args, **kwargs)
-        return wrapper
-    return decorator
+            # Redirect to login page with destination parameter:
+            login_url = f"/Login.html?{urlParamsStr}"
+            return redirect(login_url)
+            
+        # Store payload in request context:
+        request.user_payload = payload
+        
+        return func(*args, **kwargs)
+    return wrapper
