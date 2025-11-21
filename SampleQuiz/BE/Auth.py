@@ -1,11 +1,8 @@
-from flask import Blueprint, request, jsonify
-from BE.db_connection import DatabaseConnection
+from flask import request, jsonify
 from functools import wraps
 import os
 import jwt
 from datetime import datetime, timedelta, timezone
-
-auth_blueprint = Blueprint("Auth", __name__)
 
 jwt_secret_key: str = os.getenv("JWT_secret_key", "")
 jwt_algorithm: str = os.getenv("JWT_algorithm", "")
