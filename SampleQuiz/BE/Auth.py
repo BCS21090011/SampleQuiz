@@ -18,14 +18,14 @@ def GenerateToken(userID, lifeTime: timedelta=timedelta(hours=6)) -> str:
         "iat": dtNow
     }
     
-    return jwt.encode(payload, jwt_secret_key, algorithm="HS256")
+    return jwt.encode(payload, jwt_secret_key, algorithm=jwt_algorithm)
 
 def DecodeToken(token: str):
     if not token:
         return None, "Missing token"
     
     try:
-        payload: dict = jwt.decode(token, jwt_secret_key, algorithms=["HS256"])
+        payload: dict = jwt.decode(token, jwt_secret_key, algorithms=jwt_algorithm)
         return payload, None
     except jwt.ExpiredSignatureError:
         return None, "Token expired"
