@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, send_from_directory
 from functools import wraps
 import os
 import jwt
@@ -45,19 +45,24 @@ def DecodeAuthHeader():
     except Exception as e:
         return None, f"Authorization header error: {repr(e)}"
 
-def required_auth(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        payload, error = DecodeAuthHeader()
-        
-        if error:
-            return jsonify({
-                "success": False,
-                "message": error
-            }), 401
+def __default_onFailure(error: str):
+    return jsonify({
+        "success": False,
+        "message": error
+    }), 401
+
+def required_auth(onFailure=__default_onFailure):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            payload, error = DecodeAuthHeader()
             
-        # Store payload in request context:
-        request.user_payload = payload
-        
-        return func(*args, **kwargs)
-    return wrapper
+            if error:
+                return onFailure(error)
+                
+            # Store payload in request context:
+            request.user_payload = payload
+            
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
