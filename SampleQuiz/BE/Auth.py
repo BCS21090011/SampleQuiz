@@ -44,8 +44,6 @@ def DecodeAuthHeader():
         return payload, error
     except Exception as e:
         return None, f"Authorization header error: {repr(e)}"
-    
-    return None, "Unknown error"
 
 def required_auth(func):
     @wraps(func)
