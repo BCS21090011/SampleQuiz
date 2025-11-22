@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from BE.db_connection import DatabaseConnection
+from BE.Auth import GenerateToken, DecodeToken
 
 api_blueprint = Blueprint("API", __name__)
 
@@ -91,8 +92,7 @@ def Login():
                 return jsonify({
                     "success": True,
                     "message": "Login successful",
-                    "userId": user.get("ID"),
-                    "username": user.get("UserName")
+                    "token": GenerateToken(user.get("ID"))
                 }), 200
             else:
                 return jsonify({
@@ -109,7 +109,38 @@ def Login():
             "success": False,
             "message": f"Internal server error\n{repr(e)}"
         }), 500
+
+@api_blueprint.route("/ValidateJWT", methods=["POST"])
+def ValidateJWT():
+    try:
+        data = request.get_json()
+        token: str = data.get("token")
         
+        if not token:
+            return jsonify({
+                "success": False,
+                "message": "Token is required"
+            }), 400
+        
+        payload, error = DecodeToken(token)
+        
+        if error:
+            return jsonify({
+                "success": False,
+                "message": error
+            }), 401
+        
+        return jsonify({
+            "success": True,
+            "message": "Token is valid",
+            "payload": payload
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Internal server error\n{repr(e)}"
+        }), 500
+
 @api_blueprint.route("/User/<int:userID>", methods=["GET"])
 def GetUser(userID: int):
     try:

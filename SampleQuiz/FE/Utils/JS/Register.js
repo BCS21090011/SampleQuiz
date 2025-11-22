@@ -1,12 +1,11 @@
 import { FetchJSON, GetURLParams } from "./URIUtils.js";
 
-const urlParams = GetURLParams();
-let lvl = urlParams["lvl"];
+const urlParam = window.location.search;
 
 const registrationForm = document.querySelector("#RegistrationForm");
 const alreadyHaveAccountA = document.querySelector("a#AlreadyHaveAccountA");
 
-alreadyHaveAccountA.href = lvl != undefined ? `./Login.html?lvl=${lvl}` : "./Login.html";
+alreadyHaveAccountA.href = `./Login.html${urlParam}`;
 
 async function RegisterUser (username, password) {
     const result = await FetchJSON(
@@ -57,7 +56,7 @@ registrationForm.onsubmit = async function(e) {
         const registrationSuccess = await RegisterUser(username, password);
 
         if (registrationSuccess == true) {
-            window.location = lvl != undefined ? `./Login.html?lvl=${lvl}` : "./Login.html";
+            window.location = `./Login.html${urlParam}`;
         }
     }
 };
