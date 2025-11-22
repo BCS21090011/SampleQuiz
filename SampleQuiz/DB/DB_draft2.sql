@@ -1,0 +1,25 @@
+DROP DATABASE IF EXISTS SampleQuiz_RoadSafety;
+
+CREATE DATABASE SampleQuiz_RoadSafety;
+
+USE SampleQuiz_RoadSafety;
+
+CREATE TABLE User (
+    ID INT NOT NULL AUTO_INCREMENT,
+    UserName VARCHAR(255) NOT NULL UNIQUE,
+    UserPassword VARCHAR(255) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE Scores (
+    ID INT NOT NULL AUTO_INCREMENT,
+    UserID INT NOT NULL,
+    LevelID INT NOT NULL,
+    QuizMark INT NOT NULL DEFAULT 0,
+    TotalQuizMark INT NOT NULL,
+    StartDatetime DATETIME NOT NULL,
+    CompletionDatetime DATETIME DEFAULT NULL,
+    QuizInfo JSON NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (UserID) REFERENCES User(ID) ON DELETE CASCADE 
+);
