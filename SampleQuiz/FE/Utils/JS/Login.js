@@ -2,7 +2,10 @@ import { FetchJSON, GetURLParams, FormURLParams } from "./URIUtils.js";
 import { LoadToSessionStorage } from "./SessionStorageUtils.js";
 
 const urlParams = GetURLParams();
-let dest = decodeURI(urlParams["dest"]) ?? "./MainPage.html";
+
+const urlParams_dest = urlParams["dest"];
+
+let dest = urlParams_dest != undefined ? decodeURI(urlParams["dest"]) : "./MainPage.html";
 let completeURLParam = window.location.search;
 
 const loginForm = document.querySelector("#LoginForm");

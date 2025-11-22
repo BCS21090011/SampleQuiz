@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from BE.db_connection import DatabaseConnection
-from BE.Auth import GenerateToken, DecodeToken
+from BE.Auth import GenerateToken, DecodeToken, required_auth, DecodeAuthHeader
 
 api_blueprint = Blueprint("API", __name__)
 
@@ -141,10 +141,14 @@ def ValidateJWT():
             "message": f"Internal server error\n{repr(e)}"
         }), 500
 
-@api_blueprint.route("/User/<int:userID>", methods=["GET"])
-def GetUser(userID: int):
+@api_blueprint.route("/User", methods=["GET"])
+@required_auth
+def GetUser():
     try:
+        userID: int = request.user_payload.get("user_id")
+        
         db: DatabaseConnection = DatabaseConnection()
+        
         if not db.connect():
             return jsonify({
                 "success": False,
@@ -174,9 +178,12 @@ def GetUser(userID: int):
             "message": f"Internal server error\n{repr(e)}"
         }), 500
 
-@api_blueprint.route("/User/<int:userID>", methods=["DELETE"])
-def DeleteUser(userID: int):
+@api_blueprint.route("/User", methods=["DELETE"])
+@required_auth
+def DeleteUser():
     try:
+        userID: int = request.user_payload.get("user_id")
+        
         db: DatabaseConnection = DatabaseConnection()
         if not db.connect():
             return jsonify({
@@ -207,9 +214,12 @@ def DeleteUser(userID: int):
             "message": f"Internal server error\n{repr(e)}"
         }), 500
 
-@api_blueprint.route("/SubmitScore/<int:userID>/<int:levelID>", methods=["POST"])
-def SubmitScore(userID: int, levelID: int):
+@api_blueprint.route("/SubmitScore/<int:levelID>", methods=["POST"])
+@required_auth
+def SubmitScore(levelID: int):
     try:
+        userID: int = request.user_payload.get("user_id")
+        
         data = request.get_json()
         startDT: str = data.get("startDateTime")
         completionDT: str = data.get("completionDateTime", None)
@@ -239,9 +249,12 @@ def SubmitScore(userID: int, levelID: int):
             "message": f"Internal server error\n{repr(e)}"
         }), 500
 
-@api_blueprint.route("/Scores/<int:userID>", methods=["GET"])
-def GetScores(userID: int):
+@api_blueprint.route("/Scores", methods=["GET"])
+@required_auth
+def GetScores():
     try:
+        userID: int = request.user_payload.get("user_id")
+        
         db: DatabaseConnection = DatabaseConnection()
         if not db.connect():
             return jsonify({
@@ -249,7 +262,7 @@ def GetScores(userID: int):
                 "message": "Database connection failed"
             }), 500
             
-        scores = db.fetch_all(
+        scores = db.fetch_query(
             "SELECT * FROM Scores WHERE UserID = %s WHERE CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC",
             (userID,)
         )
