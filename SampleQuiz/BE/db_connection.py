@@ -1,16 +1,13 @@
 import mysql.connector
 from mysql.connector import Error
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 class DatabaseConnection:
     def __init__(self):
         self.host = os.getenv('MySQL_DB_HOST', 'localhost')
         self.database = os.getenv('MySQL_DB_Name', 'SampleQuiz_RoadSafety')
-        self.user = os.getenv("MySQL_root_User", "root")
-        self.password = os.getenv("MySQL_root_PW", "")
+        self.user = os.getenv("MySQL_User", "root")
+        self.password = os.getenv("MySQL_PW", "")
         self.connection = None
 
     def connect(self):

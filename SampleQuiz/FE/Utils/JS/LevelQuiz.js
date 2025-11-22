@@ -274,7 +274,7 @@ backBtn.onclick = (e) => {
 }
 
 submitBtn.onclick = (e) => {
-    window.location = `./Login.html?lvl=${lvl}`;
+    window.location = `./LevelQuizResult.html?lvl=${lvl}`;
 }
 
 window.onbeforeunload = (e) => {

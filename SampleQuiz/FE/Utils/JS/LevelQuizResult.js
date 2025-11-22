@@ -1,9 +1,45 @@
 import MarkdownToHTMLString from "./MarkDownUtils.js";
-import { UnloadAnswersFromSessionStorage } from "./SessionStorageUtils.js";
+import { GetAnswersFromSessionStorage, UnloadAnswersFromSessionStorage } from "./SessionStorageUtils.js";
 import { GetURLParams } from "./URIUtils.js";
 import { MSToStr } from "./TimeUtils.js";
 
 const contentCard = document.querySelector("#ContentCard");
+
+async function CheckJWT () {
+    const jwt = sessionStorage.getItem("JWT");
+
+    if (jwt == null) {
+        alert("You need to login first!");
+    }
+    else {
+        const response = await fetch("/API/ValidateJWT", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify({
+                token: jwt.slice(1, -1)
+            })
+        });
+
+        if (response.ok) {
+            return true;
+        }
+        else {
+            const data = await response.json();
+            alert(`Authentication failed (${response.status}):\n${data["message"]}`);
+        }
+    }
+
+    let destParams = window.location.search.substring(1);
+
+    if (destParams.length > 0) {
+        destParams = `&${destParams}`;
+    }
+
+    window.location = `./Login.html?dest=${encodeURI(window.location.pathname)}${destParams}`;
+    return false;
+}
 
 function GetResultMarkComment (markPerc) {
 
@@ -92,14 +128,18 @@ function CreateResultContent (result) {
     }
 }
 
-function HandleResultContent (lvl) {
-    const result = UnloadAnswersFromSessionStorage(lvl);
+async function HandleResultContent (lvl) {
+    const jwtValid = await CheckJWT();
 
-    if (result != undefined) {
-        CreateResultContent(result);
-    }
-    else {
-        alert("Result not found!");
+    if (jwtValid == true) {
+        const result = UnloadAnswersFromSessionStorage(lvl);
+
+        if (result != undefined) {
+            CreateResultContent(result);
+        }
+        else {
+            alert("Result not found!");
+        }
     }
 }
 

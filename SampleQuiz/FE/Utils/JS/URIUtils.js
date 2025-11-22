@@ -65,4 +65,15 @@ function GetURLParams() {
     return paramMap;
 }
 
-export { FetchJSON, GetURLParams };
+function FormURLParams(paramMap) {
+    const paramStrs = [];
+
+    for (const key in paramMap) {
+        const val = paramMap[key];
+        paramStrs.push(`${encodeURI(key)}=${encodeURI(val)}`);
+    }
+
+    return paramStrs.join("&");
+}
+
+export { FetchJSON, GetURLParams, FormURLParams };

@@ -1,13 +1,14 @@
-import { FetchJSON, GetURLParams } from "./URIUtils.js";
+import { FetchJSON, GetURLParams, FormURLParams } from "./URIUtils.js";
 import { LoadToSessionStorage } from "./SessionStorageUtils.js";
 
 const urlParams = GetURLParams();
-let lvl = urlParams["lvl"];
+let dest = decodeURI(urlParams["dest"]) ?? "./MainPage.html";
+let completeURLParam = window.location.search;
 
 const loginForm = document.querySelector("#LoginForm");
 const createAccountA = document.querySelector("a#CreateAccountA");
 
-createAccountA.href = lvl != undefined ? `./Register.html?lvl=${lvl}` : "./Register.html";
+createAccountA.href = `./Register.html${completeURLParam}`;
 
 loginForm.onsubmit = async function(e) {
     e.preventDefault();
@@ -32,7 +33,7 @@ loginForm.onsubmit = async function(e) {
 
     if (result["Error"] == null) {
         if (resultJSON["success"] === true) {
-            LoadToSessionStorage("UserID", resultJSON["userId"]);
+            LoadToSessionStorage("JWT", resultJSON["token"]);
             loginSuccess = true;
             alert("Login successful!");
         }
@@ -47,11 +48,13 @@ loginForm.onsubmit = async function(e) {
     }
 
     if (loginSuccess == true) {
-        if (lvl != undefined) {
-            window.location = `./LevelQuizResult.html?lvl=${lvl}`;
+        const {["dest"]: _, ...restParams} = urlParams;
+        const restParamStr = FormURLParams(restParams);
+
+        if (restParamStr.length > 0) {
+            dest += `?${restParamStr}`;
         }
-        else {
-            window.location = "./MainPage.html";
-        }
+
+        window.location = `${dest}`;
     }
 };

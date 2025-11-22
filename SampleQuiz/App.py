@@ -1,6 +1,9 @@
 from flask import Flask, send_from_directory
 import os
 from BE.API import api_blueprint
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app: Flask = Flask(__name__)
 app.register_blueprint(api_blueprint, url_prefix="/API")
