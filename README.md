@@ -1,8 +1,29 @@
 This is just a sample quiz.
 
-Please first start with `./SetupLocalhostPython.bat`, it will setup a localhost.
+# Important Notes:
 
-Python required.
+* Please first start with `./SetupLocalhostPython.bat`, it will setup a localhost. Then there should be a URL (likely http://127.0.0.1:5000) on the opened command prompt, can access the page from there.
+* Discouraged to access the pages via HTML files in `FE/Pages`.
+* Please ensure `MySQL80` service is running.
+* Please ensure there is a correct database in MySQL. Can refer to the *MySQL* in [requirements](#requirements).
+
+## Requirements
+
+1. **Python**
+  * Packages required can refer to `requirements.txt` (not updated yet)
+  * Install package using this command in command prompt: `pip install -r requirements.txt`
+2. **MySQL**
+  * Create table using SQL script `DB/DB_draft2.sql` (**will replace database with the same name**).
+3. **.env**
+  * Keys:
+    1. `MySQL_DB_HOST`: Hose used for `mysql.connector.connect`. Defaults to `localhost`.
+    2. `MySQL_DB_Name`: The name of the database. Defaults to `SampleQuiz_RoadSafety`, which is the same as in `DB/DB_draft2.sql`.
+    3. `MySQL_User`: MySQL user. Deaults to `root`.
+    4. `MySQL_PW`: The password of the user. Defaults to empty string.
+    5. `JWT_secret_key`: The secret key for *JWT*. Defaults to empty string, which isn't recommended.
+    6. `JWT_algorithm`: The algorithm for *JWT*. Defaults to empty string, which I don't know what will happen.
+  * Highly suggested to set the values for `MySQL_PW` (assuming the user has password, which it likely has), `JWT_secret_key`, `JWT_algorithm`.
+  * The MySQL user should at least have permission to `SELECT`, `INSERT`, and `DELETE`.
 
 # Flow
 
@@ -15,8 +36,6 @@ LevelSelection
 --PLAY-->
 LevelQuiz
 --Submit-->
-Login
--->
 LevelQuizResult
 
 Login
@@ -24,6 +43,12 @@ Login
 Register
 -->
 Login
+--Without destination-->
+MainPage
+
+Login
+--With destination-->
+Destination
 
 LearningNote
 --Flash Card-->
@@ -61,10 +86,6 @@ MainPage
 --HELP-->
 Help
 --Back to Main Page-->
-MainPage
-
-Login
---Confirm (without lvl)-->
 MainPage
 ```
 
@@ -144,3 +165,11 @@ This document analyzes how quiz content and flashcard content should be related,
 1. Flashcards become too similar to quizzes — reduced distinction in learning experience.
 
 ---
+
+## Current Takes:
+
+1. Quizzes and flashcards share the same question bank.
+2. Quizzes and flashcards share the same explanation.
+3. No answer-specific-explanation for quizzes.
+4. The only explanation that used for both quizzes and flashcards is generic.
+5. Flashcards will only display the question.
