@@ -17,8 +17,8 @@ CREATE TABLE Scores (
     LevelID INT NOT NULL,
     QuizMark INT NOT NULL DEFAULT 0,
     TotalQuizMark INT NOT NULL,
-    StartDatetime DATETIME NOT NULL,
-    CompletionDatetime DATETIME DEFAULT NULL,
+    StartDatetime BIGINT NOT NULL,
+    CompletionDatetime BIGINT DEFAULT NULL,
     QuizInfo JSON NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (UserID) REFERENCES User(ID) ON DELETE CASCADE 

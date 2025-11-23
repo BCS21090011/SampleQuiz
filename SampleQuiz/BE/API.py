@@ -222,12 +222,12 @@ def SubmitScore():
         userID: int = request.user_payload.get("user_id")
         
         data = request.get_json()
-        lvlID: int = data.get("levelID")
-        quizMark: int = data.get("quizMark")
-        totalQuizMark: int = data.get("totalQuizMark")
-        startDT: str = data.get("startDateTime")
-        completionDT: str = data.get("completionDateTime", None)
-        quizInfo: dict = data.get("quizInfo", {})
+        lvlID: int = data.get("Lvl")
+        quizMark: int = data.get("QuizMark")
+        totalQuizMark: int = data.get("TotalQuizMark")
+        startDT: str = data.get("StartDatetime")
+        completionDT: str = data.get("CompletionDatetime", None)
+        quizInfo: dict = data.get("QuizInfo", {})
         
         quizInfoJSON: str = json.dumps(quizInfo)
         

@@ -3,8 +3,29 @@ import { GetAnswersFromSessionStorage, UnloadAnswersFromSessionStorage } from ".
 import { GetURLParams } from "./URIUtils.js";
 import { MSToStr } from "./TimeUtils.js";
 import HandleJWT from "./Auth.js";
+import FetchJSON from "./URIUtils.js";
 
 const contentCard = document.querySelector("#ContentCard");
+
+async function InsertScoreToDB (result) {
+    const resultJSON = await FetchJSON(
+        "/API/SubmitScore",
+        undefined,
+        {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${sessionStorage.getItem("JWT")?.slice(1, -1)}`
+        },
+        JSON.stringify(result),
+        "POST"
+    );
+
+    if (resultJSON["Error"] != null) {
+        alert(`Error submitting score:\n${resultJSON["Error"]}`);
+        return false;
+    }
+
+    return true;
+}
 
 function GetResultMarkComment (markPerc) {
 
@@ -100,6 +121,19 @@ async function HandleResultContent (lvl) {
         const result = GetAnswersFromSessionStorage(lvl);
 
         if (result != undefined) {
+            let performInsertion = true;
+
+            while (performInsertion == true) {
+                const insertionSuccess = await InsertScoreToDB(result);
+
+                if (insertionSuccess == true) {
+                    performInsertion = false;
+                }
+                else {
+                    performInsertion = confirm("Retry submitting score to server?");
+                }
+            }
+
             CreateResultContent(result);
             UnloadAnswersFromSessionStorage(lvl);
         }
