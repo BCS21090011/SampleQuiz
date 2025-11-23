@@ -9,7 +9,7 @@ alreadyHaveAccountA.href = `./Login.html${urlParam}`;
 
 async function RegisterUser (username, password) {
     const result = await FetchJSON(
-        "http://127.0.0.1:5000/API/Register",
+        "/API/Register",
         undefined,
         {
             "Content-Type": "application/json"

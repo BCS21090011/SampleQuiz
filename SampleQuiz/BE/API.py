@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from BE.db_connection import DatabaseConnection
-from BE.Auth import GenerateToken, DecodeToken
+from BE.Auth import GenerateToken, DecodeToken, required_auth, DecodeAuthHeader
+import json
 
 api_blueprint = Blueprint("API", __name__)
 
@@ -141,10 +142,14 @@ def ValidateJWT():
             "message": f"Internal server error\n{repr(e)}"
         }), 500
 
-@api_blueprint.route("/User/<int:userID>", methods=["GET"])
-def GetUser(userID: int):
+@api_blueprint.route("/User", methods=["GET"])
+@required_auth
+def GetUser():
     try:
+        userID: int = request.user_payload.get("user_id")
+        
         db: DatabaseConnection = DatabaseConnection()
+        
         if not db.connect():
             return jsonify({
                 "success": False,
@@ -174,9 +179,12 @@ def GetUser(userID: int):
             "message": f"Internal server error\n{repr(e)}"
         }), 500
 
-@api_blueprint.route("/User/<int:userID>", methods=["DELETE"])
-def DeleteUser(userID: int):
+@api_blueprint.route("/User", methods=["DELETE"])
+@required_auth
+def DeleteUser():
     try:
+        userID: int = request.user_payload.get("user_id")
+        
         db: DatabaseConnection = DatabaseConnection()
         if not db.connect():
             return jsonify({
@@ -207,13 +215,21 @@ def DeleteUser(userID: int):
             "message": f"Internal server error\n{repr(e)}"
         }), 500
 
-@api_blueprint.route("/SubmitScore/<int:userID>/<int:levelID>", methods=["POST"])
-def SubmitScore(userID: int, levelID: int):
+@api_blueprint.route("/SubmitScore", methods=["POST"])
+@required_auth
+def SubmitScore():
     try:
+        userID: int = request.user_payload.get("user_id")
+        
         data = request.get_json()
-        startDT: str = data.get("startDateTime")
-        completionDT: str = data.get("completionDateTime", None)
-        score: float = data.get("score", None)
+        lvlID: int = data.get("Lvl")
+        quizMark: int = data.get("QuizMark")
+        totalQuizMark: int = data.get("TotalQuizMark")
+        startDT: str = data.get("StartDatetime")
+        completionDT: str = data.get("CompletionDatetime", None)
+        quizInfo: dict = data.get("QuizInfo", {})
+        
+        quizInfoJSON: str = json.dumps(quizInfo)
         
         db: DatabaseConnection = DatabaseConnection()
         if not db.connect():
@@ -223,8 +239,8 @@ def SubmitScore(userID: int, levelID: int):
             }), 500
         
         db.execute_query(
-            "INSERT INTO Scores (UserID, StartDateTime, CompletionDatetime, LevelID, Score) VALUES (%s, %s, %s, %s, %s)",
-            (userID, startDT, completionDT, levelID, score)
+            "INSERT INTO Scores (UserID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            (userID, lvlID, quizMark, totalQuizMark, startDT, completionDT, quizInfoJSON)
         )
         
         db.disconnect()
@@ -239,9 +255,12 @@ def SubmitScore(userID: int, levelID: int):
             "message": f"Internal server error\n{repr(e)}"
         }), 500
 
-@api_blueprint.route("/Scores/<int:userID>", methods=["GET"])
-def GetScores(userID: int):
+@api_blueprint.route("/Scores", methods=["GET"])
+@required_auth
+def GetScores():
     try:
+        userID: int = request.user_payload.get("user_id")
+        
         db: DatabaseConnection = DatabaseConnection()
         if not db.connect():
             return jsonify({
@@ -249,8 +268,8 @@ def GetScores(userID: int):
                 "message": "Database connection failed"
             }), 500
             
-        scores = db.fetch_all(
-            "SELECT * FROM Scores WHERE UserID = %s WHERE CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC",
+        scores = db.fetch_query(
+            "SELECT ID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo FROM Scores WHERE UserID = %s WHERE CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC",
             (userID,)
         )
             

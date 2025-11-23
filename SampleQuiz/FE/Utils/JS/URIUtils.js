@@ -76,4 +76,5 @@ function FormURLParams(paramMap) {
     return paramStrs.join("&");
 }
 
+export default FetchJSON;
 export { FetchJSON, GetURLParams, FormURLParams };

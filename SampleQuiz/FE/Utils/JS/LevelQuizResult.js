@@ -2,43 +2,29 @@ import MarkdownToHTMLString from "./MarkDownUtils.js";
 import { GetAnswersFromSessionStorage, UnloadAnswersFromSessionStorage } from "./SessionStorageUtils.js";
 import { GetURLParams } from "./URIUtils.js";
 import { MSToStr } from "./TimeUtils.js";
+import HandleJWT from "./Auth.js";
+import FetchJSON from "./URIUtils.js";
 
 const contentCard = document.querySelector("#ContentCard");
 
-async function CheckJWT () {
-    const jwt = sessionStorage.getItem("JWT");
+async function InsertScoreToDB (result) {
+    const resultJSON = await FetchJSON(
+        "/API/SubmitScore",
+        undefined,
+        {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${sessionStorage.getItem("JWT")?.slice(1, -1)}`
+        },
+        JSON.stringify(result),
+        "POST"
+    );
 
-    if (jwt == null) {
-        alert("You need to login first!");
-    }
-    else {
-        const response = await fetch("/API/ValidateJWT", {
-            headers: {
-                "Content-Type": "application/json"
-            },
-            method: "POST",
-            body: JSON.stringify({
-                token: jwt.slice(1, -1)
-            })
-        });
-
-        if (response.ok) {
-            return true;
-        }
-        else {
-            const data = await response.json();
-            alert(`Authentication failed (${response.status}):\n${data["message"]}`);
-        }
+    if (resultJSON["Error"] != null) {
+        alert(`Error submitting score:\n${resultJSON["Error"]}`);
+        return false;
     }
 
-    let destParams = window.location.search.substring(1);
-
-    if (destParams.length > 0) {
-        destParams = `&${destParams}`;
-    }
-
-    window.location = `./Login.html?dest=${encodeURI(window.location.pathname)}${destParams}`;
-    return false;
+    return true;
 }
 
 function GetResultMarkComment (markPerc) {
@@ -129,13 +115,27 @@ function CreateResultContent (result) {
 }
 
 async function HandleResultContent (lvl) {
-    const jwtValid = await CheckJWT();
+    const jwtValid = await HandleJWT();
 
     if (jwtValid == true) {
-        const result = UnloadAnswersFromSessionStorage(lvl);
+        const result = GetAnswersFromSessionStorage(lvl);
 
         if (result != undefined) {
+            let performInsertion = true;
+
+            while (performInsertion == true) {
+                const insertionSuccess = await InsertScoreToDB(result);
+
+                if (insertionSuccess == true) {
+                    performInsertion = false;
+                }
+                else {
+                    performInsertion = confirm("Retry submitting score to server?");
+                }
+            }
+
             CreateResultContent(result);
+            UnloadAnswersFromSessionStorage(lvl);
         }
         else {
             alert("Result not found!");
