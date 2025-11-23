@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from BE.db_connection import DatabaseConnection
 from BE.Auth import GenerateToken, DecodeToken, required_auth, DecodeAuthHeader
+import json
 
 api_blueprint = Blueprint("API", __name__)
 
@@ -214,16 +215,21 @@ def DeleteUser():
             "message": f"Internal server error\n{repr(e)}"
         }), 500
 
-@api_blueprint.route("/SubmitScore/<int:levelID>", methods=["POST"])
+@api_blueprint.route("/SubmitScore", methods=["POST"])
 @required_auth
-def SubmitScore(levelID: int):
+def SubmitScore():
     try:
         userID: int = request.user_payload.get("user_id")
         
         data = request.get_json()
+        lvlID: int = data.get("levelID")
+        quizMark: int = data.get("quizMark")
+        totalQuizMark: int = data.get("totalQuizMark")
         startDT: str = data.get("startDateTime")
         completionDT: str = data.get("completionDateTime", None)
-        score: float = data.get("score", None)
+        quizInfo: dict = data.get("quizInfo", {})
+        
+        quizInfoJSON: str = json.dumps(quizInfo)
         
         db: DatabaseConnection = DatabaseConnection()
         if not db.connect():
@@ -233,8 +239,8 @@ def SubmitScore(levelID: int):
             }), 500
         
         db.execute_query(
-            "INSERT INTO Scores (UserID, StartDateTime, CompletionDatetime, LevelID, Score) VALUES (%s, %s, %s, %s, %s)",
-            (userID, startDT, completionDT, levelID, score)
+            "INSERT INTO Scores (UserID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            (userID, lvlID, quizMark, totalQuizMark, startDT, completionDT, quizInfoJSON)
         )
         
         db.disconnect()
@@ -263,7 +269,7 @@ def GetScores():
             }), 500
             
         scores = db.fetch_query(
-            "SELECT * FROM Scores WHERE UserID = %s WHERE CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC",
+            "SELECT ID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo FROM Scores WHERE UserID = %s WHERE CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC",
             (userID,)
         )
             
