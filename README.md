@@ -13,7 +13,7 @@ This is just a sample quiz.
   * Packages required can refer to `requirements.txt` (not updated yet)
   * Install package using this command in command prompt: `pip install -r requirements.txt`
 2. **MySQL**
-  * Create table using SQL script `DB/DB_draft2.sql` (**will replace database with the same name**).
+  * Create table using SQL script `DB/DB_draft2.sql` (**will replace database with the same name, all previous data will be removed**).
 3. **.env**
   * Keys:
     1. `MySQL_DB_HOST`: Hose used for `mysql.connector.connect`. Defaults to `localhost`.
@@ -24,6 +24,7 @@ This is just a sample quiz.
     6. `JWT_algorithm`: The algorithm for *JWT*. Defaults to empty string, which I don't know what will happen.
   * Highly suggested to set the values for `MySQL_PW` (assuming the user has password, which it likely has), `JWT_secret_key`, `JWT_algorithm`.
   * The MySQL user should at least have permission to `SELECT`, `INSERT`, and `DELETE`.
+  * The *.env* file should be placed inside the *SampleQuiz* folder, same folder as `App.py`.
 
 # Flow
 
