@@ -25,7 +25,7 @@
         text-align: center;
     }
 
-    #ContentCard > .ShareBtn {
+    #ContentCard > .ActionBtn {
         height: 50px;
         width: 100px;
         border-radius: 25px;
@@ -34,8 +34,18 @@
         font-weight: bold;
         margin-left: auto;
         margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
 
-        #ContentCard > .ShareBtn:hover {
+        #ContentCard > .ActionBtn:hover {
             transform: scale(105%);
+        }
+
+        #ContentCard > .ShareBtn {
+            background-color: lime;
+        }
+
+        #ContentCard > .LvlSelectionBtn {
+            background-color: aqua;
         }
