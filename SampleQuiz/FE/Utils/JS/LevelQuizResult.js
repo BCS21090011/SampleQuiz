@@ -97,7 +97,7 @@ function CreateResultContent (result) {
     if (navigator.share) {  // If it's supported:
         const shareBtn = document.createElement("button");
         shareBtn.innerText = "Share";
-        shareBtn.classList.add("ShareBtn");
+        shareBtn.classList.add("ActionBtn", "ShareBtn");
         shareBtn.onclick = (e) => {
             const timeTakenStr = timeTaken != null ? MSToStr(timeTaken) : "(not completed yet)";
             navigator.share({
@@ -111,7 +111,18 @@ function CreateResultContent (result) {
                 });
         }
         contentCard.appendChild(shareBtn);
+
+        // Level selection button:
+        const lvlSelectionBtn = document.createElement("button");
+        lvlSelectionBtn.innerText = "Level Selection";
+        lvlSelectionBtn.classList.add("ActionBtn", "LvlSelectionBtn");
+        lvlSelectionBtn.onclick = (e) => {
+            window.location = "./LevelSelection.html";
+        }
+        contentCard.appendChild(lvlSelectionBtn);
     }
+
+
 }
 
 async function HandleResultContent (lvl) {
