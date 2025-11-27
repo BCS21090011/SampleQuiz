@@ -174,3 +174,44 @@ This document analyzes how quiz content and flashcard content should be related,
 3. No answer-specific-explanation for quizzes.
 4. The only explanation that used for both quizzes and flashcards is generic.
 5. Flashcards will only display the question.
+
+---
+
+# Scores
+
+Can get all the scores of a user via:
+
+1. [database](#get-scores-via-database)
+2. [API](#get-scores-via-api)
+
+## Get Scores via Database
+
+Go to MySQL and run SQL script below:
+
+```MySQL
+USE SampleQuiz_RoadSafety;
+
+SELECT * FROM Scores;
+```
+
+## Get Scores via API
+
+1. Authentication token is required for this API. Login is required to get the token. To login:
+
+* Change URL to `{host}/Login.html` to navigate to login page manually. The token will be stored in the *session storage* as `JWT`. Please note that, for unknown reason, the token in *session storage* will be surrounded by `"`, which is needed to be discarded before passing to the *header*.
+* Complete a quiz, then user will be request to login, which will then bring user to login page. The token will be stored in *session storage*, like step above.
+* Using API `{host}/API/Login` using `POST` method with `username` and `password` in the *body*. If login success, `token` in the returned JSON is the token.
+
+1. By using `GET` method on API `{host}/API/Scores`, with previously get JWT in *header* `Authorization`, the API will return a JSON array of scores of the user containing:
+
+* `ID` (`INT`)
+* `LevelID` (`INT`)
+* `QuizMark` (mark scored by user, `INT`. `QuizMark / TotalQuizMark` is the percentage)
+* `TotalQuizMark` (total full mark of the quiz, `INT`)
+* `StartDatetime` (`BIGINT`)
+* `CompletionDatetime` (nullable, `BIGINT`)
+* `QuizInfo` (JSON string)
+
+---
+
+**host**: This is the host the flask running on. Likely `http://127.0.0.1:5000` or the device IP with port `5000`.
