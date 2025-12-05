@@ -269,7 +269,7 @@ def GetScores():
             }), 500
             
         scores = db.fetch_query(
-            "SELECT ID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo FROM Scores WHERE UserID = %s WHERE CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC",
+            "SELECT ID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo FROM Scores WHERE UserID = %s AND CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC",
             (userID,)
         )
             
