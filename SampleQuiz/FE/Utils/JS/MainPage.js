@@ -9,3 +9,7 @@ function PlayBtn_OnClick(e) {
 function HelpBtn_OnClick(e) {
     window.location = "./Help.html";
 }
+
+function HistoryBtn_OnClick(e) {
+    window.location = "./LevelQuizHistoryResults.html";
+}

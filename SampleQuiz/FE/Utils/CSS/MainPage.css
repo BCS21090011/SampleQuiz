@@ -38,6 +38,11 @@
             color: white;
         }
 
+        .actionCard > button#HistoryBtn {
+            background-color: #fea500;
+            color: white;
+        }
+
         .actionCard > button:hover {
             transform: scale(105%);
         }

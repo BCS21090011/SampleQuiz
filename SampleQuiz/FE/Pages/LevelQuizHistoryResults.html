@@ -319,18 +319,8 @@
         navigator.clipboard?.writeText(new Date(Number(quiz.CompletionDatetime || quiz.StartDatetime || Date.now())).toLocaleString());
       };
 
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'danger small';
-      deleteBtn.textContent = 'Delete (local)';
-      deleteBtn.title = 'This only removes entry from UI, implement API call if you want server deletion';
-      deleteBtn.onclick = ()=>{
-        // simple removal from UI
-        row.remove();
-      };
-
       controls.appendChild(viewBtn);
       controls.appendChild(copyBtn);
-      controls.appendChild(deleteBtn);
 
       row.appendChild(meta);
       row.appendChild(score);

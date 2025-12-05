@@ -49,3 +49,7 @@
         #ContentCard > .LvlSelectionBtn {
             background-color: aqua;
         }
+
+        #ContentCard > .HistoryBtn {
+            background-color: orange;
+        }
