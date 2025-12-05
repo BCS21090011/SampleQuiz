@@ -150,7 +150,7 @@
       </div>
       <div class="top-actions">
         <button id="refreshBtn" title="Refresh list">Refresh</button>
-        <button id="clearLocalBtn" class="ghost small" title="Clear local token keys used">Clear token</button>
+        <button id="mainPageBtn" class="ghost small" title="To Mainpage">Mainpage</button>
       </div>
     </header>
 
@@ -174,7 +174,7 @@
     const quizList = document.getElementById('quizList');
     const emptyBox = document.getElementById('empty');
     const refreshBtn = document.getElementById('refreshBtn');
-    const clearLocalBtn = document.getElementById('clearLocalBtn');
+    const mainPageBtn = document.getElementById('mainPageBtn');
 
     // helper to format epoch ms -> readable string
     function formatDatetime(epochMs){
@@ -312,15 +312,7 @@
       viewBtn.textContent = 'View Result';
       viewBtn.title = 'Show details for this quiz';
 
-      const copyBtn = document.createElement('button');
-      copyBtn.className = 'ghost small';
-      copyBtn.textContent = 'Copy datetime';
-      copyBtn.onclick = ()=> {
-        navigator.clipboard?.writeText(new Date(Number(quiz.CompletionDatetime || quiz.StartDatetime || Date.now())).toLocaleString());
-      };
-
       controls.appendChild(viewBtn);
-      controls.appendChild(copyBtn);
 
       row.appendChild(meta);
       row.appendChild(score);
@@ -413,10 +405,8 @@
 
     // event wiring
     refreshBtn.addEventListener('click', ()=>loadScores());
-    clearLocalBtn.addEventListener('click', ()=>{
-      const keys = ['jwt','token','accessToken','id_token'];
-      keys.forEach(k=>localStorage.removeItem(k));
-      statusText.textContent = 'Cleared token keys from localStorage. You may need to re-login.';
+    mainPageBtn.addEventListener('click', ()=>{
+      window.location = "./Mainpage.html";
     });
 
     // initial load
