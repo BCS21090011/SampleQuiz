@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz History</title>
+
+  <!-- Showdown (required by your MarkdownToHTMLString util) -->
+  <script src="https://unpkg.com/showdown@2.1.0/dist/showdown.min.js"></script>
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#6ee7b7;
+      --danger:#ff6b6b;
+      --glass: rgba(255,255,255,0.03);
+      --gap:12px;
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#071029 0%, #081226 60%);
+      color:#e6eef6;
+      padding:24px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .container{
+      max-width:980px;
+      margin:0 auto;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    h1{margin:0;font-size:1.3rem}
+    .subtitle{color:var(--muted); font-size:0.95rem}
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:10px;
+      padding:16px;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .quiz-list{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+    .quiz-row{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px;
+      border-radius:8px;
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    .quiz-meta{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      min-width:0;
+    }
+    .when{font-size:0.95rem;color:var(--muted);min-width:170px}
+    .level{padding:6px 8px;border-radius:6px;background:rgba(255,255,255,0.02);font-weight:600;font-size:0.85rem;color:var(--accent);}
+    .score{font-weight:700; font-size:1rem; min-width:96px; text-align:center;}
+
+    .controls{display:flex;gap:8px;align-items:center}
+    button{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid rgba(110,231,183,0.12);
+      padding:8px 10px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:0.9rem;
+    }
+    button.ghost{background:transparent;color:var(--muted);border:1px dashed rgba(255,255,255,0.03)}
+    button.danger{color:var(--danger); border-color: rgba(255,107,107,0.12)}
+    .small{padding:6px 8px; font-size:0.85rem}
+
+    .details{
+      margin-top:10px;
+      border-radius:8px;
+      padding:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border:1px solid rgba(255,255,255,0.025);
+      display:none;
+    }
+
+    .question{
+      margin-bottom:12px;
+      padding:10px;
+      border-radius:8px;
+      background:rgba(0,0,0,0.12);
+    }
+    .q-title{font-weight:700;margin-bottom:6px}
+    .options{display:flex;flex-direction:column;gap:6px}
+    .option{
+      padding:8px;
+      border-radius:6px;
+      font-size:0.95rem;
+      background:rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .option.user{outline:2px dashed rgba(110,231,183,0.08)}
+    .option.correct{background:linear-gradient(90deg, rgba(110,231,183,0.06), rgba(110,231,183,0.03)); border-color: rgba(110,231,183,0.12);}
+
+    .explanation{
+      margin-top:8px;
+      padding:10px;
+      border-radius:6px;
+      background:rgba(255,255,255,0.02);
+      color:#dfeef9;
+      overflow:auto;
+    }
+
+    .empty{
+      padding:24px;
+      text-align:center;
+      color:var(--muted);
+    }
+
+    .top-actions{display:flex;gap:8px;align-items:center}
+
+    @media (max-width:640px){
+      .when{min-width:110px}
+      .quiz-row{flex-direction:column;align-items:stretch}
+      .controls{justify-content:space-between}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Quiz History</h1>
+        <div class="subtitle">All completed quizzes (ordered by completion time)</div>
+      </div>
+      <div class="top-actions">
+        <button id="refreshBtn" title="Refresh list">Refresh</button>
+        <button id="clearLocalBtn" class="ghost small" title="Clear local token keys used">Clear token</button>
+      </div>
+    </header>
+
+    <div id="status" class="card" style="margin-bottom:12px">
+      <div id="statusText">Loading — checking authentication...</div>
+    </div>
+
+    <div id="listContainer" class="card">
+      <div id="quizList" class="quiz-list"></div>
+      <div id="empty" class="empty" style="display:none">No quiz results found.</div>
+    </div>
+  </div>
+
+  <!-- Your local modules are imported as ES modules -->
+  <script type="module">
+    import HandleJWT from "../Utils/JS/Auth.js";
+    import MarkdownToHTMLString from "../Utils/JS/MarkDownUtils.js";
+
+    // DOM
+    const statusText = document.getElementById('statusText');
+    const quizList = document.getElementById('quizList');
+    const emptyBox = document.getElementById('empty');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const clearLocalBtn = document.getElementById('clearLocalBtn');
+
+    // helper to format epoch ms -> readable string
+    function formatDatetime(epochMs){
+      try{
+        const d = new Date(Number(epochMs));
+        if(Number.isNaN(d)) return String(epochMs);
+        return d.toLocaleString(); // uses user's locale
+      }catch(e){
+        return String(epochMs);
+      }
+    }
+
+    // attempt to find a stored token in localStorage (common keys)
+    function getTokenFromStorage(){
+      return window.sessionStorage.getItem("JWT").slice(1, -1);
+    }
+
+    async function loadScores(){
+      statusText.textContent = 'Verifying session...';
+      quizList.innerHTML = '';
+      emptyBox.style.display = 'none';
+
+      // Provide a callback to HandleJWT that will show an error instead of redirecting (optional)
+      const jwtOk = await HandleJWT();
+
+      statusText.textContent = 'Fetching your scores...';
+
+      const token = getTokenFromStorage(); // optional; if not present we still call fetch (maybe cookie-based)
+      const headers = {"Content-Type":"application/json"};
+      if(token) headers["Authorization"] = `Bearer ${token}`;
+
+      let res;
+      try{
+        res = await fetch('/API/Scores', { headers });
+      }catch(err){
+        statusText.textContent = 'Network error while fetching scores: ' + err.message;
+        return;
+      }
+
+      if(!res.ok){
+        // If 401 likely invalid token — let HandleJWT handle redirect or show message
+        if(res.status === 401 || res.status === 403){
+          statusText.textContent = `Authentication failed (HTTP ${res.status}). Attempting to re-authenticate...`;
+          // Call HandleJWT again without callback to let default behavior run (redirect).
+          await HandleJWT();
+          return;
+        }
+        statusText.textContent = `Failed to fetch scores (HTTP ${res.status}).`;
+        const text = await res.text().catch(()=>'');
+        if(text) console.debug('Response body:', text);
+        return;
+      }
+
+      let json;
+      try{
+        json = await res.json();
+      }catch(err){
+        statusText.textContent = 'Server returned non-JSON response.';
+        return;
+      }
+
+      const scores = Array.isArray(json.scores) ? json.scores : (json.scores ? [json.scores] : []);
+      if(!scores || scores.length === 0){
+        statusText.textContent = 'No quiz scores found.';
+        emptyBox.style.display = 'block';
+        return;
+      }
+
+      // sort by CompletionDatetime descending (newest first)
+      scores.sort((a,b)=>Number(b.CompletionDatetime || 0) - Number(a.CompletionDatetime || 0));
+
+      statusText.textContent = `Loaded ${scores.length} quiz result${scores.length>1?'s':''}.`;
+
+      for(const quiz of scores){
+        renderQuizRow(quiz);
+      }
+    }
+
+    function safeParseQuizInfo(quizInfo){
+      // quizInfo often comes as a JSON-encoded string (see your example).
+      // If it's already an array/object, return as-is.
+      if(!quizInfo) return [];
+      if(typeof quizInfo !== 'string') return quizInfo;
+      try{
+        // Some servers may double-escape; try parse repeatedly until we get object/array
+        let parsed = JSON.parse(quizInfo);
+        // If parsed is still a string, try parse again
+        let attempts = 0;
+        while(typeof parsed === 'string' && attempts < 3){
+          parsed = JSON.parse(parsed);
+          attempts++;
+        }
+        if(Array.isArray(parsed)) return parsed;
+        // If object with array inside? return as array if possible
+        return parsed;
+      }catch(err){
+        console.warn('Failed to parse QuizInfo JSON:', err);
+        // last resort, attempt to convert by replacing \" with " then parse
+        try{
+          const cleaned = quizInfo.replace(/\\"/g,'"');
+          return JSON.parse(cleaned);
+        }catch(e2){
+          console.warn('Second parse attempt failed:', e2);
+          return [];
+        }
+      }
+    }
+
+    function renderQuizRow(quiz){
+      const row = document.createElement('div');
+      row.className = 'quiz-row';
+
+      const meta = document.createElement('div');
+      meta.className = 'quiz-meta';
+
+      const when = document.createElement('div');
+      when.className = 'when';
+      when.textContent = formatDatetime(quiz.CompletionDatetime || quiz.StartDatetime || Date.now());
+
+      const level = document.createElement('div');
+      level.className = 'level';
+      level.textContent = 'Level ' + (quiz.LevelID ?? '-');
+
+      const score = document.createElement('div');
+      score.className = 'score';
+      score.textContent = `${quiz.QuizMark ?? 0} / ${quiz.TotalQuizMark ?? '-'}`;
+
+      meta.appendChild(when);
+      meta.appendChild(level);
+
+      const controls = document.createElement('div');
+      controls.className = 'controls';
+
+      const viewBtn = document.createElement('button');
+      viewBtn.textContent = 'View Result';
+      viewBtn.title = 'Show details for this quiz';
+
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'ghost small';
+      copyBtn.textContent = 'Copy datetime';
+      copyBtn.onclick = ()=> {
+        navigator.clipboard?.writeText(new Date(Number(quiz.CompletionDatetime || quiz.StartDatetime || Date.now())).toLocaleString());
+      };
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'danger small';
+      deleteBtn.textContent = 'Delete (local)';
+      deleteBtn.title = 'This only removes entry from UI, implement API call if you want server deletion';
+      deleteBtn.onclick = ()=>{
+        // simple removal from UI
+        row.remove();
+      };
+
+      controls.appendChild(viewBtn);
+      controls.appendChild(copyBtn);
+      controls.appendChild(deleteBtn);
+
+      row.appendChild(meta);
+      row.appendChild(score);
+      row.appendChild(controls);
+
+      // details container
+      const details = document.createElement('div');
+      details.className = 'details';
+
+      // parse quiz info into questions array
+      const questions = safeParseQuizInfo(quiz.QuizInfo) || [];
+
+      if(questions.length === 0){
+        const noq = document.createElement('div');
+        noq.className = 'empty';
+        noq.textContent = 'No question data available for this quiz.';
+        details.appendChild(noq);
+      } else {
+        questions.forEach((qObj, idx)=>{
+          const qwrap = document.createElement('div');
+          qwrap.className = 'question';
+
+          const qTitle = document.createElement('div');
+          qTitle.className = 'q-title';
+          qTitle.textContent = `Q${idx+1}. ${qObj.Question ?? qObj.question ?? 'Untitled question'}`;
+
+          const optWrap = document.createElement('div');
+          optWrap.className = 'options';
+
+          const answers = qObj.Answers || qObj.answers || [];
+          const userAnswerIndex = (typeof qObj.UserAnswer === 'number') ? qObj.UserAnswer : (typeof qObj.UserAnswer === 'string' ? Number(qObj.UserAnswer) : null);
+          const correctIndex = (typeof qObj.CorrectAnswerIndex === 'number') ? qObj.CorrectAnswerIndex : (typeof qObj.CorrectAnswerIndex === 'string' ? Number(qObj.CorrectAnswerIndex) : null);
+
+          answers.forEach((optText, optIdx)=>{
+            const opt = document.createElement('div');
+            opt.className = 'option';
+            opt.textContent = optText;
+            // mark correct
+            if(correctIndex !== null && optIdx === correctIndex){
+              opt.classList.add('correct');
+              opt.title = 'Correct answer';
+            }
+            // mark user answer
+            if(userAnswerIndex !== null && optIdx === userAnswerIndex){
+              opt.classList.add('user');
+              const badge = document.createElement('span');
+              badge.style.float = 'right';
+              badge.style.opacity = 0.9;
+              badge.style.fontSize = '0.85rem';
+              badge.textContent = (optIdx === correctIndex) ? 'Your answer (✔)' : 'Your answer (✖)';
+              opt.appendChild(badge);
+            }
+            optWrap.appendChild(opt);
+          });
+
+          qwrap.appendChild(qTitle);
+          qwrap.appendChild(optWrap);
+
+          // explanation - render markdown if present
+          if(qObj.AnswerExplanation){
+            const expl = document.createElement('div');
+            expl.className = 'explanation';
+            // Convert markdown to HTML using your util. It returns HTML string.
+            try{
+              // MarkdownToHTMLString expects markdown string and returns HTML string
+              const html = MarkdownToHTMLString(qObj.AnswerExplanation);
+              expl.innerHTML = html;
+            }catch(err){
+              console.warn('Markdown convert failed:', err);
+              expl.textContent = qObj.AnswerExplanation;
+            }
+            qwrap.appendChild(expl);
+          }
+
+          details.appendChild(qwrap);
+        });
+      }
+
+      // wire up toggle
+      viewBtn.onclick = ()=>{
+        const visible = details.style.display === 'block';
+        details.style.display = visible ? 'none' : 'block';
+        viewBtn.textContent = visible ? 'View Result' : 'Hide Result';
+      };
+
+      // append details (starts hidden)
+      row.appendChild(details);
+      quizList.appendChild(row);
+    }
+
+    // event wiring
+    refreshBtn.addEventListener('click', ()=>loadScores());
+    clearLocalBtn.addEventListener('click', ()=>{
+      const keys = ['jwt','token','accessToken','id_token'];
+      keys.forEach(k=>localStorage.removeItem(k));
+      statusText.textContent = 'Cleared token keys from localStorage. You may need to re-login.';
+    });
+
+    // initial load
+    await loadScores();
+
+  </script>
+
+</body>
+</html>
