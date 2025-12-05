@@ -120,9 +120,16 @@ function CreateResultContent (result) {
             window.location = "./LevelSelection.html";
         }
         contentCard.appendChild(lvlSelectionBtn);
+
+        // History button:
+        const historyBtn = document.createElement("button");
+        historyBtn.innerText = "History Results";
+        historyBtn.classList.add("ActionBtn", "HistoryBtn");
+        historyBtn.onclick = (e) => {
+            window.location = "./LevelQuizHistoryResults.html";
+        }
+        contentCard.appendChild(historyBtn);
     }
-
-
 }
 
 async function HandleResultContent (lvl) {
