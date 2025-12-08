@@ -1,6 +1,6 @@
 [
     {
-        "Question": "When crossing the road, you should:",
+        "Question": "When crossing the road, you should:\n\n![](https://i.pinimg.com/originals/7e/0a/c1/7e0ac1d327835446af70fcd513c562dd.jpg)",
         "Answers": [
             "Run quickly without looking",
             "Look right, left, and right again before crossing",
@@ -8,7 +8,7 @@
             "Wait for others to cross first"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Look right, left, and right again before crossing."
+        "AnswerExplanation": "Look right, left, and right again before crossing.\n\n![sign](https://i.pinimg.com/originals/7e/0a/c1/7e0ac1d327835446af70fcd513c562dd.jpg)"
     },
     {
         "Question": "Where is the safest place to cross a busy road?",
