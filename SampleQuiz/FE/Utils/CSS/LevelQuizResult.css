@@ -42,6 +42,11 @@
             transform: scale(105%);
         }
 
+        #ContentCard > .DownloadBtn {
+            background-color: rgb(0, 89, 255);
+            color: white;
+        }
+
         #ContentCard > .ShareBtn {
             background-color: lime;
         }
