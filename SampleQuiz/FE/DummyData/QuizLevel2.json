@@ -1,6 +1,6 @@
 [
     {
-        "Question": "Before starting your vehicle, the first thing you should do is:",
+        "Question": "Before starting your vehicle, the first thing you should do is:\n\n![](https://as1.ftcdn.net/v2/jpg/05/98/83/68/1000_F_598836831_XdoBdHRi6WR1JOrbvn88CYWp9Qyp2UqB.jpg)",
         "Answers": [
             "Turn on the radio",
             "Check seatbelt and mirrors",
@@ -8,10 +8,10 @@
             "Look at your phone"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Check seatbelt and mirrors"
+        "AnswerExplanation": "The answer is:Check seatbelt and mirrors\n\n![](https://as1.ftcdn.net/v2/jpg/05/98/83/68/1000_F_598836831_XdoBdHRi6WR1JOrbvn88CYWp9Qyp2UqB.jpg)"
     },
     {
-        "Question": "What is the meaning of a yellow traffic light?",
+        "Question": "What is the meaning of a yellow traffic light?\n\n![](https://static.vecteezy.com/system/resources/previews/049/285/997/original/set-of-traffic-light-illustration-vector.jpg)",
         "Answers": [
             "Go faster before it turns red",
             "Prepare to stop",
@@ -19,10 +19,10 @@
             "Speed through"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Prepare to stop"
+        "AnswerExplanation": "The answer is:Prepare to stop\n\n![](https://static.vecteezy.com/system/resources/previews/049/285/997/original/set-of-traffic-light-illustration-vector.jpg)"
     },
     {
-        "Question": "Motorcyclists must always wear:",
+        "Question": "Motorcyclists must always wear:\n\n![](https://thumbs.dreamstime.com/z/safety-motorcycle-driving-rule-wear-your-helmet-to-protect-your-head-safety-warning-poster-design-safety-motorcycle-driving-rule-235006998.jpg)",
         "Answers": [
             "Helmet with strap fastened",
             "Cap or hat",
@@ -30,10 +30,10 @@
             "Gloves only"
         ],
         "CorrectAnswerIndex": 0,
-        "AnswerExplanation": "Helmet with strap fastened"
+        "AnswerExplanation": "The answer is:Helmet with strap fastened\n\n![](https://thumbs.dreamstime.com/z/safety-motorcycle-driving-rule-wear-your-helmet-to-protect-your-head-safety-warning-poster-design-safety-motorcycle-driving-rule-235006998.jpg)"
     },
     {
-        "Question": "Which of the following is unsafe while driving?",
+        "Question": "Which of the following is unsafe while driving?\n\n![](https://thecinnamonhollow.com/wp-content/uploads/2014/07/The-Dangers-Of-Drinking-And-Driving-580x870.png)",
         "Answers": [
             "Using a hands-free phone",
             "Driving under the influence of alcohol",
@@ -41,10 +41,10 @@
             "Wearing a seatbelt"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Driving under the influence of alcohol"
+        "AnswerExplanation": "The answer is:Driving under the influence of alcohol\n\n![](https://thecinnamonhollow.com/wp-content/uploads/2014/07/The-Dangers-Of-Drinking-And-Driving-580x870.png)"
     },
     {
-        "Question": "Drivers should keep a safe distance because:",
+        "Question": "Drivers should keep a safe distance because:\n\n![](https://thumbs.dreamstime.com/z/car-safety-rules-illustration-promoting-need-safe-distances-road-to-avoid-collisions-keep-safe-distance-road-344728755.jpg)",
         "Answers": [
             "It looks professional",
             "It gives time to react to sudden stops",
@@ -52,10 +52,10 @@
             "It annoys the car in front"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "It gives time to react to sudden stops"
+        "AnswerExplanation": "The answer is:It gives time to react to sudden stops\n\n![](https://thumbs.dreamstime.com/z/car-safety-rules-illustration-promoting-need-safe-distances-road-to-avoid-collisions-keep-safe-distance-road-344728755.jpg)"
     },
     {
-        "Question": "What should you do when driving in rainy conditions?",
+        "Question": "What should you do when driving in rainy conditions?\n\n![](https://www.wikihow.com/images/thumb/a/aa/Dreaming-About-Rain-Step-14.jpg/v4-460px-Dreaming-About-Rain-Step-14.jpg)",
         "Answers": [
             "Speed up to reach home faster",
             "Slow down and use headlights",
@@ -63,10 +63,10 @@
             "Follow vehicles too closely"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Slow down and use headlights"
+        "AnswerExplanation": "The answer is:Slow down and use headlights\n\n![](https://www.wikihow.com/images/thumb/a/aa/Dreaming-About-Rain-Step-14.jpg/v4-460px-Dreaming-About-Rain-Step-14.jpg)"
     },
     {
-        "Question": "When approaching a school zone:",
+        "Question": "When approaching a school zone:\n\n![](https://as1.ftcdn.net/v2/jpg/03/57/48/46/1000_F_357484662_DxXE1uCgkrDE7HsC6QBBghKjxxTOI1sL.jpg)",
         "Answers": [
             "Drive as usual",
             "Slow down and watch for children",
@@ -74,10 +74,10 @@
             "Use your horn loudly"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Slow down and watch for children"
+        "AnswerExplanation": "The answer is:Slow down and watch for children\n\n![](https://as1.ftcdn.net/v2/jpg/03/57/48/46/1000_F_357484662_DxXE1uCgkrDE7HsC6QBBghKjxxTOI1sL.jpg)"
     },
     {
-        "Question": "If you are sleepy while driving, you should:",
+        "Question": "If you are sleepy while driving, you should:\n\n![](https://www.shutterstock.com/image-vector/tired-driver-fell-asleep-wheel-600nw-1553644304.jpg)",
         "Answers": [
             "Open the window for air",
             "Stop and rest at a safe place",
@@ -85,10 +85,10 @@
             "Speed up to finish faster"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Stop and rest at a safe place"
+        "AnswerExplanation": "The answer is:Stop and rest at a safe place\n\n![](https://www.shutterstock.com/image-vector/tired-driver-fell-asleep-wheel-600nw-1553644304.jpg)"
     },
     {
-        "Question": "When turning at an intersection, you should:",
+        "Question": "When turning at an intersection, you should:\n\n![](https://static.epermittest.com/media/filer_public_thumbnails/filer_public/a7/c7/a7c7623e-b7ba-46b8-a2bd-146572859e97/right-of-way-at-intersections.jpg__1920x0_q100_subsampling-2_upscale.jpg)",
         "Answers": [
             "Signal early before turning",
             "Turn without checking mirrors",
@@ -96,10 +96,10 @@
             "Brake suddenly"
         ],
         "CorrectAnswerIndex": 0,
-        "AnswerExplanation": "Signal early before turning"
+        "AnswerExplanation": "The answer is:Signal early before turning\n\n![](https://static.epermittest.com/media/filer_public_thumbnails/filer_public/a7/c7/a7c7623e-b7ba-46b8-a2bd-146572859e97/right-of-way-at-intersections.jpg__1920x0_q100_subsampling-2_upscale.jpg)"
     },
     {
-        "Question": "Seatbelts are important because they:",
+        "Question": "Seatbelts are important because they:\n\n![](https://cdn.vectorstock.com/i/500p/78/61/background-with-3d-realistic-unblocked-vector-25667861.jpg)",
         "Answers": [
             "Are required only for long trips",
             "Protect all passengers in accidents",
@@ -107,6 +107,6 @@
             "Help you lean comfortably"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Protect all passengers in accidents"
+        "AnswerExplanation": "The answer is:Protect all passengers in accidents\n\n![](https://cdn.vectorstock.com/i/500p/78/61/background-with-3d-realistic-unblocked-vector-25667861.jpg)"
     }
 ]
