@@ -1,0 +1,32 @@
+[
+    {
+        "ID": 1,
+        "LevelImg": "https://i.ytimg.com/vi/k8L_-wNO2Oo/maxresdefault.jpg",
+        "LevelName": "Road Safety",
+        "LevelDescription": "Introduce Road Safety"
+    },
+    {
+        "ID": 2,
+        "LevelImg": "https://image.shutterstock.com/image-vector/traffic-laws-rules-road-children-600w-648422536.jpg",
+        "LevelName": "Vechicle Safety Rules",
+        "LevelDescription": "Identify Safety Rules from Vechicle"
+    },
+    {
+        "ID": 3,
+        "LevelImg": "https://www.shutterstock.com/image-vector/vector-school-sign-design-elements-600w-18132847.jpg",
+        "LevelName": "Road Sign",
+        "LevelDescription": "Recognize the Road Sign This is a testing"
+    },
+    {
+        "ID": 4,
+        "LevelImg": "../Assets/Images/anime-short.gif",
+        "LevelName": "Totally Obvious Safety",
+        "LevelDescription": "Because common sense is apparently optional."
+    },
+    {
+        "ID": 5,
+        "LevelImg": "../Assets/Images/long-long-long.gif",
+        "LevelName": "Epic Saga of Road Stupidity",
+        "LevelDescription": "A dramatic journey proving that brains are optional when crossing roads."
+    }
+]
