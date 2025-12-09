@@ -97,7 +97,7 @@ function CreateResultContent (result) {
     if (navigator.share) {  // If it's supported:
         const shareBtn = document.createElement("button");
         shareBtn.innerText = "Share";
-        shareBtn.classList.add("ActionBtn", "ShareBtn");
+        shareBtn.classList.add("ActionBtn", "ShareBtn", "Hidden");
         shareBtn.onclick = (e) => {
             const timeTakenStr = timeTaken != null ? MSToStr(timeTaken) : "(not completed yet)";
             navigator.share({
@@ -116,9 +116,9 @@ function CreateResultContent (result) {
     // Download button:
     const downloadBtn = document.createElement("button");
     downloadBtn.innerText = "Download as JSON";
-    downloadBtn.classList.add("ActionBtn", "DownloadBtn");
+    downloadBtn.classList.add("ActionBtn", "DownloadBtn", "Hidden");
     downloadBtn.onclick = (e) => {
-        const downloadFilename = prompt("Save as:", `result_${startDTMS}`);
+        const downloadFilename = prompt("Save as:", `result_${startDTMS}.json`);
         DownloadJSON(result, downloadFilename);
     }
     contentCard.appendChild(downloadBtn);
