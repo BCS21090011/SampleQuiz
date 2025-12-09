@@ -113,6 +113,16 @@ function CreateResultContent (result) {
         contentCard.appendChild(shareBtn);
     }
 
+    // Download button:
+    const downloadBtn = document.createElement("button");
+    downloadBtn.innerText = "Download as JSON";
+    downloadBtn.classList.add("ActionBtn", "DownloadBtn");
+    downloadBtn.onclick = (e) => {
+        const downloadFilename = prompt("Save as:", `result_${startDTMS}`);
+        DownloadJSON(result, downloadFilename);
+    }
+    contentCard.appendChild(downloadBtn);
+
     // Level selection button:
     const lvlSelectionBtn = document.createElement("button");
     lvlSelectionBtn.innerText = "Level Selection";
