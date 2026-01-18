@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, render_template
 import os
 from BE.API import api_blueprint
 from dotenv import load_dotenv
@@ -16,6 +16,8 @@ feDummyDataDir: str = os.path.join(feDir, "DummyData")
 
 beDir: str = os.path.join(app.root_path, "BE")
 
+app.template_folder = fePageDir
+
 # Serve the frontend:
 
 @app.route("/")
@@ -24,7 +26,11 @@ def Root():
 
 @app.route("/<string:page>")
 def ServePage(page):
-    return send_from_directory(fePageDir, page)
+    if page.endswith(".html"):
+        return send_from_directory(fePageDir, page)
+
+    # Handles user cred here and pass it to the template
+    return render_template(page + ".html")
 
 @app.route("/Utils/<path:path>")
 def ServeUtils(path):
