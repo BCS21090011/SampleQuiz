@@ -7,7 +7,7 @@ const lvlSelectionBtn = document.querySelector("div#ActionDiv > button#LvlSelect
 const learningFCBtn = document.querySelector("div#ActionDiv > button#LearningFCBtn");
 const playBtn = document.querySelector("div#ActionDiv > button#PlayBtn.ActionBtn");
 
-async function GetAndProcessNote (lvl) {
+async function GetAndProcessNote(lvl) {
     const noteInfo = await FetchJSON(`../DummyData/LevelNotes.json`)
         .catch((reason) => {
             alert(`Error encountered:\n${reason}`);
@@ -42,17 +42,17 @@ else {
 }
 
 mainPageBtn.onclick = (e) => {
-    window.location = "./MainPage.html";
+    window.location = "./MainPage";
 }
 
 lvlSelectionBtn.onclick = (e) => {
-    window.location = "./LevelSelection.html";
+    window.location = "./LevelSelection";
 }
 
 learningFCBtn.onclick = (e) => {
-    window.location = `./LearningFlashCard.html?lvl=${lvl}`;
+    window.location = `./LearningFlashCard?lvl=${lvl}`;
 }
 
 playBtn.onclick = (e) => {
-    window.location = `./LevelQuiz.html?lvl=${lvl}`;
+    window.location = `./LevelQuiz?lvl=${lvl}`;
 }

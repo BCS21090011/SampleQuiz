@@ -10,7 +10,7 @@ const lvlSelectionBtn = document.querySelector("div#ActionDiv > button#LvlSelect
 const learningNoteBtn = document.querySelector("div#ActionDiv > button#LearningNoteBtn");
 const playBtn = document.querySelector("div#ActionDiv > button#PlayBtn.ActionBtn");
 
-function CreateFlashCard (flashCardInfo) {
+function CreateFlashCard(flashCardInfo) {
     const question = flashCardInfo["Question"];
     const answerExplanation = flashCardInfo["AnswerExplanation"];
 
@@ -40,12 +40,12 @@ function CreateFlashCard (flashCardInfo) {
     return cardObj;
 }
 
-function LoadFlashCard (cardContainer) {
+function LoadFlashCard(cardContainer) {
     flashCardContainer.innerHTML = "";
     flashCardContainer.appendChild(cardContainer);
 }
 
-function HandleActionBtn (indexAfterAction, totalLength) {
+function HandleActionBtn(indexAfterAction, totalLength) {
     // If it's first item:
     if (indexAfterAction == 0) {
         HideElement(prevBtn);
@@ -63,7 +63,7 @@ function HandleActionBtn (indexAfterAction, totalLength) {
     }
 }
 
-async function GetAndProcessFlashCard (lvl) {
+async function GetAndProcessFlashCard(lvl) {
     const flashCardInfo = await FetchJSON(`../DummyData/QuizLevel${lvl}.json`)
         .catch((reason) => {
             alert(`Error encountered:\n${reason}`);
@@ -129,17 +129,17 @@ else {
 }
 
 mainPageBtn.onclick = (e) => {
-    window.location = "./MainPage.html";
+    window.location = "./MainPage";
 }
 
 lvlSelectionBtn.onclick = (e) => {
-    window.location = "./LevelSelection.html";
+    window.location = "./LevelSelection";
 }
 
 learningNoteBtn.onclick = (e) => {
-    window.location = `./LearningNote.html?lvl=${lvl}`;
+    window.location = `./LearningNote?lvl=${lvl}`;
 }
 
 playBtn.onclick = (e) => {
-    window.location = `./LevelQuiz.html?lvl=${lvl}`;
+    window.location = `./LevelQuiz?lvl=${lvl}`;
 }

@@ -3,13 +3,13 @@ function LearnBtn_OnClick(e) {
 }
 
 function PlayBtn_OnClick(e) {
-    window.location = "./LevelSelection.html";
+    window.location = "./LevelSelection";
 }
 
 function HelpBtn_OnClick(e) {
-    window.location = "./Help.html";
+    window.location = "./Help";
 }
 
 function HistoryBtn_OnClick(e) {
-    window.location = "./LevelQuizHistoryResults.html";
+    window.location = "./LevelQuizHistoryResults";
 }

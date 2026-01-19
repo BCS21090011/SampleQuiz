@@ -42,9 +42,15 @@
                     <li>Learning is more fun when you explore — don’t rush!</li>
                 </ul>
 
-                <a href="MainPage.html" class="backButton">⬅ Back to Main Page</a>
+                <a href="MainPage" class="backButton">⬅ Back to Main Page</a>
             </div>
         </div>
+        <script>
+            const isAuthed = {{ isAuthed_flask | tojson }};
+            const authError = {{ authError_flask | tojson }};
+            const userID = {{ userID_flask | tojson }};
+            const userRole = {{ userRole_flask | tojson }};
+        </script>
         <script src="../Utils/JS/Shared.js"></script>
     </body>
 </html>

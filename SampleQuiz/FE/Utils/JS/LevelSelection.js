@@ -5,7 +5,7 @@ const levelSelectionContainerDiv = document.querySelector("div#LevelSelectionCon
 const backBtn = document.querySelector("div#ActionDiv > button#BackBtn");
 
 backBtn.onclick = (e) => {
-    window.location = "./MainPage.html";
+    window.location = "./MainPage";
 }
 
 const colorPattern = [
@@ -55,7 +55,7 @@ function CreateLevelCard(levelInfo, index) {
     levelPlayBtn.classList.add("LevelBtn", "PlayBtn");
     levelPlayBtn.innerText = "PLAY";
     levelPlayBtn.onclick = (e) => {
-        window.location = `./LevelQuiz.html?lvl=${lvlID}`;
+        window.location = `./LevelQuiz?lvl=${lvlID}`;
     }
     levelCard.appendChild(levelPlayBtn);
 
@@ -63,7 +63,7 @@ function CreateLevelCard(levelInfo, index) {
     levelLearnBtn.classList.add("LevelBtn", "LearnBtn");
     levelLearnBtn.innerText = "LEARN";
     levelLearnBtn.onclick = (e) => {
-        window.location = `./LearningFlashCard.html?lvl=${lvlID}`;
+        window.location = `./LearningFlashCard?lvl=${lvlID}`;
     }
     levelCard.appendChild(levelLearnBtn);
 

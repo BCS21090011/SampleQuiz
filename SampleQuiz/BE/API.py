@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, make_response
 from BE.db_connection import DatabaseConnection
 from BE.Auth import GenerateToken, DecodeToken, required_auth, DecodeAuthHeader
 import json
@@ -32,13 +32,13 @@ def required_db(func):
 
 def GetUserFromDB(db: DatabaseConnection, userID: int):
     return db.fetch_one(
-        "SELECT ID, UserName FROM User WHERE ID = %s",
+        "SELECT ID, UserName, UserEmail, UserBirthDate, UserGender, CreationDatetime, UserRole FROM User WHERE ID = %s",
         (userID,)
     )
 
 def GetUsersFromDB(db: DatabaseConnection):
     return db.fetch_query(
-        "SELECT ID, UserName FROM User"
+        "SELECT ID, UserName, UserEmail, UserBirthDate, UserGender, CreationDatetime, UserRole FROM User"
     )
 
 def DeleteUserFromDB(db: DatabaseConnection, userID: int):
@@ -59,6 +59,10 @@ def Register(db: DatabaseConnection):
     data = request.get_json()
     username: str = data.get("username")
     password: str = data.get("password")
+
+    useremail: str = data.get("useremail", None)
+    userbirthdate: str = data.get("userbirthdate", None)
+    usergender: str = data.get("usergender", None)
     
     if not username or not password:
         return jsonify({
@@ -77,8 +81,8 @@ def Register(db: DatabaseConnection):
     
     # Insert new user:
     userID = db.execute_query(
-        "INSERT INTO User (UserName, UserPassword) VALUES (%s, %s)",
-        (username, password)
+        "INSERT INTO User (UserName, UserPassword, UserEmail, UserBirthDate, UserGender) VALUES (%s, %s, %s, %s, %s)",
+        (username, password, useremail, userbirthdate, usergender)
     )
 
     if userID:
@@ -108,18 +112,24 @@ def Login(db: DatabaseConnection):
     
     # Check credentials:
     user = db.fetch_one(
-        "SELECT ID, UserName, IF(UserPassword = %s, \"MATCH\", \"UNMATCH\") AS PasswordMatch FROM User WHERE UserName = %s",
+        "SELECT ID, UserName, UserRole, IF(UserPassword = %s, \"MATCH\", \"UNMATCH\") AS PasswordMatch FROM User WHERE UserName = %s",
         (password, username)
     )
     
     if user:
         passwordMatch: bool = user.get("PasswordMatch") == "MATCH"
         if passwordMatch:
-            return jsonify({
+            jwt: str = GenerateToken(user.get("ID"), user.get("UserRole"))
+
+            response = make_response(jsonify({
                 "success": True,
                 "message": "Login successful",
-                "token": GenerateToken(user.get("ID"))
-            }), 200
+                "token": jwt
+            }))
+
+            response.set_cookie("JWT", jwt)
+
+            return response, 200
         else:
             return jsonify({
                 "success": False,
@@ -130,6 +140,17 @@ def Login(db: DatabaseConnection):
             "success": False,
             "message": "User not found"
         }), 404
+
+@api_blueprint.route("/Logout", methods=["POST"])
+def Logout():
+    response = make_response(jsonify({
+        "success": True,
+        "message": "Logout successful"
+    }))
+
+    response.set_cookie("JWT", "", expires=0)
+
+    return response, 200
 
 @api_blueprint.route("/ValidateJWT", methods=["POST"])
 def ValidateJWT():
@@ -163,8 +184,8 @@ def ValidateJWT():
         }), 500
 
 @api_blueprint.route("/User", methods=["GET"])
-@required_auth
 @required_db
+@required_auth()
 def GetUser(db: DatabaseConnection):
     userID: int = request.user_payload.get("user_id")
         
@@ -182,8 +203,8 @@ def GetUser(db: DatabaseConnection):
         }), 404
 
 @api_blueprint.route("/User", methods=["DELETE"])
-@required_auth
 @required_db
+@required_auth()
 def DeleteUser(db: DatabaseConnection):
     userID: int = request.user_payload.get("user_id")
 
@@ -201,8 +222,8 @@ def DeleteUser(db: DatabaseConnection):
         }), 404
 
 @api_blueprint.route("/SubmitScore", methods=["POST"])
-@required_auth
 @required_db
+@required_auth()
 def SubmitScore(db: DatabaseConnection):
     userID: int = request.user_payload.get("user_id")
     
@@ -227,7 +248,7 @@ def SubmitScore(db: DatabaseConnection):
     }), 201
 
 @api_blueprint.route("/Scores", methods=["GET"])
-@required_auth
+@required_auth()
 @required_db
 def GetScores(db: DatabaseConnection):
     userID: int = request.user_payload.get("user_id")
@@ -240,8 +261,8 @@ def GetScores(db: DatabaseConnection):
     }), 200
 
 @api_blueprint.route("/Users", methods=["GET"])
-@required_auth
 @required_db
+@required_auth()
 def GetAllUsers(db: DatabaseConnection):
     users = GetUsersFromDB(db)
 
@@ -251,8 +272,8 @@ def GetAllUsers(db: DatabaseConnection):
     }), 200
 
 @api_blueprint.route("/User/<int:userID>", methods=["GET"])
-@required_auth
 @required_db
+@required_auth()
 def GetUserWithID(db: DatabaseConnection, userID: int):
     user = GetUserFromDB(db, userID)
     
@@ -268,31 +289,48 @@ def GetUserWithID(db: DatabaseConnection, userID: int):
         }), 404
 
 @api_blueprint.route("/User/<int:userID>", methods=["PATCH"])
-@required_auth
 @required_db
+@required_auth()
 def UpdateUser(db: DatabaseConnection, userID: int):
+    if request.user_payload.get("user_role") != "ADMIN":
+        if request.user_payload.get("user_id") != userID:
+            return jsonify({
+                "success": False,
+                "message": "Not authorized to update this user"
+            }), 403
+    
     data = request.get_json()
-    password: str = data.get("password", None)
-    # All attributes here, maybe best to separate password and role with other attributes
+    
+    userEmailProvided: bool = "useremail" in data
+    userEmail: str = data.get("useremail", None)
+    userBirthDateProvided: bool = "userbirthdate" in data
+    userBirthDate: str = data.get("userbirthdate", None)
+    userGenderProvided: bool = "usergender" in data
+    userGender: str = data.get("usergender", None)
 
-    # Check if any attribute is provided, don't execute if not provided:
-    if password is None:
+    if not any(userEmailProvided, userBirthDateProvided, userGenderProvided):
         return jsonify({
             "success": False,
-            "message": "No data provided"
+            "message": "No attributes provided"
         }), 400
 
-    query: str = f"""
+    query: str = """
         UPDATE User
         SET
-            {"UserPassword = %s, " if password else ""}
+            {"UserEmail = %s, " if userEmailProvided else ""}
+            {"UserBirthDate = %s, " if userBirthDateProvided else ""}
+            {"UserGender = %s, " if userGenderProvided else ""}
         WHERE ID = %s
     """
 
     params: list = []
 
-    if password:
-        params.append(password)
+    if userEmailProvided:
+        params.append(userEmail)
+    if userBirthDateProvided:
+        params.append(userBirthDate)
+    if userGenderProvided:
+        params.append(userGender)
 
     params.append(userID)
 
@@ -309,10 +347,51 @@ def UpdateUser(db: DatabaseConnection, userID: int):
             "message": "User update failed"
         }), 404
 
-@api_blueprint.route("/User/<int:userID>", methods=["DELETE"])
-@required_auth
+@api_blueprint.route("/User/<int:userID>/password", methods=["POST"])
 @required_db
+@required_auth()
+def UpdateUserPassword(db: DatabaseConnection, userID: int):
+    if request.user_payload.get("user_role") != "ADMIN":
+        if request.user_payload.get("user_id") != userID:
+            return jsonify({
+                "success": False,
+                "message": "Not authorized to update this user's password"
+            }), 403
+    
+    data = request.get_json()
+    
+    userPassword: str = data.get("userpassword", None)
+    
+    if not userPassword:
+        return jsonify({
+            "success": False,
+            "message": "No password provided"
+        }), 400
+    
+    result = db.execute_query("UPDATE User SET UserPassword = %s WHERE ID = %s", (userPassword, userID))
+    
+    if result is not None:
+        return jsonify({
+            "success": True,
+            "message": "User password updated successfully"
+        }), 200
+    else:
+        return jsonify({
+            "success": False,
+            "message": "User password update failed"
+        }), 404
+
+@api_blueprint.route("/User/<int:userID>", methods=["DELETE"])
+@required_db
+@required_auth()
 def DeleteUserWithID(db: DatabaseConnection, userID: int):
+    if request.user_payload.get("user_role") != "ADMIN":
+        if request.user_payload.get("user_id") != userID:
+            return jsonify({
+                "success": False,
+                "message": "Not authorized to delete this user"
+            }), 403
+
     result = DeleteUserFromDB(db, userID)
     
     if result is not None:
@@ -327,8 +406,8 @@ def DeleteUserWithID(db: DatabaseConnection, userID: int):
         }), 404
 
 @api_blueprint.route("/User/<int:userID>/Scores", methods=["GET"])
-@required_auth
 @required_db
+@required_auth()
 def GetScoresWithUserID(db: DatabaseConnection, userID: int):
     scores = GetUserScoreFromDB(db, userID)
     
@@ -338,8 +417,8 @@ def GetScoresWithUserID(db: DatabaseConnection, userID: int):
     }), 200
 
 @api_blueprint.route("/Level/<int:levelID>/Scores", methods=["GET"])
-@required_auth
 @required_db
+@required_auth()
 def GetScoresWithLevelID(db: DatabaseConnection, levelID: int):
     scores = db.fetch_query("SELECT ID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo FROM Scores WHERE LevelID = %s AND CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC", (levelID,))
     

@@ -13,6 +13,12 @@
             <button id="HelpBtn" onclick="HelpBtn_OnClick()">HELP</button>
             <button id="HistoryBtn" onclick="HistoryBtn_OnClick()">HISTORY</button>
         </div>
+        <script>
+            const isAuthed = {{ isAuthed_flask | tojson }};
+            const authError = {{ authError_flask | tojson }};
+            const userID = {{ userID_flask | tojson }};
+            const userRole = {{ userRole_flask | tojson }};
+        </script>
         <script src="../Utils/JS/Shared.js"></script>
         <script src="../Utils/JS/MainPage.js"></script>
     </body>

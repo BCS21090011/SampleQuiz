@@ -5,17 +5,17 @@ const urlParams = GetURLParams();
 
 const urlParams_dest = urlParams["dest"];
 
-let dest = urlParams_dest != undefined ? decodeURI(urlParams["dest"]) : "./MainPage.html";
+let dest = urlParams_dest != undefined ? decodeURI(urlParams["dest"]) : "./MainPage";
 let completeURLParam = window.location.search;
 
 const loginForm = document.querySelector("#LoginForm");
 const createAccountA = document.querySelector("a#CreateAccountA");
 
-createAccountA.href = `./Register.html${completeURLParam}`;
+createAccountA.href = `./Register${completeURLParam}`;
 
-loginForm.onsubmit = async function(e) {
+loginForm.onsubmit = async function (e) {
     e.preventDefault();
-    
+
     const formData = new FormData(this);
 
     const result = await FetchJSON(
@@ -51,7 +51,7 @@ loginForm.onsubmit = async function(e) {
     }
 
     if (loginSuccess == true) {
-        const {["dest"]: _, ...restParams} = urlParams;
+        const { ["dest"]: _, ...restParams } = urlParams;
         const restParamStr = FormURLParams(restParams);
 
         if (restParamStr.length > 0) {

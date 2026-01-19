@@ -165,6 +165,12 @@
   </div>
 
   <!-- Your local modules are imported as ES modules -->
+  <script>
+      const isAuthed = {{ isAuthed_flask | tojson }};
+      const authError = {{ authError_flask | tojson }};
+      const userID = {{ userID_flask | tojson }};
+      const userRole = {{ userRole_flask | tojson }};
+  </script>
   <script type="module">
     import HandleJWT from "../Utils/JS/Auth.js";
     import MarkdownToHTMLString from "../Utils/JS/MarkDownUtils.js";
@@ -406,7 +412,7 @@
     // event wiring
     refreshBtn.addEventListener('click', ()=>loadScores());
     mainPageBtn.addEventListener('click', ()=>{
-      window.location = "./Mainpage.html";
+      window.location = "./Mainpage";
     });
 
     // initial load

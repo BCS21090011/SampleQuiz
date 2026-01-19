@@ -28,6 +28,12 @@
         <div id="PopupLayer" class="layer centerItems Hidden">
             <div id="PopupDiv"></div>
         </div>
+        <script>
+            const isAuthed = {{ isAuthed_flask | tojson }};
+            const authError = {{ authError_flask | tojson }};
+            const userID = {{ userID_flask | tojson }};
+            const userRole = {{ userRole_flask | tojson }};
+        </script>
         <script src="../Utils/JS/Shared.js"></script>
         <script src="https://unpkg.com/showdown@2.1.0/dist/showdown.min.js"></script>
         <script type="module" src="../Utils/JS/LevelQuiz.js"></script>

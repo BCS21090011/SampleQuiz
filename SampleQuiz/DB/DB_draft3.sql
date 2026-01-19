@@ -21,10 +21,18 @@ CREATE TABLE User (
     UserName VARCHAR(255) NOT NULL UNIQUE,
     UserPassword VARCHAR(255) NOT NULL,
     UserEmail VARCHAR(255) DEFAULT NULL,
-    UserRole VARCHAR(16) NOT NULL,
+    UserBirthDate DATE DEFAULT NULL,
+    UserGender ENUM("MALE", "FEMALE", "OTHER") DEFAULT NULL,
+    CreationDatetime DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UserRole VARCHAR(16) DEFAULT "PLAYER",
     PRIMARY KEY (ID),
     FOREIGN KEY (UserRole) REFERENCES Roles(Rolename)
 );
+
+INSERT INTO User
+    (UserName, UserPassword, UserRole)
+VALUES
+    ("admin", "admin", "ADMIN");
 
 CREATE TABLE Scores (
     ID INT NOT NULL AUTO_INCREMENT,

@@ -11,6 +11,12 @@
         <div id="ActionDiv">
             <button id="BackBtn">Back</button>
         </div>
+        <script>
+            const isAuthed = {{ isAuthed_flask | tojson }};
+            const authError = {{ authError_flask | tojson }};
+            const userID = {{ userID_flask | tojson }};
+            const userRole = {{ userRole_flask | tojson }};
+        </script>
         <script src="../Utils/JS/Shared.js"></script>
         <script type="module" src="../Utils/JS/LevelSelection.js"></script>
     </body>

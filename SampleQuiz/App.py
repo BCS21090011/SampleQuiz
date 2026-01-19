@@ -1,6 +1,8 @@
 from flask import Flask, send_from_directory, render_template
 import os
+import json
 from BE.API import api_blueprint
+from BE.Auth import DecodeAuthHeader
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,17 +22,35 @@ app.template_folder = fePageDir
 
 # Serve the frontend:
 
+def GetUserCred() -> dict:
+    result: dict = {
+        "userID_flask": None,
+        "userRole_flask": None,
+        "isAuthed_flask": False,
+        "authError_flask": None
+    }
+
+    payload, error = DecodeAuthHeader()
+
+    result["authError_flask"] = error
+    
+    if error or payload is None:
+        return result
+    
+    result["userID_flask"] = payload.get("user_id", None)
+    result["userRole_flask"] = payload.get("user_role", None)
+    result["isAuthed_flask"] = True
+    
+    return result
+
 @app.route("/")
 def Root():
-    return send_from_directory(fePageDir, "MainPage.html")
+    return render_template("MainPage.html.jinja", **GetUserCred())
 
 @app.route("/<string:page>")
 def ServePage(page):
-    if page.endswith(".html"):
-        return send_from_directory(fePageDir, page)
-
     # Handles user cred here and pass it to the template
-    return render_template(page + ".html")
+    return render_template(page + ".html.jinja", **GetUserCred())
 
 @app.route("/Utils/<path:path>")
 def ServeUtils(path):

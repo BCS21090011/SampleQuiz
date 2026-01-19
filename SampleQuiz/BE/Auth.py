@@ -8,10 +8,11 @@ from urllib.parse import urlencode
 jwt_secret_key: str = os.getenv("JWT_secret_key", "")
 jwt_algorithm: str = os.getenv("JWT_algorithm", "")
 
-def GenerateToken(userID, lifeTime: timedelta=timedelta(hours=6)) -> str:
+def GenerateToken(userID: int, role: str, lifeTime: timedelta=timedelta(hours=6)) -> str:
     dtNow: datetime = datetime.now(timezone.utc)
     payload: dict = {
         "user_id": userID,
+        "user_role": role,
         "exp": dtNow + lifeTime,
         "iat": dtNow
     }
@@ -33,35 +34,46 @@ def DecodeToken(token: str):
         return None, f"Token decode error: {repr(e)}"
     
 def DecodeAuthHeader():
-    auth: str = request.headers.get("Authorization")
-    
-    if not auth:
-        return None, "Missing Authorization header"
+    cookie: str = request.cookies.get("JWT", None)
+
+    if cookie is None:
+        return None, "Missing JWT cookie"
     
     try:
-        token: str = auth.split(" ")[1]
-        payload, error = DecodeToken(token)
-        
-        return payload, error
+        payload: dict = jwt.decode(cookie, jwt_secret_key, algorithms=jwt_algorithm)
+        print(f"Payload: {payload}")
+        return payload, None
+    except jwt.ExpiredSignatureError:
+        return None, "Token expired"
+    except jwt.InvalidTokenError:
+        return None, "Invalid token"
     except Exception as e:
-        return None, f"Authorization header error: {repr(e)}"
+        return None, f"Token decode error: {repr(e)}"
 
-def required_auth(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        payload, error = DecodeAuthHeader()
-        
-        if error:
-            return jsonify({
+def required_auth(adminOnly: bool=False):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            payload, error = DecodeAuthHeader()
+            
+            if error:
+                return jsonify({
                 "success": False,
                 "message": error
             }), 401
+
+            if adminOnly and payload.get("user_role") != "ADMIN":
+                return jsonify({
+                    "success": False,
+                    "message": "Admin only"
+                }), 403
+                
+            # Store payload in request context:
+            request.user_payload = payload
             
-        # Store payload in request context:
-        request.user_payload = payload
-        
-        return func(*args, **kwargs)
-    return wrapper
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
 
 def required_page_auth(func):
     @wraps(func)
