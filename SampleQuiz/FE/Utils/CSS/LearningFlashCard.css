@@ -7,7 +7,7 @@ div#FlashCardContainer {
 }
 
 div#FlashCardContainer .CardHint {
-    font-size: 12px;
+    font-size: 15px;
     color: gray;
     position: absolute;
     bottom: 0;
