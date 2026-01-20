@@ -7,6 +7,7 @@
 
   <!-- Showdown (required by your MarkdownToHTMLString util) -->
   <script src="https://unpkg.com/showdown@2.1.0/dist/showdown.min.js"></script>
+  <link rel="stylesheet" href="../Utils/CSS/NavButton.css" />
 
   <style>
     :root{
@@ -25,7 +26,7 @@
       margin:0;
       background:linear-gradient(180deg,#071029 0%, #081226 60%);
       color:#e6eef6;
-      padding:24px;
+      padding: 100px 24px;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
@@ -56,13 +57,21 @@
     .quiz-list{display:flex;flex-direction:column;gap:12px;margin-top:14px}
     .quiz-row{
       display:flex;
+      flex-wrap: wrap;
       gap:12px;
-      align-items:center;
-      justify-content:space-between;
       padding:12px;
       border-radius:8px;
       background:var(--glass);
       border:1px solid rgba(255,255,255,0.02);
+    }
+
+    .quiz-summary{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      flex:1;
+      min-width:100%;
     }
 
     .quiz-meta{
@@ -91,6 +100,7 @@
     .small{padding:6px 8px; font-size:0.85rem}
 
     .details{
+      width: 100%;
       margin-top:10px;
       border-radius:8px;
       padding:12px;
@@ -171,6 +181,7 @@
       const userID = {{ userID_flask | tojson }};
       const userRole = {{ userRole_flask | tojson }};
   </script>
+  <script src="../Utils/JS/NavButton.js"></script>
   <script type="module">
     import HandleJWT from "../Utils/JS/Auth.js";
     import MarkdownToHTMLString from "../Utils/JS/MarkDownUtils.js";
@@ -193,11 +204,6 @@
       }
     }
 
-    // attempt to find a stored token in localStorage (common keys)
-    function getTokenFromStorage(){
-      return window.sessionStorage.getItem("JWT").slice(1, -1);
-    }
-
     async function loadScores(){
       statusText.textContent = 'Verifying session...';
       quizList.innerHTML = '';
@@ -208,9 +214,7 @@
 
       statusText.textContent = 'Fetching your scores...';
 
-      const token = getTokenFromStorage(); // optional; if not present we still call fetch (maybe cookie-based)
       const headers = {"Content-Type":"application/json"};
-      if(token) headers["Authorization"] = `Bearer ${token}`;
 
       let res;
       try{
@@ -320,9 +324,14 @@
 
       controls.appendChild(viewBtn);
 
-      row.appendChild(meta);
-      row.appendChild(score);
-      row.appendChild(controls);
+      // Wrap summary elements in a container for the first row
+      const summary = document.createElement('div');
+      summary.className = 'quiz-summary';
+      summary.appendChild(meta);
+      summary.appendChild(score);
+      summary.appendChild(controls);
+
+      row.appendChild(summary);
 
       // details container
       const details = document.createElement('div');

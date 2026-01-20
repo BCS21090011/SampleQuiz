@@ -49,7 +49,7 @@ def DeleteUserFromDB(db: DatabaseConnection, userID: int):
 
 def GetUserScoreFromDB(db: DatabaseConnection, userID: int):
     return db.fetch_query(
-        "SELECT ID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo FROM Scores WHERE UserID = %s AND CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC",
+        "SELECT ID, UserID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo FROM Scores WHERE UserID = %s AND CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC",
         (userID,)
     )
 
@@ -80,12 +80,12 @@ def Register(db: DatabaseConnection):
         }), 409
     
     # Insert new user:
-    userID = db.execute_query(
+    userID, success = db.execute_query(
         "INSERT INTO User (UserName, UserPassword, UserEmail, UserBirthDate, UserGender) VALUES (%s, %s, %s, %s, %s)",
         (username, password, useremail, userbirthdate, usergender)
     )
 
-    if userID:
+    if success:
         return jsonify({
             "success": True,
             "message": "User registered successfully",
@@ -208,9 +208,9 @@ def GetUser(db: DatabaseConnection):
 def DeleteUser(db: DatabaseConnection):
     userID: int = request.user_payload.get("user_id")
 
-    result = DeleteUserFromDB(db, userID)
+    _, success = DeleteUserFromDB(db, userID)
     
-    if result is not None:
+    if success:
         return jsonify({
             "success": True,
             "message": "User deleted successfully"
@@ -237,15 +237,21 @@ def SubmitScore(db: DatabaseConnection):
     
     quizInfoJSON: str = json.dumps(quizInfo)
     
-    db.execute_query(
+    _, success = db.execute_query(
         "INSERT INTO Scores (UserID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo) VALUES (%s, %s, %s, %s, %s, %s, %s)",
         (userID, lvlID, quizMark, totalQuizMark, startDT, completionDT, quizInfoJSON)
     )
     
-    return jsonify({
-        "success": True,
-        "message": "Score submitted successfully"
-    }), 201
+    if success:
+        return jsonify({
+            "success": True,
+            "message": "Score submitted successfully"
+        }), 201
+    else:
+        return jsonify({
+            "success": False,
+            "message": "Score submission failed"
+        }), 400
 
 @api_blueprint.route("/Scores", methods=["GET"])
 @required_auth()
@@ -308,35 +314,37 @@ def UpdateUser(db: DatabaseConnection, userID: int):
     userGenderProvided: bool = "usergender" in data
     userGender: str = data.get("usergender", None)
 
-    if not any(userEmailProvided, userBirthDateProvided, userGenderProvided):
+    params: list = []
+    subQueries: list[str] = []
+
+    if userEmailProvided:
+        subQueries.append("UserEmail = %s")
+        params.append(userEmail)
+    if userBirthDateProvided:
+        subQueries.append("UserBirthDate = %s")
+        params.append(userBirthDate)
+    if userGenderProvided:
+        subQueries.append("UserGender = %s")
+        params.append(userGender)
+
+    if len(subQueries) == 0:
         return jsonify({
             "success": False,
             "message": "No attributes provided"
         }), 400
 
-    query: str = """
+    query: str = f"""
         UPDATE User
         SET
-            {"UserEmail = %s, " if userEmailProvided else ""}
-            {"UserBirthDate = %s, " if userBirthDateProvided else ""}
-            {"UserGender = %s, " if userGenderProvided else ""}
+            {', '.join(subQueries)}
         WHERE ID = %s
     """
 
-    params: list = []
-
-    if userEmailProvided:
-        params.append(userEmail)
-    if userBirthDateProvided:
-        params.append(userBirthDate)
-    if userGenderProvided:
-        params.append(userGender)
-
     params.append(userID)
 
-    result = db.execute_query(query,params)
+    _, success = db.execute_query(query,params)
 
-    if result is not None:
+    if success:
         return jsonify({
             "success": True,
             "message": "User updated successfully"
@@ -368,9 +376,9 @@ def UpdateUserPassword(db: DatabaseConnection, userID: int):
             "message": "No password provided"
         }), 400
     
-    result = db.execute_query("UPDATE User SET UserPassword = %s WHERE ID = %s", (userPassword, userID))
+    _, success = db.execute_query("UPDATE User SET UserPassword = %s WHERE ID = %s", (userPassword, userID))
     
-    if result is not None:
+    if success:
         return jsonify({
             "success": True,
             "message": "User password updated successfully"
@@ -392,9 +400,9 @@ def DeleteUserWithID(db: DatabaseConnection, userID: int):
                 "message": "Not authorized to delete this user"
             }), 403
 
-    result = DeleteUserFromDB(db, userID)
+    _, success = DeleteUserFromDB(db, userID)
     
-    if result is not None:
+    if success:
         return jsonify({
             "success": True,
             "message": "User deleted successfully"
@@ -404,6 +412,58 @@ def DeleteUserWithID(db: DatabaseConnection, userID: int):
             "success": False,
             "message": "User deletion failed"
         }), 404
+
+@api_blueprint.route("/User/<int:userID>/AssignRole", methods=["POST"])
+@required_db
+@required_auth(adminOnly=True)
+def AssignRoleToUser(db: DatabaseConnection, userID: int):
+    data = request.get_json()
+    
+    role: str = data.get("role", None)
+    
+    if not role:
+        return jsonify({
+            "success": False,
+            "message": "No role provided"
+        }), 400
+
+    targetUser = GetUserFromDB(db, userID)
+
+    if targetUser is None:
+        return jsonify({
+            "success": False,
+            "message": "User not found"
+        }), 404
+
+    if targetUser.get("user_role") == "ADMIN":
+        return jsonify({
+            "success": False,
+            "message": "Cannot assign role to admin"
+        }), 400
+    
+    _, success = db.execute_query("UPDATE User SET UserRole = %s WHERE ID = %s", (role, userID))
+    
+    if success:
+        return jsonify({
+            "success": True,
+            "message": "User role assigned successfully"
+        }), 200
+    else:
+        return jsonify({
+            "success": False,
+            "message": "User role assignment failed"
+        }), 404
+
+@api_blueprint.route("/AllScores", methods=["GET"])
+@required_db
+@required_auth(adminOnly=True)
+def GetAllScores(db: DatabaseConnection):
+    scores = db.fetch_query("SELECT ID, UserID, LevelID, QuizMark, TotalQuizMark, StartDatetime, CompletionDatetime, QuizInfo FROM Scores WHERE CompletionDatetime IS NOT NULL ORDER BY CompletionDatetime ASC")
+    
+    return jsonify({
+        "success": True,
+        "scores": scores
+    }), 200
 
 @api_blueprint.route("/User/<int:userID>/Scores", methods=["GET"])
 @required_db

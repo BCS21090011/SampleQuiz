@@ -1,0 +1,94 @@
+/* NavButton.css - Styling for global navigation button */
+
+.nav-button-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.nav-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-login {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.nav-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.nav-profile {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.08));
+    color: #e6eef6;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.nav-profile:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.12));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(110, 231, 183, 0.2);
+}
+
+.nav-profile-icon {
+    font-size: 1.2rem;
+}
+
+.nav-profile-text {
+    font-size: 0.95rem;
+}
+
+.nav-admin-badge {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+}
+
+
+/* For pages with background image (traditional style) */
+.nav-profile {
+    position: relative;
+}
+
+@media (max-width: 640px) {
+    .nav-button-container {
+        top: 10px;
+        right: 10px;
+    }
+
+    .nav-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    .nav-profile-text {
+        display: none;
+    }
+
+    .nav-admin-badge {
+        font-size: 0.6rem;
+        padding: 2px 4px;
+    }
+}

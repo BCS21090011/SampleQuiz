@@ -41,7 +41,6 @@ def DecodeAuthHeader():
     
     try:
         payload: dict = jwt.decode(cookie, jwt_secret_key, algorithms=jwt_algorithm)
-        print(f"Payload: {payload}")
         return payload, None
     except jwt.ExpiredSignatureError:
         return None, "Token expired"

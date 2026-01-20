@@ -40,11 +40,11 @@ class DatabaseConnection:
             else:
                 cursor.execute(query)
             self.connection.commit()
-            return cursor.lastrowid
+            return cursor.lastrowid, True
         except Error as e:
             print(f"Error executing query: {e}")
             self.connection.rollback()
-            return None
+            return None, False
         finally:
             if cursor:
                 cursor.close()
