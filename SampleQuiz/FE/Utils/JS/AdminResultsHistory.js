@@ -254,7 +254,14 @@ async function renderQuizRow(quiz) {
 
             const qTitle = document.createElement('div');
             qTitle.className = 'q-title';
-            qTitle.textContent = `Q${idx + 1}. ${qObj.Question ?? qObj.question ?? 'Untitled question'}`;
+            // Render question title as markdown
+            const questionText = qObj.Question ?? qObj.question ?? 'Untitled question';
+            try {
+                qTitle.innerHTML = `Q${idx + 1}. ` + MarkdownToHTMLString(questionText);
+            } catch (err) {
+                console.warn('Markdown rendering failed for question title:', err);
+                qTitle.textContent = `Q${idx + 1}. ${questionText}`;
+            }
 
             const optWrap = document.createElement('div');
             optWrap.className = 'options';
