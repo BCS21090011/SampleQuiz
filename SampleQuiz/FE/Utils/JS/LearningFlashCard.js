@@ -16,6 +16,7 @@ function CreateFlashCard(flashCardInfo) {
 
     const cardContainer = document.createElement("div");
     cardContainer.classList.add("CardContainer");
+    cardContainer.title = "Click to flip";
 
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("Card");
