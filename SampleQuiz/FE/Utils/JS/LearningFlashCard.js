@@ -27,10 +27,20 @@ function CreateFlashCard(flashCardInfo) {
     front.innerHTML = MarkdownToHTMLString(question);
     cardDiv.appendChild(front);
 
+    const cardHintFront = document.createElement("p");
+    cardHintFront.classList.add("CardHint");
+    cardHintFront.innerHTML = "Click to flip";
+    front.appendChild(cardHintFront);
+
     const back = document.createElement("div");
     back.classList.add("Card-face", "Back");
     back.innerHTML = MarkdownToHTMLString(answerExplanation);
     cardDiv.appendChild(back);
+
+    const cardHintBack = document.createElement("p");
+    cardHintBack.classList.add("CardHint");
+    cardHintBack.innerHTML = "Click to flip";
+    back.appendChild(cardHintBack);
 
     const cardObj = new Card(cardContainer);
 
