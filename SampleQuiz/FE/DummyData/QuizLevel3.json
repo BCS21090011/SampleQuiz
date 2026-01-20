@@ -1,6 +1,6 @@
 [
     {
-        "Question": "A red octagon sign with the word 'STOP' means:",
+        "Question": "A red octagon sign with the word 'STOP' means:\n\n![](https://m.media-amazon.com/images/I/51VI8uBax8L.jpg)",
         "Answers": [
             "Slow down",
             "Stop completely and check for traffic",
@@ -8,10 +8,10 @@
             "Yield"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Stop completely and check for traffic"
+        "AnswerExplanation": "The answer is:Stop completely and check for traffic\n\n![](https://m.media-amazon.com/images/I/51VI8uBax8L.jpg)"
     },
     {
-        "Question": "A red circle with a white horizontal bar in the middle means:",
+        "Question": "A red circle with a white horizontal bar in the middle means:\n\n![](https://thumbs.dreamstime.com/b/bold-red-circle-horizontal-white-bar-traffic-sign-circular-across-center-signifying-no-entry-374333653.jpg)",
         "Answers": [
             "U-turn allowed",
             "No entry",
@@ -19,10 +19,10 @@
             "End of highway"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "No entry"
+        "AnswerExplanation": "The answer is:No entry\n\n![](https://thumbs.dreamstime.com/b/bold-red-circle-horizontal-white-bar-traffic-sign-circular-across-center-signifying-no-entry-374333653.jpg)"
     },
     {
-        "Question": "A blue circle with a bicycle symbol means:",
+        "Question": "A blue circle with a bicycle symbol means:\n\n![](https://w7.pngwing.com/pngs/71/416/png-transparent-white-and-blue-bike-logo-illustration-bike-path-bicycle-traffic-sign-road-cycling-bicycle-lane-text-bicycle-happy-birthday-vector-images.png)",
         "Answers": [
             "Bicycles forbidden",
             "Bicycles only (cycle path)",
@@ -30,10 +30,10 @@
             "Motorcycles only"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Bicycles only (cycle path)"
+        "AnswerExplanation": "The answer is:Bicycles only (cycle path)\n\n![](https://w7.pngwing.com/pngs/71/416/png-transparent-white-and-blue-bike-logo-illustration-bike-path-bicycle-traffic-sign-road-cycling-bicycle-lane-text-bicycle-happy-birthday-vector-images.png)"
     },
     {
-        "Question": "A triangle with red border and children inside indicates:",
+        "Question": "A triangle with red border and children inside indicates:\n\n![](https://c8.alamy.com/comp/J5YFP8/road-sign-warning-children-in-the-red-triangle-running-kids-vector-J5YFP8.jpg)",
         "Answers": [
             "Playground ahead",
             "Factory area",
@@ -41,10 +41,10 @@
             "Market area"
         ],
         "CorrectAnswerIndex": 0,
-        "AnswerExplanation": "Playground ahead"
+        "AnswerExplanation": "The answer is:Playground ahead\n\n![](https://c8.alamy.com/comp/J5YFP8/road-sign-warning-children-in-the-red-triangle-running-kids-vector-J5YFP8.jpg)"
     },
     {
-        "Question": "A yellow diamond sign with a deer picture means:",
+        "Question": "A yellow diamond sign with a deer picture means:\n\n![](https://i.etsystatic.com/10964598/r/il/14d0a7/3081253175/il_fullxfull.3081253175_6n9w.jpg)",
         "Answers": [
             "Animal crossing ahead",
             "Zoo nearby",
@@ -52,10 +52,10 @@
             "Farm ahead"
         ],
         "CorrectAnswerIndex": 0,
-        "AnswerExplanation": "Animal crossing ahead"
+        "AnswerExplanation": "The answer is:Animal crossing ahead\n\n![](https://i.etsystatic.com/10964598/r/il/14d0a7/3081253175/il_fullxfull.3081253175_6n9w.jpg)"
     },
     {
-        "Question": "A red circular sign with a number '80' means:",
+        "Question": "A red circular sign with a number '80' means:\n\n![](https://static.vecteezy.com/system/resources/previews/000/361/920/original/vector-speed-limit-80-icon.jpg)",
         "Answers": [
             "Minimum speed 80 km/h",
             "Maximum speed 80 km/h",
@@ -63,10 +63,10 @@
             "Speed for trucks only"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Maximum speed 80 km/h"
+        "AnswerExplanation": "The answer is:Maximum speed 80 km/h\n\n![](https://static.vecteezy.com/system/resources/previews/000/361/920/original/vector-speed-limit-80-icon.jpg)"
     },
     {
-        "Question": "A triangular sign with '!' symbol means:",
+        "Question": "A triangular sign with '!' symbol means:\n\n![](https://cdn4.vectorstock.com/i/1000x1000/73/93/red-warning-attention-caution-sign-on-white-vector-22257393.jpg)",
         "Answers": [
             "End of highway",
             "General danger ahead",
@@ -74,10 +74,10 @@
             "Smooth road"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "General danger ahead"
+        "AnswerExplanation": "The answer is:General danger ahead\n\n![](https://cdn4.vectorstock.com/i/1000x1000/73/93/red-warning-attention-caution-sign-on-white-vector-22257393.jpg)"
     },
     {
-        "Question": "A blue rectangular sign with a white 'P' means:",
+        "Question": "A blue rectangular sign with a white 'P' means:\n\n![](https://w7.pngwing.com/pngs/668/80/png-transparent-blue-and-white-p-icon-road-signs-in-singapore-parking-car-park-traffic-sign-traffic-signs-miscellaneous-blue-angle.png)",
         "Answers": [
             "Police checkpoint",
             "Parking area",
@@ -85,10 +85,10 @@
             "Pedestrian crossing"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "Parking area"
+        "AnswerExplanation": "The answer is:Parking area\n\n![](https://w7.pngwing.com/pngs/668/80/png-transparent-blue-and-white-p-icon-road-signs-in-singapore-parking-car-park-traffic-sign-traffic-signs-miscellaneous-blue-angle.png)"
     },
     {
-        "Question": "A yellow diamond sign with curved arrow means:",
+        "Question": "A yellow diamond sign with curved arrow means:\n\n![](https://img.freepik.com/premium-vector/set-yellow-diamond-shape-uturns-right-left-arrow-road-traffic-warning-sign-direction_429765-1649.jpg)",
         "Answers": [
             "Sharp bend ahead",
             "U-turn permitted",
@@ -96,10 +96,10 @@
             "One-way road"
         ],
         "CorrectAnswerIndex": 0,
-        "AnswerExplanation": "Sharp bend ahead"
+        "AnswerExplanation": "The answer is:Sharp bend ahead\n\n![](https://img.freepik.com/premium-vector/set-yellow-diamond-shape-uturns-right-left-arrow-road-traffic-warning-sign-direction_429765-1649.jpg)"
     },
     {
-        "Question": "A red circular sign showing a horn with a diagonal line means:",
+        "Question": "A red circular sign showing a horn with a diagonal line means:\n\n![](https://as1.ftcdn.net/v2/jpg/05/95/85/66/1000_F_595856669_exQlpIapizQTnTFMPaSBGHAVp2GjH7IU.jpg)",
         "Answers": [
             "Honk when passing",
             "No honking area",
@@ -107,6 +107,6 @@
             "Toll ahead"
         ],
         "CorrectAnswerIndex": 1,
-        "AnswerExplanation": "No honking area"
+        "AnswerExplanation": "The answer is:No honking area\n\n![](https://as1.ftcdn.net/v2/jpg/05/95/85/66/1000_F_595856669_exQlpIapizQTnTFMPaSBGHAVp2GjH7IU.jpg)"
     }
 ]
