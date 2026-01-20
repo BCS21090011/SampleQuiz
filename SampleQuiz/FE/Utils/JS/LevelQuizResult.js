@@ -7,7 +7,7 @@ import FetchJSON from "./URIUtils.js";
 
 const contentCard = document.querySelector("#ContentCard");
 
-async function InsertScoreToDB (result) {
+async function InsertScoreToDB(result) {
     const resultJSON = await FetchJSON(
         "/API/SubmitScore",
         undefined,
@@ -27,7 +27,7 @@ async function InsertScoreToDB (result) {
     return true;
 }
 
-function GetResultMarkComment (markPerc) {
+function GetResultMarkComment(markPerc) {
 
     if (markPerc == 100) {
         return "YOU ARE A GENIUS!!!";
@@ -52,7 +52,7 @@ function GetResultMarkComment (markPerc) {
     }
 }
 
-function CreateResultContent (result) {
+function CreateResultContent(result) {
     const quizMark = result["QuizMark"];
     const totalQuizMark = result["TotalQuizMark"];
     const markPerc = (quizMark / totalQuizMark) * 100;
@@ -128,7 +128,7 @@ function CreateResultContent (result) {
     lvlSelectionBtn.innerText = "Level Selection";
     lvlSelectionBtn.classList.add("ActionBtn", "LvlSelectionBtn");
     lvlSelectionBtn.onclick = (e) => {
-        window.location = "./LevelSelection.html";
+        window.location = "./LevelSelection";
     }
     contentCard.appendChild(lvlSelectionBtn);
 
@@ -137,12 +137,12 @@ function CreateResultContent (result) {
     historyBtn.innerText = "History Results";
     historyBtn.classList.add("ActionBtn", "HistoryBtn");
     historyBtn.onclick = (e) => {
-        window.location = "./LevelQuizHistoryResults.html";
+        window.location = "./LevelQuizHistoryResults";
     }
     contentCard.appendChild(historyBtn);
 }
 
-async function HandleResultContent (lvl) {
+async function HandleResultContent(lvl) {
     const jwtValid = await HandleJWT();
 
     if (jwtValid == true) {

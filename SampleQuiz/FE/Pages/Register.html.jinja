@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register</title>
+        <link rel="stylesheet" href="../Utils/CSS/Shared.css" />
+        <link rel="stylesheet" href="../Utils/CSS/LoginRegister.css" />
+    </head>
+    <body class="centerItems">
+        <h1 class="titleCard">Register</h1>
+        <form id="RegistrationForm" class="centerItems">
+            <label for="UserNameInput">Username:</label>
+            <input id="UserNameInput" name="UserNameInput" autocomplete="username" required />
+            <label for="PasswordInput">Password:</label>
+            <input type="password" id="PasswordInput" name="PasswordInput" autocomplete="new-password" required />
+            <label for="ConfirmPasswordInput">Confirm Password:</label>
+            <input type="password" id="ConfirmPasswordInput" name="ConfirmPasswordInput" autocomplete="new-password" required />
+            <label for="UserEmailInput">User Email:</label>
+            <input id="UserEmailInput" name="UserEmailInput" autocomplete="email" />
+            <label for="UserBirthDateInput">User Birth Date:</label>
+            <input id="UserBirthDateInput" name="UserBirthDateInput" type="date" autocomplete="bithday" />
+            <label for="UserGenderInput">User Gender:</label>
+            <select id="UserGenderInput" name="UserGenderInput" autocomplete="gender">
+                <option value="" selected>Select Gender</option>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+                <option value="OTHER">Other</option>
+            </select>
+            <input type="submit" value="Confirm">
+            <a id="AlreadyHaveAccountA">Already have an account</a>
+        </form>
+        <script>
+            const isAuthed = {{ isAuthed_flask | tojson }};
+            const authError = {{ authError_flask | tojson }};
+            const userID = {{ userID_flask | tojson }};
+            const userRole = {{ userRole_flask | tojson }};
+        </script>
+        <script src="../Utils/JS/Shared.js"></script>
+        <script type="module" src="../Utils/JS/Register.js"></script>
+    </body>
+</html>

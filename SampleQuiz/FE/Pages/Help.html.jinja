@@ -6,6 +6,7 @@
         <title>Help - Road Safety for Children</title>
         <link rel="stylesheet" href="../Utils/CSS/Shared.css">
         <link rel="stylesheet" href="../Utils/CSS/Help.css">
+        <link rel="stylesheet" href="../Utils/CSS/NavButton.css">
     </head>
     <body>
         <div class="layerContainer centerItems">
@@ -42,9 +43,16 @@
                     <li>Learning is more fun when you explore — do not rush!</li>
                 </ul>
 
-                <a href="MainPage.html" class="backButton">⬅ Back to Main Page</a>
+                <a href="MainPage" class="backButton">⬅ Back to Main Page</a>
             </div>
         </div>
+        <script>
+            const isAuthed = {{ isAuthed_flask | tojson }};
+            const authError = {{ authError_flask | tojson }};
+            const userID = {{ userID_flask | tojson }};
+            const userRole = {{ userRole_flask | tojson }};
+        </script>
         <script src="../Utils/JS/Shared.js"></script>
+        <script src="../Utils/JS/NavButton.js"></script>
     </body>
 </html>

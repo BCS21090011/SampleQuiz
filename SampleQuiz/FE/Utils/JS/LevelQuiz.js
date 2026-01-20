@@ -15,15 +15,15 @@ let popupTimeoutID = null;
 
 let userStartedAnswering = false;
 
-function ShowPopupLayer () {
+function ShowPopupLayer() {
     UnHideElement(popupLayer);
 }
 
-function HidePopupLayer () {
+function HidePopupLayer() {
     HideElement(popupLayer);
 }
 
-function PopupCorrect (content="A passionate text here...") {
+function PopupCorrect(content = "A passionate text here...") {
     popupDiv.innerHTML = "";
 
     const h1 = document.createElement("h1");
@@ -44,7 +44,7 @@ function PopupCorrect (content="A passionate text here...") {
     }, 3500);
 }
 
-function PopupIncorrect (content="Text about wrong answer here...") {
+function PopupIncorrect(content = "Text about wrong answer here...") {
     popupDiv.innerHTML = "";
 
     const h1 = document.createElement("h1");
@@ -67,7 +67,7 @@ function PopupIncorrect (content="Text about wrong answer here...") {
 
 popupLayer.onclick = (e) => {
     HidePopupLayer();
-    
+
     if (popupTimeoutID != null) {
         clearTimeout(popupTimeoutID);
     }
@@ -88,7 +88,7 @@ let answerBtns = [];
 let quizMark = 0;
 let totalQuizMark = 0;
 
-function StylingAnswerBtn (btn, correctAns=true) {
+function StylingAnswerBtn(btn, correctAns = true) {
     btn.classList.add("Selected");
 
     if (correctAns == true) {
@@ -96,7 +96,7 @@ function StylingAnswerBtn (btn, correctAns=true) {
     }
 }
 
-function HandleSubmitBtn () {
+function HandleSubmitBtn() {
     const unAnswereds = quizUserAnswers.filter((quizUserAnswer) => {
         return quizUserAnswer["UserAnswer"] == null;
     });
@@ -110,12 +110,12 @@ function HandleSubmitBtn () {
     }
 }
 
-function QuizMarkHandler (mark=0) {
+function QuizMarkHandler(mark = 0) {
     quizMark += mark;
     quizMarkP.innerText = `${quizMark}/${totalQuizMark}`;
 }
 
-function CreateLvlQuiz (index, quizInfo) {
+function CreateLvlQuiz(index, quizInfo) {
     answerBtns = [];
 
     const question = quizInfo["Question"];
@@ -165,7 +165,7 @@ function CreateLvlQuiz (index, quizInfo) {
     });
 }
 
-function CreateLvlQuizzes (lvlQuizJSON) {
+function CreateLvlQuizzes(lvlQuizJSON) {
     const questionCount = lvlQuizJSON.length;
     totalQuizMark = questionCount;  // Separated with question count, in case they aren't the same.
 
@@ -211,7 +211,7 @@ function CreateLvlQuizzes (lvlQuizJSON) {
     }
 }
 
-async function ProcessSessionStorageData (lvl, sessionStorageLvlData) {
+async function ProcessSessionStorageData(lvl, sessionStorageLvlData) {
     const confirmLoad = confirm("Resume from where you stop?");
 
     if (confirmLoad) {
@@ -227,12 +227,12 @@ async function ProcessSessionStorageData (lvl, sessionStorageLvlData) {
     }
 }
 
-async function ProcessJSONData (lvl) {
+async function ProcessJSONData(lvl) {
     const lvlQuizInfo = await FetchJSON(`../DummyData/QuizLevel${lvl}.json`)
         .catch((reason) => {
             alert(`Error encountered:\n${reason}`);
         });
-    
+
     if (lvlQuizInfo["Error"]) {
         alert(lvlQuizInfo["Error"]);
         return;
@@ -249,7 +249,7 @@ async function ProcessJSONData (lvl) {
     return lvlQuizJSON;
 }
 
-function HandleActionBtn (indexAfterAction, totalLength) {
+function HandleActionBtn(indexAfterAction, totalLength) {
     // If it's first item:
     if (indexAfterAction == 0) {
         HideElement(prevBtn);
@@ -270,11 +270,11 @@ function HandleActionBtn (indexAfterAction, totalLength) {
 const questionTitleCard = document.querySelector("#QuestionTitleCard");
 
 backBtn.onclick = (e) => {
-    window.location = "./LevelSelection.html";
+    window.location = "./LevelSelection";
 }
 
 submitBtn.onclick = (e) => {
-    window.location = `./LevelQuizResult.html?lvl=${lvl}`;
+    window.location = `./LevelQuizResult?lvl=${lvl}`;
 }
 
 window.onbeforeunload = (e) => {
@@ -283,7 +283,7 @@ window.onbeforeunload = (e) => {
     }
 }
 
-async function GetAndProcessQuiz (lvl) {
+async function GetAndProcessQuiz(lvl) {
     const sessionStorageLvlData = UnloadAnswersFromSessionStorage(lvl);
 
     if (sessionStorageLvlData == null) {

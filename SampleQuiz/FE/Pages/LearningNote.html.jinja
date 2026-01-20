@@ -4,6 +4,7 @@
         <title>Learning Note</title>
         <link rel="stylesheet" href="../Utils/CSS/Shared.css" />
         <link rel="stylesheet" href="../Utils/CSS/LearningNote.css" />
+        <link rel="stylesheet" href="../Utils/CSS/NavButton.css" />
     </head>
     <body class="centerItems">
         <h1 class="titleCard">LEARNING NOTE</h1>
@@ -14,7 +15,14 @@
             <button id="LearningFCBtn" class="ActionBtn">Flash Card</button>
             <button id="PlayBtn" class="ActionBtn">Play</button>
         </div>
+        <script>
+            const isAuthed = {{ isAuthed_flask | tojson }};
+            const authError = {{ authError_flask | tojson }};
+            const userID = {{ userID_flask | tojson }};
+            const userRole = {{ userRole_flask | tojson }};
+        </script>
         <script src="../Utils/JS/Shared.js"></script>
+        <script src="../Utils/JS/NavButton.js"></script>
         <script src="https://unpkg.com/showdown@2.1.0/dist/showdown.min.js"></script>
         <script type="module" src="../Utils/JS/LearningNote.js"></script>
     </body>
