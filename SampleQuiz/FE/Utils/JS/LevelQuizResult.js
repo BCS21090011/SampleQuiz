@@ -39,13 +39,13 @@ function GetResultMarkComment(markPerc) {
         return "MARKS DOESN'T DEFINE YOU, THAT'S OK";
     }
     else if (markPerc >= 20) {
-        return "MAYBE IT'S BETTER FOR YOU TO STAY AWAY FROM THE ROAD";
+        return "TRY AGAIN";
     }
     else if (markPerc >= 10) {
         return "JUST TO CLARIFY, PLEASE ANSWER THE QUESTIONS CORRECTLY";
     }
     else if (markPerc == 0) {
-        return "Wow, this is actually an achievement.";
+        return "ASK YOUR PARENTS TO TEACH YOU.";
     }
     else {
         return "This is odd, is it you or my issue?";
