@@ -45,7 +45,7 @@ function GetResultMarkComment(markPerc) {
         return "JUST TO CLARIFY, PLEASE ANSWER THE QUESTIONS CORRECTLY";
     }
     else if (markPerc == 0) {
-        return "ASK YOUR PARENTS TO TEACH YOU.";
+        return "YOU SO WEEK.";
     }
     else {
         return "This is odd, is it you or my issue?";
