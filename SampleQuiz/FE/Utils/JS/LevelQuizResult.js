@@ -30,10 +30,10 @@ async function InsertScoreToDB(result) {
 function GetResultMarkComment(markPerc) {
 
     if (markPerc == 100) {
-        return "YOU ARE A GENIUS!!!";
+        return "YOU ARE A ROAD SAFETY HERO!!!";
     }
     else if (markPerc >= 80) {
-        return "GREAT JOB";
+        return "EXCELLENT WORK, YOU KNOW YOUR ROAD SAFETY WELL!";
     }
     else if (markPerc >= 50) {
         return "MARKS DOESN'T DEFINE YOU, THAT'S OK";
@@ -45,7 +45,7 @@ function GetResultMarkComment(markPerc) {
         return "JUST TO CLARIFY, PLEASE ANSWER THE QUESTIONS CORRECTLY";
     }
     else if (markPerc == 0) {
-        return "YOU SO WEEK.";
+        return "POOR GUY.";
     }
     else {
         return "This is odd, is it you or my issue?";
